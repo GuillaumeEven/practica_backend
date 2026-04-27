@@ -48,7 +48,22 @@ indices de distancia entre palabras
 #### Hibernate
 
 ManyToOne se refiere a un OneToMany en espejo </br>
+
 [ver](https://www.baeldung.com/hibernate-one-to-many)
+
+>[!WARNING]
+> problemas de cohabitation hibernate/flyway:
+>  Es importante
+>  1. crear un clone en otra carpeta
+>  2. crear otra db
+>  3. En la nueava carpeta, cambiar url de la base por la copia
+>  4. cambiar el yaml para desactivar flyway y activar hibernate
+>  5. lanzar desde la nueva carpeta
+>  6. hacer los cambios con hibernate
+>  7. copiamos ddl desde workbench
+>  8. pasar a la carpeta de origen
+>  9. aplicar los dll en flyway
+
 
 ## Otras notas
 
