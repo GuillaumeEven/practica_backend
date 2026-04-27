@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,23 +20,32 @@ public class UsuarioEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
     private String nick_usuario;
+
     @Column(nullable = false)
     private String contrasena;
+
     @Column(nullable = false)
     private LocalDateTime fecha_hora_creacion;
-    // Genero
-    // @Column(nullable = false)
-    // private Genero genero:
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "genero_id", nullable = false)
+    private GeneroEntiity genero;
+
     @Column(nullable = false)
     private String nombre;
+
     @Column(nullable = false)
     private String primer_apellido;
+
     @Column(nullable = true)
     private String segundo_apellido;
+
     @Column(nullable = false)
     private LocalDate fecha_nacimiento;
+
     @Column(nullable = true)
     private LocalTime hora_desayuno;
     // Puesto de trabajo
@@ -46,7 +57,7 @@ public class UsuarioEntity {
         Long id,
         String nick_usuario,
         String contrasena,
-        LocalDateTime fecha_hora_creacion,
+        GeneroEntiity genero,
         String nombre,
         String primer_apellido,
         String segundo_apellido,
@@ -55,7 +66,8 @@ public class UsuarioEntity {
         this.id = id;
         this.nick_usuario = nick_usuario;
         this.contrasena = contrasena;
-        this.fecha_hora_creacion = fecha_hora_creacion;
+        this.genero = genero;
+        this.fecha_hora_creacion = LocalDateTime.now();
         this.nombre = nombre;
         this.primer_apellido = primer_apellido;
         this.segundo_apellido = segundo_apellido;
@@ -94,8 +106,12 @@ public class UsuarioEntity {
         return fecha_hora_creacion;
     }
 
-    public void setFecha_hora_creacion(LocalDateTime fecha_hora_creacion) {
-        this.fecha_hora_creacion = fecha_hora_creacion;
+    public GeneroEntiity getGenero() {
+        return genero;
+    }
+
+    public void setGenero(GeneroEntiity genero) {
+        this.genero = genero;
     }
 
     public String getNombre() {
