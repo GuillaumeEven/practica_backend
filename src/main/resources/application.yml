@@ -1,4 +1,6 @@
 spring:
+  config:
+    import: optional:dotenv:.env
   main:
     allow-circular-references: true
   application:
