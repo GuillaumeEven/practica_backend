@@ -1,0 +1,81 @@
+@startuml classDiagram
+
+' ──────────────────────────────────────────
+' Dark theme
+' ──────────────────────────────────────────
+skinparam backgroundColor #1E1E2E
+skinparam defaultFontColor #003cff
+skinparam defaultFontName "JetBrains Mono"
+skinparam defaultFontSize 12
+
+skinparam entity {
+  BackgroundColor #313244
+  BorderColor #89B4FA
+  HeaderBackgroundColor #45475A
+  FontColor #144bff
+  StereotypeFontColor #A6E3A1
+  AttributeFontColor #CDD6F4
+}
+
+skinparam arrow {
+  Color #89DCEB
+  FontColor #F5C2E7
+  FontSize 11
+}
+
+skinparam note {
+  BackgroundColor #45475A
+  BorderColor #89B4FA
+  FontColor #CDD6F4
+}
+
+' ──────────────────────────────────────────
+' Entities
+' ──────────────────────────────────────────
+
+entity Usuario {
+  + id : Integer
+  + nick_usuario : String
+  + contrasena : String
+  + fecha_hora_creacion : DateTime
+  + nombre : String
+  + primer_apellido : String
+  + segundo_apellido : String <<nullable>>
+  + fecha_nacimiento : Date
+  + hora_desayuno : Time <<nullable>>
+  --
+  + genero : Genero
+  + puesto_trabajo : PuestoDeTrabajo <<nullable>>
+}
+
+entity Genero {
+  + id : Integer
+  + nombre : String
+}
+
+entity PuestoDeTrabajo {
+  + id : Integer
+  + nombre : String
+}
+
+entity Direccion {
+  + id : Integer
+  + nombre_calle : String
+  + numero_calle : Integer <<nullable>>
+  + direccion_principal : Boolean
+  --
+  + usuario : Usuario
+}
+
+' ──────────────────────────────────────────
+' Relations
+' usuario 1 ──── 1..* direccion
+' usuario * ──── 1    genero
+' usuario * ──── 0..1 puesto_de_trabajo
+' ──────────────────────────────────────────
+
+Usuario "1" --> "1..*" Direccion : tiene
+Usuario "*"  --> "1"   Genero : tiene
+Usuario "*"  --> "0..1" PuestoDeTrabajo : ocupa
+
+@enduml
