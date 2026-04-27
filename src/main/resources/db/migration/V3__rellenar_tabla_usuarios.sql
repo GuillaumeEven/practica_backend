@@ -1,0 +1,4 @@
+insert into generos (id, nombre) values (1, 'Hombre');
+insert into generos (id, nombre) values (2, 'Mujer');
+insert into usuarios (id, nick_usuario, contrasena, nombre, primer_apellido, segundo_apellido, fecha_nacimiento, hora_desayuno, fecha_hora_creacion, genero_id) values (1, 'JohnD', 'password123', 'John', 'Doe', 'Smith', '1990-01-01', '08:00:00', '2024-06-01 10:00:00', 1);
+insert into usuarios (id, nick_usuario, contrasena, nombre, primer_apellido, segundo_apellido, fecha_nacimiento, hora_desayuno, fecha_hora_creacion, genero_id) values (2, 'JaneS', 'securepass456', 'Jane', 'Smith', 'Johnson', '1992-02-02', '08:30:00', '2024-06-01 10:30:00', 2);
