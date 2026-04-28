@@ -104,6 +104,20 @@ public class UsuarioGetDTO {
         this.hora_desayuno = hora_desayuno;
     }
 
+    public static UsuarioGetDTO fromModel(UsuarioModel model) {
+        return new UsuarioGetDTO(
+                model.getContrasena(),
+                model.getFecha_hora_creacion(),
+                model.getFecha_nacimiento(),
+                model.getHora_desayuno(),
+                model.getId(),
+                model.getNick_usuario(),
+                model.getNombre(),
+                model.getPrimer_apellido(),
+                model.getSegundo_apellido()
+        );
+    }
+
 
 
 
