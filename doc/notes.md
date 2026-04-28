@@ -68,3 +68,56 @@ ManyToOne se refiere a un OneToMany en espejo </br>
 ## Otras notas
 
 Fecha de entrega: 25/05 ?
+
+
+
+id
+version 3.4.5
+
+indices de distancia entre palabras
+pour le 25/05 ?
+
+@Valid = validation des donnees
+Dto = filtrer ce qu'on veut exposer ou non
+
+Grand projets: utilisation de MapStruct (Spring
+
+Usar un record ??
+
+RequestDto et ResponseDto -> en la capa de controllers
+    - gestionan la validacion
+    - on peut considerer qu'il faut un (deux) dto par endpoint ?
+
+Reponse en cas de POST:
+    - l'objet nouvellement créé
+Exemple de reponse :
+{
+    "data": <objet>,
+    "error": "",
+    "meta":
+        {
+            "sizeof" (taille de page, null si get by id): int,
+            "page": int,
+            "total": int
+            ...
+        }
+}
+
+Recevoir/envoyer des fichiers: non pris en charge par Restfull
+
+Ajouter des endpoints pour 404, 403...
+
+@PathVariable (api/vi/users/2) -> 2
+@RequestParam (user?id=1) -> 1
+@RequestBody recup le body
+@ResponseStatus
+@CrossOrigin permet de recevoir les appels depuis d'autres domaines
+Exemple: accepter tous les gets.
+Dans l'usage, on ouvre à "*" en class controller, puis on gere dans les methods
+El optiums ??
+
+ResponseEntity<T>:
+return ResponseEntity.status(404)
+    .body(ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, "Desk 42 not found"));
+
+Return ResponseEntity.notFound().build()
