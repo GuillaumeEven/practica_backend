@@ -121,3 +121,8 @@ return ResponseEntity.status(404)
     .body(ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, "Desk 42 not found"));
 
 Return ResponseEntity.notFound().build()
+
+TODO:
+
+- pasar dtos como record
+- impedir duplicacion de genero

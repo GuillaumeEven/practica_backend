@@ -19,3 +19,4 @@ public class UsuarioServiceImpl implements IUsuarioService {
     public List<UsuarioEntity> obtenerTodosLosUsuarios() {
         return this.usuarioRepository.findAll();
     }
+}
