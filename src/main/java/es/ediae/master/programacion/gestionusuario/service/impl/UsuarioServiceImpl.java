@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import es.ediae.master.programacion.gestionusuario.entity.UsuarioEntity;
 import es.ediae.master.programacion.gestionusuario.repository.IUsuarioRepository;
 import es.ediae.master.programacion.gestionusuario.service.IUsuarioService;
+import es.ediae.master.programacion.gestionusuario.service.UsuarioModel;
 
 @Service
 public class UsuarioServiceImpl implements IUsuarioService {
@@ -16,7 +17,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
     private IUsuarioRepository usuarioRepository;
 
     @Override
-    public List<UsuarioEntity> obtenerTodosLosUsuarios() {
-        return this.usuarioRepository.findAll();
+    public List<UsuarioModel> obtenerTodosLosUsuarios() {
+        return this.usuarioRepository.findAll().stream()
+                .map(UsuarioModel::fromEntity)
+                .toList();
     }
 }

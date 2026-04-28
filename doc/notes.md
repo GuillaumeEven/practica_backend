@@ -1,128 +1,157 @@
+# Notas del proyecto — Gestión de Usuarios
 
-## Preguntas/respuestas:
+## Preguntas y respuestas
 
-1. Direccion principal unica
+### Dirección principal única
 
-  Dos opciones:
-    - levantar un error si el usuario intenta indicar una segunda direccion como principal;</br>
-    - remplazar una por otra</br>
-    Respuesta -> el front Angular sera en forma de radio buton, sin posibilidad de checkear dos opciones. Remplazaremos una por otra
+**Problema:** ¿Qué hacer si el usuario intenta indicar una segunda dirección como principal?
 
-## Entidades:
+**Decisión:** El front Angular usará un radio button, sin posibilidad de marcar dos opciones. Si se selecciona una nueva dirección principal, reemplaza a la anterior automáticamente.
 
-- usuario
-  - id Integer
-  - nick_usuario: String
-  - contrasena: String
-  - fecha_hora_creacion: datetime
-  - genero: Genero
-  - nombre: String
-  - primer_apellido: String
-  - segundo_apellido: String (NULLABLE)
-  - fecha_nacimiento: date
-  - hora_desayuno: time (NULLABLE)
-  - puesto_trabajo: PuestoDeTrabajo (NULLABLE)
-- genero
-  - id: integer
-  - nombre: string
-- puesto_de_trabajo
-  - id: integer
-  - nombre: string
-- direccion
-  - id: Integer
-  - nombre_calle: String
-  - numero_calle: Integer (NULLABLE)
-  - usuario: User
-  - direccion_principal: Boolean → Solo puede haber una dirección principal por usuario.
+---
 
-usuario 1 - 1...* direccion  @ManyToOne</br>
-usuario * - 1 genero @ManyToOne</br>
-usuario * - 0...1 puesto_de_trabajo @ManyToOne</br>
+## Entidades y relaciones
 
-## Recursos de desrrollo
+### Diagrama de relaciones
 
-### Conceptos
+```
+usuario ──────< direccion         (1 a 1..*)   @ManyToOne en DireccionEntity
+usuario >────── genero            (* a 1)      @ManyToOne en UsuarioEntity
+usuario >────── puesto_de_trabajo (* a 0..1)   @ManyToOne en UsuarioEntity
+```
 
-indices de distancia entre palabras
+### usuario
 
-#### Hibernate
+| Campo | Tipo | Nullable |
+|---|---|---|
+| `id` | Integer | ❌ |
+| `nick_usuario` | String | ❌ |
+| `contrasena` | String | ❌ |
+| `fecha_hora_creacion` | datetime | ❌ |
+| `genero` | Genero | ❌ |
+| `nombre` | String | ❌ |
+| `primer_apellido` | String | ❌ |
+| `segundo_apellido` | String | ✅ |
+| `fecha_nacimiento` | date | ❌ |
+| `hora_desayuno` | time | ✅ |
+| `puesto_trabajo` | PuestoDeTrabajo | ✅ |
 
-ManyToOne se refiere a un OneToMany en espejo </br>
+### genero
 
-[ver](https://www.baeldung.com/hibernate-one-to-many)
+| Campo | Tipo |
+|---|---|
+| `id` | Integer |
+| `nombre` | String |
 
->[!WARNING]
-> problemas de cohabitation hibernate/flyway:
->  Es importante
->  1. crear un clone en otra carpeta
->  2. crear otra db
->  3. En la nueava carpeta, cambiar url de la base por la copia
->  4. cambiar el yaml para desactivar flyway y activar hibernate
->  5. lanzar desde la nueva carpeta
->  6. hacer los cambios con hibernate
->  7. copiamos ddl desde workbench
->  8. pasar a la carpeta de origen
->  9. aplicar los dll en flyway
+### puesto_de_trabajo
 
+| Campo | Tipo |
+|---|---|
+| `id` | Integer |
+| `nombre` | String |
 
-## Otras notas
+### direccion
 
-Fecha de entrega: 25/05 ?
+| Campo | Tipo | Nullable |
+|---|---|---|
+| `id` | Integer | ❌ |
+| `nombre_calle` | String | ❌ |
+| `numero_calle` | Integer | ✅ |
+| `usuario` | Usuario | ❌ |
+| `direccion_principal` | Boolean | ❌ — solo una por usuario |
 
+---
 
+## Recursos de desarrollo
 
-id
-version 3.4.5
+### Spring — Anotaciones útiles
 
-indices de distancia entre palabras
-pour le 25/05 ?
+| Anotación | Para qué sirve |
+|---|---|
+| `@PathVariable` | Extrae `{id}` de `/api/users/{id}` |
+| `@RequestParam` | Extrae `?id=1` de la URL |
+| `@RequestBody` | Deserializa el body JSON |
+| `@ResponseStatus` | Fuerza un código HTTP de respuesta |
+| `@Valid` | Activa la validación del DTO (Bean Validation) |
+| `@CrossOrigin` | Permite llamadas desde otros dominios (CORS) — se abre a `"*"` a nivel de clase, luego se gestiona por método |
 
-@Valid = validation des donnees
-Dto = filtrer ce qu'on veut exposer ou non
+### ResponseEntity — ejemplos
 
-Grand projets: utilisation de MapStruct (Spring
+```java
+// 404 con detalle
+return ResponseEntity
+    .status(HttpStatus.NOT_FOUND)
+    .body(ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
 
-Usar un record ??
+// 404 sin body
+return ResponseEntity.notFound().build();
 
-RequestDto et ResponseDto -> en la capa de controllers
-    - gestionan la validacion
-    - on peut considerer qu'il faut un (deux) dto par endpoint ?
+// 201 Created con el objeto nuevo
+return ResponseEntity.status(HttpStatus.CREATED).body(nuevoUsuarioDTO);
+```
 
-Reponse en cas de POST:
-    - l'objet nouvellement créé
-Exemple de reponse :
+### Estructura de respuesta API recomendada
+
+```json
 {
-    "data": <objet>,
-    "error": "",
-    "meta":
-        {
-            "sizeof" (taille de page, null si get by id): int,
-            "page": int,
-            "total": int
-            ...
-        }
+  "data": { ... },
+  "error": "",
+  "meta": {
+    "sizeof": 20,
+    "page": 1,
+    "total": 150
+  }
 }
+```
 
-Recevoir/envoyer des fichiers: non pris en charge par Restfull
+> Para `GET by id`: `sizeof` y `page` son `null`.
 
-Ajouter des endpoints pour 404, 403...
+### DTOs — usar `record`
 
-@PathVariable (api/vi/users/2) -> 2
-@RequestParam (user?id=1) -> 1
-@RequestBody recup le body
-@ResponseStatus
-@CrossOrigin permet de recevoir les appels depuis d'autres domaines
-Exemple: accepter tous les gets.
-Dans l'usage, on ouvre à "*" en class controller, puis on gere dans les methods
-El optiums ??
+Los DTOs deben ser `record` inmutables. Un `record` en Java:
+- Campos `final`, declarados en la cabecera
+- Constructor, getters (`id()`, `nombre()`...), `equals`, `hashCode`, `toString` — generados automáticamente
+- Sin setters
 
-ResponseEntity<T>:
-return ResponseEntity.status(404)
-    .body(ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, "Desk 42 not found"));
+```java
+public record UsuarioGetDTO(
+    Long id,
+    String nickUsuario,
+    LocalDateTime fechaHoraCreacion,
+    String nombre,
+    String primerApellido,
+    String segundoApellido,
+    LocalDate fechaNacimiento,
+    LocalTime horaDesayuno
+    // ⚠️ NO incluir la contraseña
+) {}
+```
 
-Return ResponseEntity.notFound().build()
+> Si Jackson no resuelve los nombres de parámetros → añadir `@JsonProperty` o compilar con `-parameters`.
 
-TODO:
+> Ver también: [arquitectura_capas.md](arquitectura_capas.md) para el flujo completo Controller → Service → Repository y las buenas prácticas de mapping Entity/Model/DTO.
 
-- pasar dtos como record
-- impedir duplicacion de genero
+### Hibernate — `@ManyToOne` / `@OneToMany`
+
+`@ManyToOne` en una entidad es el espejo de `@OneToMany` en la otra.
+
+Referencia: https://www.baeldung.com/hibernate-one-to-many
+
+### Hibernate + Flyway — problema de cohabitación
+
+> [!WARNING]
+> Ver application.yml por la solución con opciones de generación de scripts
+
+### Proyectos grandes — MapStruct
+
+Para mappings Entity ↔ DTO a gran escala, usar **MapStruct** (Spring).
+
+---
+
+## TODO
+
+- [ ] Pasar todos los DTOs a `record`
+- [ ] Impedir duplicación de género
+- [ ] Añadir endpoints de error globales (404, 403...)
+- [ ] Cambiar tipo de `id` de `Long` a `Integer`
+- [ ] crear un unico script para la db
