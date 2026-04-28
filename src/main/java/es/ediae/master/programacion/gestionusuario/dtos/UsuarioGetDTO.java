@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import es.ediae.master.programacion.gestionusuario.service.UsuarioModel;
+
 public class UsuarioGetDTO {
 
         private Long id;
