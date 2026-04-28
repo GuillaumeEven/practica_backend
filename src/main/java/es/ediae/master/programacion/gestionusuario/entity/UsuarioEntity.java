@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,7 +20,7 @@ public class UsuarioEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(nullable = false)
     private String nick_usuario;
@@ -48,13 +49,20 @@ public class UsuarioEntity {
 
     @Column(nullable = true)
     private LocalTime hora_desayuno;
-    // Puesto de trabajo
-    // @Column(nullable = true)
-    // private Puesto_trabajo puesto_trabajo;
 
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "puesto_trabajo_id", nullable = true)
+    private PuestoDeTrabajoEntity puesto_trabajo;
+
+    @OneToMany(mappedBy = "usuario")
+    private java.util.List<DireccionEntity> direcciones;
+
+
+    public UsuarioEntity() {
+    }
 
     public UsuarioEntity(
-        Long id,
+        Integer id,
         String nick_usuario,
         String contrasena,
         GeneroEntiity genero,
@@ -62,7 +70,8 @@ public class UsuarioEntity {
         String primer_apellido,
         String segundo_apellido,
         LocalDate fecha_nacimiento,
-        LocalTime hora_desayuno) {
+        LocalTime hora_desayuno,
+        PuestoDeTrabajoEntity puesto_trabajo) {
         this.id = id;
         this.nick_usuario = nick_usuario;
         this.contrasena = contrasena;
@@ -73,16 +82,14 @@ public class UsuarioEntity {
         this.segundo_apellido = segundo_apellido;
         this.fecha_nacimiento = fecha_nacimiento;
         this.hora_desayuno = hora_desayuno;
+        this.puesto_trabajo = puesto_trabajo;
     }
 
-    public UsuarioEntity() {
-    }
-
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -1,7 +1,5 @@
 package es.ediae.master.programacion.gestionusuario.entity;
 
-import java.util.List;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,10 +8,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-
 @Entity
-@Table(name = "generos")
-public class GeneroEntiity {
+@Table(name = "puestos_de_trabajo")
+public class PuestoDeTrabajoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,15 +19,15 @@ public class GeneroEntiity {
     @Column(nullable = false, unique = true)
     private String nombre;
 
-    @OneToMany(mappedBy = "genero")
-    private List<UsuarioEntity> usuarios;
+    @OneToMany(mappedBy = "puesto_trabajo")
+    private java.util.List<UsuarioEntity> usuarios;
 
-    public GeneroEntiity(Integer id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
+    public PuestoDeTrabajoEntity() {
     }
 
-    public GeneroEntiity() {
+    public PuestoDeTrabajoEntity(Integer id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
     }
 
     public Integer getId() {
@@ -47,18 +44,5 @@ public class GeneroEntiity {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public List<UsuarioEntity> getUsuarios() {
-        return usuarios;
-    }
-
-    public void setUsuarios(List<UsuarioEntity> usuarios) {
-        this.usuarios = usuarios;
-    }
-
-    public void addUsuario(UsuarioEntity usuario) {
-        this.usuarios.add(usuario);
-        usuario.setGenero(this);
     }
 }

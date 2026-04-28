@@ -8,7 +8,7 @@ import es.ediae.master.programacion.gestionusuario.entity.UsuarioEntity;
 
 public class UsuarioModel {
 
-    private Long id;
+    private Integer id;
     private String nick_usuario;
     private String contrasena;
     private LocalDateTime fecha_hora_creacion;
@@ -19,7 +19,7 @@ public class UsuarioModel {
     private LocalDate fecha_nacimiento;
     private LocalTime hora_desayuno;
 
-    public UsuarioModel(String contrasena, LocalDateTime fecha_hora_creacion, LocalDate fecha_nacimiento, LocalTime hora_desayuno, Long id, String nick_usuario, String nombre, String primer_apellido, String segundo_apellido) {
+    public UsuarioModel(String contrasena, LocalDateTime fecha_hora_creacion, LocalDate fecha_nacimiento, LocalTime hora_desayuno, Integer id, String nick_usuario, String nombre, String primer_apellido, String segundo_apellido) {
         this.contrasena = contrasena;
         this.fecha_hora_creacion = fecha_hora_creacion;
         this.fecha_nacimiento = fecha_nacimiento;
@@ -31,11 +31,11 @@ public class UsuarioModel {
         this.segundo_apellido = segundo_apellido;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

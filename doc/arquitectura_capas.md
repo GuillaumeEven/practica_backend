@@ -75,7 +75,7 @@ List<UsuarioGetDTO> dtos = models.stream()
 
 ```java
 public record UsuarioGetDTO(
-    Long id,
+    Integer id,
     String nickUsuario,
     LocalDateTime fechaHoraCreacion,
     String nombre,

@@ -115,7 +115,7 @@ Los DTOs deben ser `record` inmutables. Un `record` en Java:
 
 ```java
 public record UsuarioGetDTO(
-    Long id,
+    Integer id,
     String nickUsuario,
     LocalDateTime fechaHoraCreacion,
     String nombre,
@@ -153,5 +153,5 @@ Para mappings Entity ↔ DTO a gran escala, usar **MapStruct** (Spring).
 - [ ] Pasar todos los DTOs a `record`
 - [ ] Impedir duplicación de género
 - [ ] Añadir endpoints de error globales (404, 403...)
-- [ ] Cambiar tipo de `id` de `Long` a `Integer`
+- [ ] Cambiar tipo de `id` de `Integer` a `Integer`
 - [ ] crear un unico script para la db
