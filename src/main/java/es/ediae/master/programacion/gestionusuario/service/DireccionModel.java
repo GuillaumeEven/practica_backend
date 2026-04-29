@@ -1,5 +1,8 @@
 package es.ediae.master.programacion.gestionusuario.service;
 
+import es.ediae.master.programacion.gestionusuario.dtos.DireccionDTO;
+import es.ediae.master.programacion.gestionusuario.entity.DireccionEntity;
+
 public class DireccionModel {
 
         private Integer id;
@@ -67,6 +70,25 @@ public class DireccionModel {
                         entity.getNumero_calle(),
                         entity.isDireccion_principal(),
                         entity.getUsuario() != null ? entity.getUsuario().getId() : null
+                );
+        }
+
+        public DireccionEntity toEntity() {
+                return new DireccionEntity(
+                        this.id,
+                        this.nombre_calle,
+                        this.numero_calle,
+                        this.direccion_principal
+                );
+        }
+
+        public DireccionDTO toDTO() {
+                return new DireccionDTO(
+                        this.id,
+                        this.nombre_calle,
+                        this.numero_calle,
+                        this.direccion_principal,
+                        this.usuario_id
                 );
         }
 }

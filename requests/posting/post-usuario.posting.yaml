@@ -1,0 +1,21 @@
+name: Post usuario
+method: POST
+url: http://localhost:8080/api/v1/usuarios
+body:
+  content: |-
+    {
+      "nick_usuario": "jdoe42",
+      "contrasena": "S3cur3Pass!",
+      "nombre": "John",
+      "primer_apellido": "Doe",
+      "segundo_apellido": "Smith",
+      "fecha_nacimiento": "1995-07-20",
+      "hora_desayuno": "07:30:00",
+      "genero_id": 1,
+      "puesto_trabajo_id": 2,
+      "direcciones_ids": [1,2]
+    }
+  content_type: application/json
+headers:
+- name: content-type
+  value: application/json

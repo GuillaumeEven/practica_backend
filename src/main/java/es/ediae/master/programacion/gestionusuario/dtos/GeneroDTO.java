@@ -1,5 +1,7 @@
 package es.ediae.master.programacion.gestionusuario.dtos;
 
+import es.ediae.master.programacion.gestionusuario.service.GeneroModel;
+
 public class GeneroDTO {
 
     private Integer id;
@@ -43,4 +45,10 @@ public class GeneroDTO {
         );
     }
 
+    public GeneroModel toModel() {
+        return new GeneroModel(
+                this.id,
+                this.nombre
+        );
+    }
 }

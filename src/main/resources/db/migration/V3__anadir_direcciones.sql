@@ -1,0 +1,2 @@
+INSERT INTO direcciones (direccion_principal, usuario_id, nombre_calle, numero_calle) VALUES (FALSE, 2, 'Calle Mockea', '321');
+INSERT INTO direcciones (direccion_principal, usuario_id, nombre_calle, numero_calle) VALUES (TRUE, 2, 'Avenida de Mockito', '456');

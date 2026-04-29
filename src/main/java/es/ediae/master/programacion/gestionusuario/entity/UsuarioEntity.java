@@ -85,6 +85,31 @@ public class UsuarioEntity {
         this.puesto_trabajo = puesto_trabajo;
     }
 
+    public UsuarioEntity(
+        String nick_usuario,
+        String contrasena,
+        LocalDateTime fecha_hora_creacion,
+        GeneroEntity genero,
+        String nombre,
+        String primer_apellido,
+        String segundo_apellido,
+        LocalDate fecha_nacimiento,
+        LocalTime hora_desayuno,
+        PuestoDeTrabajoEntity puesto_trabajo,
+        java.util.List<DireccionEntity> direcciones) {
+         this.nick_usuario = nick_usuario;
+         this.contrasena = contrasena;
+         this.fecha_hora_creacion = fecha_hora_creacion;
+         this.genero = genero;
+         this.nombre = nombre;
+         this.primer_apellido = primer_apellido;
+         this.segundo_apellido = segundo_apellido;
+         this.fecha_nacimiento = fecha_nacimiento;
+         this.hora_desayuno = hora_desayuno;
+         this.puesto_trabajo = puesto_trabajo;
+         this.direcciones = direcciones;
+    }
+
     public Integer getId() {
         return id;
     }

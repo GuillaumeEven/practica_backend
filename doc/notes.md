@@ -152,6 +152,7 @@ Para mappings Entity ↔ DTO a gran escala, usar **MapStruct** (Spring).
 
 - [ ] Pasar todos los DTOs a `record`
 - [ ] Impedir duplicación de género
+- [ ] refactor: [controllers = [dtos] + controllers, services = [models] + services, repository = [entities] + repos ?]
 - [ ] Añadir endpoints de error globales (404, 403...)
 - [ ] Cambiar tipo de `id` de `Integer` a `Integer`
 - [ ] crear un unico script para la db
@@ -161,3 +162,5 @@ Para mappings Entity ↔ DTO a gran escala, usar **MapStruct** (Spring).
   - [ ] fecha nacimiento not null not empty
   - [ ] lo que es nullable validar con notempty
 - [ ] Pasar los repo como sql nativo (@NativeSQL)
+- [ ] Y eso ? "Marque la méthode de création @Transactional pour que les proxies et les sets d’association fonctionnent correctement.
+"

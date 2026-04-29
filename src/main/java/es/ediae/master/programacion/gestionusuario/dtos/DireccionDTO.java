@@ -8,15 +8,23 @@ public class DireccionDTO {
     private String nombre_calle;
     private String numero_calle;
     private boolean direccion_principal;
+    private Integer usuario_id;
 
     public DireccionDTO() {
     }
 
-    public DireccionDTO(Integer id, String nombre_calle, String numero_calle, boolean direccion_principal) {
+    public DireccionDTO(
+        Integer id,
+        String nombre_calle,
+        String numero_calle,
+        boolean direccion_principal,
+        Integer usuario_id
+    ) {
         this.id = id;
         this.nombre_calle = nombre_calle;
         this.numero_calle = numero_calle;
         this.direccion_principal = direccion_principal;
+        this.usuario_id = usuario_id;
     }
 
     public Integer getId() {
@@ -56,7 +64,18 @@ public class DireccionDTO {
                 direccionModel.getId(),
                 direccionModel.getNombre_calle(),
                 direccionModel.getNumero_calle(),
-                direccionModel.isDireccion_principal()
+                direccionModel.isDireccion_principal(),
+                direccionModel.getUsuario_id()
+        );
+    }
+
+    public DireccionModel toModel() {
+        return new DireccionModel(
+                this.id,
+                this.nombre_calle,
+                this.numero_calle,
+                this.direccion_principal,
+                this.usuario_id
         );
     }
 

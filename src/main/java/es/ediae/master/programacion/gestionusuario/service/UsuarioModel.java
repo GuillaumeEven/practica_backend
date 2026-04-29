@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
+import es.ediae.master.programacion.gestionusuario.dtos.UsuarioGetDTO;
 import es.ediae.master.programacion.gestionusuario.entity.UsuarioEntity;
 
 public class UsuarioModel {
@@ -166,6 +167,41 @@ public class UsuarioModel {
             usuarioEntity.getDirecciones() != null ? usuarioEntity.getDirecciones().stream().map(DireccionModel::fromEntity).toList() : null
         );
     }
+
+    public static UsuarioEntity toNewEntity(UsuarioModel model) {
+        return new UsuarioEntity(
+            model.getNick_usuario(),
+            model.getContrasena(),
+            model.getFecha_hora_creacion(),
+            model.getGenero() != null ? model.getGenero().toEntity() : null,
+            model.getNombre(),
+            model.getPrimer_apellido(),
+            model.getSegundo_apellido(),
+            model.getFecha_nacimiento(),
+            model.getHora_desayuno(),
+            model.getPuestoDeTrabajo() != null ? model.getPuestoDeTrabajo().toEntity() : null,
+            model.getDirecciones() != null ? model.getDirecciones().stream().map(DireccionModel::toEntity).toList() : null
+        );
+    }
+
+    public UsuarioGetDTO toGetDTO() {
+        return new UsuarioGetDTO(
+            this.id,
+            this.nick_usuario,
+            this.contrasena,
+            this.fecha_hora_creacion,
+            this.genero != null ? this.genero.toDTO() : null,
+            this.nombre,
+            this.primer_apellido,
+            this.segundo_apellido,
+            this.fecha_nacimiento,
+            this.hora_desayuno,
+            this.puestoDeTrabajo != null ? this.puestoDeTrabajo.toDTO() : null,
+            this.direcciones != null ? this.direcciones.stream().map(DireccionModel::toDTO).toList() : null
+        );
+    }
+
+     // public static UsuarioModel fromEntity(UsuarioEntity entity) {
 
     // public static fromDto(UsuarioDTO usuarioDTO) {
     //     return new UsuarioModel(
