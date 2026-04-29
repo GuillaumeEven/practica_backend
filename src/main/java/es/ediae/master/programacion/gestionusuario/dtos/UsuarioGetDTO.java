@@ -12,7 +12,7 @@ public class UsuarioGetDTO {
         private String nick_usuario;
         private String contrasena;
         private LocalDateTime fecha_hora_creacion;
-        // private GeneroEntiity genero;
+        // private GeneroEntity genero;
         private String nombre;
         private String primer_apellido;
         private String segundo_apellido;

@@ -1,5 +1,0 @@
-[0.039] Ignoring invalid config line: 'BEGIN_KITTY_THEME'
-[0.040] Ignoring invalid config line: 'END_KITTY_THEME'
-[0,447] [glfw error 65544]: process_desktop_settings: failed with error: org.freedesktop.DBus.Error.UnknownMethod: L’interface « org.freedesktop.portal.Settings » n’existe pas pour l’objet à l’emplacement /org/freedesktop/portal/desktop
-[5,545] The application is trying to use xterm's modifyOtherKeys. This is superseded by the kitty keyboard protocol https://sw.kovidgoyal.net/kitty/keyboard-protocol. The application should be updated to use that.
-[5,546] [PARSE ERROR] Unsupported screen mode:  9001 (private)

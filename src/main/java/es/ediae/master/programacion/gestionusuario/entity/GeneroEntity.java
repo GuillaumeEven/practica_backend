@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "generos")
-public class GeneroEntiity {
+public class GeneroEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,12 +25,12 @@ public class GeneroEntiity {
     @OneToMany(mappedBy = "genero")
     private List<UsuarioEntity> usuarios;
 
-    public GeneroEntiity(Integer id, String nombre) {
+    public GeneroEntity(Integer id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
 
-    public GeneroEntiity() {
+    public GeneroEntity() {
     }
 
     public Integer getId() {

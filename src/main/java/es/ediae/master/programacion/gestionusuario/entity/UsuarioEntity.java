@@ -33,7 +33,7 @@ public class UsuarioEntity {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "genero_id", nullable = false)
-    private GeneroEntiity genero;
+    private GeneroEntity genero;
 
     @Column(nullable = false)
     private String nombre;
@@ -65,7 +65,7 @@ public class UsuarioEntity {
         Integer id,
         String nick_usuario,
         String contrasena,
-        GeneroEntiity genero,
+        GeneroEntity genero,
         String nombre,
         String primer_apellido,
         String segundo_apellido,
@@ -113,11 +113,11 @@ public class UsuarioEntity {
         return fecha_hora_creacion;
     }
 
-    public GeneroEntiity getGenero() {
+    public GeneroEntity getGenero() {
         return genero;
     }
 
-    public void setGenero(GeneroEntiity genero) {
+    public void setGenero(Generoty genero) {
         this.genero = genero;
     }
 
