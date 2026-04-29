@@ -21,4 +21,11 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 .map(UsuarioModel::fromEntity)
                 .toList();
     }
+
+    @Override
+    public UsuarioModel obtenerUsuarioPorId(Integer id) {
+        return this.usuarioRepository.findById(id)
+                .map(UsuarioModel::fromEntity)
+                .orElse(null);
+    }
 }
