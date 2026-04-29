@@ -11,7 +11,7 @@ import es.ediae.master.programacion.gestionusuario.dtos.UsuarioGetDTO;
 import es.ediae.master.programacion.gestionusuario.service.impl.UsuarioServiceImpl;
 
 @RestController
-@RequestMapping("/v1/usuarios")
+@RequestMapping("/api/v1/usuarios")
 public class UsuarioController {
 
     @Autowired

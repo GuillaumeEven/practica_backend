@@ -155,3 +155,8 @@ Para mappings Entity ↔ DTO a gran escala, usar **MapStruct** (Spring).
 - [ ] Añadir endpoints de error globales (404, 403...)
 - [ ] Cambiar tipo de `id` de `Integer` a `Integer`
 - [ ] crear un unico script para la db
+- [ ] validar en la capa controllers/dtos:
+  - [ ] nick_usuario not null
+  - [ ] contrasena not null
+  - [ ] fecha nacimiento not null not empty
+  - [ ] lo que es nullable validar con notempty

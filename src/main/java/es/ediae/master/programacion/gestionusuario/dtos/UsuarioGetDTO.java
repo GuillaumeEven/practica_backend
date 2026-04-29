@@ -3,35 +3,54 @@ package es.ediae.master.programacion.gestionusuario.dtos;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 import es.ediae.master.programacion.gestionusuario.service.UsuarioModel;
 
 public class UsuarioGetDTO {
 
-        private Integer id;
-        private String nick_usuario;
-        private String contrasena;
-        private LocalDateTime fecha_hora_creacion;
-        // private GeneroEntity genero;
-        private String nombre;
-        private String primer_apellido;
-        private String segundo_apellido;
-        private LocalDate fecha_nacimiento;
-        private LocalTime hora_desayuno;
+    private Integer id;
+    private String nick_usuario;
+    private String contrasena;
+    private LocalDateTime fecha_hora_creacion;
+    private GeneroDTO genero;
+    private String nombre;
+    private String primer_apellido;
+    private String segundo_apellido;
+    private LocalDate fecha_nacimiento;
+    private LocalTime hora_desayuno;
+    private PuestoDeTrabajoDTO puestoDeTrabajo;
+    private List<DireccionDTO> direcciones;
 
-        public UsuarioGetDTO() {
-        }
 
-    public UsuarioGetDTO(String contrasena, LocalDateTime fecha_hora_creacion, LocalDate fecha_nacimiento, LocalTime hora_desayuno, Integer id, String nick_usuario, String nombre, String primer_apellido, String segundo_apellido) {
+    public UsuarioGetDTO() {
+    }
+
+    public UsuarioGetDTO(
+        Integer id,
+        String nick_usuario,
+        String contrasena,
+        LocalDateTime fecha_hora_creacion,
+        GeneroDTO genero,
+        String nombre,
+        String primer_apellido,
+        String segundo_apellido,
+        LocalDate fecha_nacimiento,
+        LocalTime hora_desayuno,
+        PuestoDeTrabajoDTO puestoDeTrabajo,
+        java.util.List<DireccionDTO> direcciones) {
         this.contrasena = contrasena;
         this.fecha_hora_creacion = fecha_hora_creacion;
         this.fecha_nacimiento = fecha_nacimiento;
+        this.genero = genero;
         this.hora_desayuno = hora_desayuno;
         this.id = id;
         this.nick_usuario = nick_usuario;
         this.nombre = nombre;
         this.primer_apellido = primer_apellido;
         this.segundo_apellido = segundo_apellido;
+        this.puestoDeTrabajo = puestoDeTrabajo;
+        this.direcciones = direcciones;
     }
 
     public Integer getId() {
@@ -64,6 +83,14 @@ public class UsuarioGetDTO {
 
     public void setFecha_hora_creacion(LocalDateTime fecha_hora_creacion) {
         this.fecha_hora_creacion = fecha_hora_creacion;
+    }
+
+    public GeneroDTO getGenero() {
+        return genero;
+    }
+
+    public void setGenero(GeneroDTO genero) {
+        this.genero = genero;
     }
 
     public String getNombre() {
@@ -106,17 +133,28 @@ public class UsuarioGetDTO {
         this.hora_desayuno = hora_desayuno;
     }
 
+    public PuestoDeTrabajoDTO getPuestoDeTrabajo() {
+        return puestoDeTrabajo;
+    }
+
+    public void setPuestoDeTrabajo(PuestoDeTrabajoDTO puestoDeTrabajo) {
+        this.puestoDeTrabajo = puestoDeTrabajo;
+    }
+
     public static UsuarioGetDTO fromModel(UsuarioModel model) {
         return new UsuarioGetDTO(
-                model.getContrasena(),
-                model.getFecha_hora_creacion(),
-                model.getFecha_nacimiento(),
-                model.getHora_desayuno(),
-                model.getId(),
-                model.getNick_usuario(),
-                model.getNombre(),
-                model.getPrimer_apellido(),
-                model.getSegundo_apellido()
+            model.getId(),
+            model.getNick_usuario(),
+            model.getContrasena(),
+            model.getFecha_hora_creacion(),
+            model.getGenero() != null ? GeneroDTO.fromModel(model.getGenero()) : null,
+            model.getNombre(),
+            model.getPrimer_apellido(),
+            model.getSegundo_apellido(),
+            model.getFecha_nacimiento(),
+            model.getHora_desayuno(),
+            PuestoDeTrabajoDTO.fromEntity(model.getPuestoDeTrabajo() != null ? model.getPuestoDeTrabajo().toEntity() : null ),
+            model.getDirecciones() != null ? model.getDirecciones().stream().map(DireccionDTO::fromModel).toList() : null
         );
     }
 

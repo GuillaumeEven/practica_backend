@@ -1,5 +1,7 @@
 package es.ediae.master.programacion.gestionusuario.service;
 
+import es.ediae.master.programacion.gestionusuario.entity.PuestoDeTrabajoEntity;
+
 public class PuestoDeTrabajoModel {
 
     private Integer id;
@@ -27,6 +29,17 @@ public class PuestoDeTrabajoModel {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public static PuestoDeTrabajoModel fromEntity(PuestoDeTrabajoEntity entity) {
+        return new PuestoDeTrabajoModel(entity.getId(), entity.getNombre());
+    }
+
+    public PuestoDeTrabajoEntity toEntity() {
+        PuestoDeTrabajoEntity entity = new PuestoDeTrabajoEntity();
+        entity.setId(this.id);
+        entity.setNombre(this.nombre);
+        return entity;
     }
 
 }

@@ -72,4 +72,12 @@ public class DireccionEntity {
         this.direccion_principal = direccion_principal;
     }
 
+    public UsuarioEntity getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UsuarioEntity usuario) {
+        this.usuario = usuario;
+    }
+
 }

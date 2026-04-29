@@ -117,7 +117,7 @@ public class UsuarioEntity {
         return genero;
     }
 
-    public void setGenero(Generoty genero) {
+    public void setGenero(GeneroEntity genero) {
         this.genero = genero;
     }
 
@@ -159,5 +159,21 @@ public class UsuarioEntity {
 
     public void setHora_desayuno(LocalTime hora_desayuno) {
         this.hora_desayuno = hora_desayuno;
+    }
+
+    public PuestoDeTrabajoEntity getPuesto_trabajo() {
+        return puesto_trabajo;
+    }
+
+    public void setPuesto_trabajo(PuestoDeTrabajoEntity puesto_trabajo) {
+        this.puesto_trabajo = puesto_trabajo;
+    }
+
+    public java.util.List<DireccionEntity> getDirecciones() {
+        return direcciones;
+    }
+
+    public void setDirecciones(java.util.List<DireccionEntity> direcciones) {
+        this.direcciones = direcciones;
     }
 }
