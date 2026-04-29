@@ -26,10 +26,10 @@
     ) engine=InnoDB;
 
         create table direcciones (
-        direccion_principal bit not null,
+        direccion_principal boolean not null default false,
         id integer not null auto_increment,
         usuario_id integer not null,
         nombre_calle varchar(255) not null,
-        numero_calle varchar(255),
+        numero_calle varchar(255), -- caso de 17b...
         primary key (id)
     ) engine=InnoDB;
