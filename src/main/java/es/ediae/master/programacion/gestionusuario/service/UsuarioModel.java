@@ -34,7 +34,8 @@ public class UsuarioModel {
             LocalDate fecha_nacimiento,
             LocalTime hora_desayuno,
             PuestoDeTrabajoModel puestoDeTrabajo,
-            List<DireccionModel> direcciones) {
+            List<DireccionModel> direcciones
+        ) {
         this.id = id;
         this.nick_usuario = nick_usuario;
         this.contrasena = contrasena;

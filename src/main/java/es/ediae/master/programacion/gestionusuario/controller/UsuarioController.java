@@ -18,7 +18,7 @@ public class UsuarioController {
     private UsuarioServiceImpl usuarioService;
 
     @GetMapping
-    public List<UsuarioGetDTO> getUsuarios() {
+    public List<UsuarioGetDTO> obtenerUsuarios() {
         return usuarioService.obtenerTodosLosUsuarios().stream()
                 .map(UsuarioGetDTO::fromModel)
                 .toList();
