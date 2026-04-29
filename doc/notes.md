@@ -160,3 +160,4 @@ Para mappings Entity ↔ DTO a gran escala, usar **MapStruct** (Spring).
   - [ ] contrasena not null
   - [ ] fecha nacimiento not null not empty
   - [ ] lo que es nullable validar con notempty
+- [ ] Pasar los repo como sql nativo (@NativeSQL)
