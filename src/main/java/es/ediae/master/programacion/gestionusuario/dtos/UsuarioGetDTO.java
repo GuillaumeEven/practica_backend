@@ -153,7 +153,8 @@ public class UsuarioGetDTO {
             model.getSegundo_apellido(),
             model.getFecha_nacimiento(),
             model.getHora_desayuno(),
-            PuestoDeTrabajoDTO.fromEntity(model.getPuestoDeTrabajo() != null ? model.getPuestoDeTrabajo().toEntity() : null ),
+            model.getPuestoDeTrabajo() != null ? PuestoDeTrabajoDTO.fromEntity(model.getPuestoDeTrabajo().toEntity()) : null,
+            // PuestoDeTrabajoDTO.fromEntity(model.getPuestoDeTrabajo() != null ? model.getPuestoDeTrabajo().toEntity() : null ),
             model.getDirecciones() != null ? model.getDirecciones().stream().map(DireccionDTO::fromModel).toList() : null
         );
     }

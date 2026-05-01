@@ -164,3 +164,25 @@ Para mappings Entity ↔ DTO a gran escala, usar **MapStruct** (Spring).
 - [ ] Pasar los repo como sql nativo (@NativeSQL)
 - [ ] Y eso ? "Marque la méthode de création @Transactional pour que les proxies et les sets d’association fonctionnent correctement.
 "
+
+## Ejercicio 2
+
+iniciarSesion: permite a un usuario iniciar sesión en la aplicación con un par válido
+de nombre de usuario / contraseña.
+Nota: esta aplicación no incluye seguridad, por lo tanto, el método puede devolver
+simplemente un boolean (true/false) o lo que consideres.
+- [x] obtenerUsuarios: lista todos los usuarios de la aplicación, incluyendo su género y
+puesto de trabajo (id y nombre).
+- [x] obtenerUsuario: obtiene un usuario por su id.
+- [ ] crearUsuario: crea un nuevo usuario.
+- [ ] actualizarUsuario: actualiza un usuario existente.
+- [ ] eliminarUsuario: elimina un usuario.
+- [ ] obtenerDirecciones: lista todas las direcciones de un usuario específico.
+- [ ] obtenerDireccion: obtiene una dirección por id.
+- [ ] crearDireccion: crea una dirección para un usuario.
+- [ ] actualizarDireccion: actualiza una dirección.
+- [ ] eliminarDireccion: elimina una dirección.
+- [ ] obtenerGeneros: lista todos los géneros disponibles (puede estar en el controlador
+de usuario, pero debe tener su propio servicio).
+- [ ] obtenerPuestosDeTrabajo: lista todos los puestos de trabajo disponibles (puede
+estar en el controlador de usuario, pero debe tener su propio servicio).
