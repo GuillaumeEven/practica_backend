@@ -1,0 +1,13 @@
+name: Iniciar sesion
+method: POST
+url: http://localhost:8080/api/v1/usuarios/iniciar-sesion
+body:
+  content: |-
+    {
+      "nickUsuario": "Usuario1",
+      "contrasena": "contrasena123"
+    }
+  content_type: application/json
+headers:
+- name: content-type
+  value: application/json

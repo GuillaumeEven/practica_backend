@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 
+import es.ediae.master.programacion.gestionusuario.dtos.SesionDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPostDTO;
 
 public interface IUsuarioService {
@@ -14,6 +15,12 @@ public interface IUsuarioService {
     @Query("SELECT u FROM UsuarioEntity u WHERE u.id = :id")
     public UsuarioModel obtenerUsuarioPorId(Integer id);
 
+    public UsuarioModel obtenerUsuariosPorNickUsuario(String nickUsuario);
+
     public UsuarioModel crearUsuario(UsuarioPostDTO usuarioPostDTO);
+
+    public UsuarioModel ComproberContrasena(UsuarioModel usuarioModel, String contrasena);
+
+    public UsuarioModel iniciarSesion(SesionDTO sesionDTO);
 
 }

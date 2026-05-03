@@ -1,6 +1,6 @@
 package es.ediae.master.programacion.gestionusuario.controller;
 
-import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.ediae.master.programacion.gestionusuario.dtos.SesionDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioGetDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPostDTO;
+import es.ediae.master.programacion.gestionusuario.service.UsuarioModel;
 import es.ediae.master.programacion.gestionusuario.service.impl.UsuarioServiceImpl;
 import jakarta.validation.Valid;
 
@@ -28,9 +30,15 @@ public class UsuarioController {
 
     @GetMapping
     public List<UsuarioGetDTO> obtenerUsuarios() {
-        return usuarioService.obtenerTodosLosUsuarios().stream()
-                .map(UsuarioGetDTO::fromModel)
-                .toList();
+        List<UsuarioGetDTO> dtos = new ArrayList<>();
+        for (UsuarioModel usuarioModel: usuarioService.obtenerTodosLosUsuarios()) {
+            dtos.add(UsuarioGetDTO.fromModel(usuarioModel));
+        }
+        return dtos;
+        // Alternativa
+        // return usuarioService.obtenerTodosLosUsuarios().stream()
+        //         .map(UsuarioGetDTO::fromModel)
+        //         .toList();
     }
 
     @GetMapping("/{id}")
@@ -41,10 +49,24 @@ public class UsuarioController {
     @PostMapping
     public ResponseEntity<UsuarioGetDTO> crearUsuario(@Valid @RequestBody UsuarioPostDTO usuarioPostDTO) {
         UsuarioGetDTO usuarioGetDTO = this.usuarioService.crearUsuario(usuarioPostDTO).toGetDTO();
-        // respondemos con la dirección del nuevo recurso creado en el header Location y el recurso creado en el body
-        URI location = URI.create(String.format("/api/v1/usuarios/%d", usuarioGetDTO.getId()));
-        return ResponseEntity.created(location).body(usuarioGetDTO);
+        return ResponseEntity.ok(usuarioGetDTO);
     }
+
+    @PostMapping("/iniciar-sesion")
+    public ResponseEntity<UsuarioGetDTO> iniciarSesion(@RequestBody SesionDTO sesionDTO) {
+
+        UsuarioModel usuarioModel = this.usuarioService.obtenerUsuariosPorNickUsuario(sesionDTO.getNickUsuario());
+        if (usuarioModel == null) {
+            // Return 404 Not Found
+            return ResponseEntity.notFound().build();
+        }
+        if (!usuarioModel.getContrasena().equals(sesionDTO.getContrasena())) {
+            // Return 401 Unauthorized
+            return ResponseEntity.status(401).build();
+        }
+        return ResponseEntity.ok(usuarioModel.toGetDTO());
+    }
+
 
 
 }

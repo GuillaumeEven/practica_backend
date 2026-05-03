@@ -152,6 +152,7 @@ Para mappings Entity ↔ DTO a gran escala, usar **MapStruct** (Spring).
 
 - [ ] Pasar todos los DTOs a `record`
 - [ ] Impedir duplicación de género
+- [ ] Impedir duplicación de nombre
 - [ ] refactor: [controllers = [dtos] + controllers, services = [models] + services, repository = [entities] + repos ?]
 - [ ] Añadir endpoints de error globales (404, 403...)
 - [ ] Cambiar tipo de `id` de `Integer` a `Integer`
@@ -174,7 +175,7 @@ simplemente un boolean (true/false) o lo que consideres.
 - [x] obtenerUsuarios: lista todos los usuarios de la aplicación, incluyendo su género y
 puesto de trabajo (id y nombre).
 - [x] obtenerUsuario: obtiene un usuario por su id.
-- [ ] crearUsuario: crea un nuevo usuario.
+- [x] crearUsuario: crea un nuevo usuario.
 - [ ] actualizarUsuario: actualiza un usuario existente.
 - [ ] eliminarUsuario: elimina un usuario.
 - [ ] obtenerDirecciones: lista todas las direcciones de un usuario específico.
@@ -186,3 +187,6 @@ puesto de trabajo (id y nombre).
 de usuario, pero debe tener su propio servicio).
 - [ ] obtenerPuestosDeTrabajo: lista todos los puestos de trabajo disponibles (puede
 estar en el controlador de usuario, pero debe tener su propio servicio).
+- [ ] fixes:
+  - [ ] harmonisar las respuestas en responseEntity
+  - [ ] quedan snake case en las entities
