@@ -19,7 +19,7 @@ public class PuestoDeTrabajoEntity {
     @Column(nullable = false, unique = true)
     private String nombre;
 
-    @OneToMany(mappedBy = "puesto_trabajo")
+    @OneToMany(mappedBy = "puestoTrabajo")
     private java.util.List<UsuarioEntity> usuarios;
 
     public PuestoDeTrabajoEntity() {

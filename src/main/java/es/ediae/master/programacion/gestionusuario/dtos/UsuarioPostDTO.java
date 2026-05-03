@@ -5,58 +5,62 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
 import jakarta.validation.constraints.NotEmpty;
 
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class UsuarioPostDTO {
 
-    @NotEmpty(message = "El nick_usuario no puede estar vacío")
-    private String nick_usuario;
+    @NotEmpty(message = "El nickUsuario no puede estar vacío")
+    private String nickUsuario;
     private String contrasena;
-    private LocalDateTime fecha_hora_creacion;
-    private Integer genero_id;
+    private LocalDateTime fechaHoraCreacion;
+    private Integer generoId;
     private String nombre;
-    private String primer_apellido;
-    private String segundo_apellido;
-    private LocalDate fecha_nacimiento;
-    private LocalTime hora_desayuno;
-    private Integer puesto_trabajo_id;
-    private List<Integer> direccion_ids;
+    private String primerApellido;
+    private String segundoApellido;
+    private LocalDate fechaNacimiento;
+    private LocalTime horaDesayuno;
+    private Integer puestoTrabajoId;
+    private List<Integer> direccionIds;
 
 
     public UsuarioPostDTO() {
     }
 
     public UsuarioPostDTO(
-        String nick_usuario,
+        String nickUsuario,
         String contrasena,
-        LocalDateTime fecha_hora_creacion,
-        Integer genero_id,
+        LocalDateTime fechaHoraCreacion,
+        Integer generoId,
         String nombre,
-        String primer_apellido,
-        String segundo_apellido,
-        LocalDate fecha_nacimiento,
-        LocalTime hora_desayuno,
-        Integer puesto_trabajo_id,
-        java.util.List<Integer> direccion_ids) {
+        String primerApellido,
+        String segundoApellido,
+        LocalDate fechaNacimiento,
+        LocalTime horaDesayuno,
+        Integer puestoTrabajoId,
+        java.util.List<Integer> direccionIds) {
         this.contrasena = contrasena;
-        this.fecha_hora_creacion = fecha_hora_creacion;
-        this.fecha_nacimiento = fecha_nacimiento;
-        this.genero_id = genero_id;
-        this.hora_desayuno = hora_desayuno;
-        this.nick_usuario = nick_usuario;
+        this.fechaHoraCreacion = fechaHoraCreacion;
+        this.fechaNacimiento = fechaNacimiento;
+        this.generoId = generoId;
+        this.horaDesayuno = horaDesayuno;
+        this.nickUsuario = nickUsuario;
         this.nombre = nombre;
-        this.primer_apellido = primer_apellido;
-        this.segundo_apellido = segundo_apellido;
-        this.puesto_trabajo_id = puesto_trabajo_id;
-        this.direccion_ids = direccion_ids;
+        this.primerApellido = primerApellido;
+        this.segundoApellido = segundoApellido;
+        this.puestoTrabajoId = puestoTrabajoId;
+        this.direccionIds = direccionIds;
     }
 
-    public String getNick_usuario() {
-        return nick_usuario;
+    public String getNickUsuario() {
+        return nickUsuario;
     }
 
-    public void setNick_usuario(String nick_usuario) {
-        this.nick_usuario = nick_usuario;
+    public void setNickUsuario(String nickUsuario) {
+        this.nickUsuario = nickUsuario;
     }
 
     public String getContrasena() {
@@ -67,20 +71,20 @@ public class UsuarioPostDTO {
         this.contrasena = contrasena;
     }
 
-    public LocalDateTime getFecha_hora_creacion() {
-        return fecha_hora_creacion;
+    public LocalDateTime getFechaHoraCreacion() {
+        return fechaHoraCreacion;
     }
 
-    public void setFecha_hora_creacion(LocalDateTime fecha_hora_creacion) {
-        this.fecha_hora_creacion = fecha_hora_creacion;
+    public void setFechaHoraCreacion(LocalDateTime fechaHoraCreacion) {
+        this.fechaHoraCreacion = fechaHoraCreacion;
     }
 
-    public Integer getGenero_id() {
-        return genero_id;
+    public Integer getGeneroId() {
+        return generoId;
     }
 
-    public void setGenero_id(Integer genero_id) {
-        this.genero_id = genero_id;
+    public void setGeneroId(Integer generoId) {
+        this.generoId = generoId;
     }
 
     public String getNombre() {
@@ -91,52 +95,52 @@ public class UsuarioPostDTO {
         this.nombre = nombre;
     }
 
-    public String getPrimer_apellido() {
-        return primer_apellido;
+    public String getPrimerApellido() {
+        return primerApellido;
     }
 
-    public void setPrimer_apellido(String primer_apellido) {
-        this.primer_apellido = primer_apellido;
+    public void setPrimerApellido(String primerApellido) {
+        this.primerApellido = primerApellido;
     }
 
-    public String getSegundo_apellido() {
-        return segundo_apellido;
+    public String getSegundoApellido() {
+        return segundoApellido;
     }
 
-    public void setSegundo_apellido(String segundo_apellido) {
-        this.segundo_apellido = segundo_apellido;
+    public void setSegundoApellido(String segundoApellido) {
+        this.segundoApellido = segundoApellido;
     }
 
-    public LocalDate getFecha_nacimiento() {
-        return fecha_nacimiento;
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
     }
 
-    public void setFecha_nacimiento(LocalDate fecha_nacimiento) {
-        this.fecha_nacimiento = fecha_nacimiento;
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
-    public LocalTime getHora_desayuno() {
-        return hora_desayuno;
+    public LocalTime getHoraDesayuno() {
+        return horaDesayuno;
     }
 
-    public void setHora_desayuno(LocalTime hora_desayuno) {
-        this.hora_desayuno = hora_desayuno;
+    public void setHoraDesayuno(LocalTime horaDesayuno) {
+        this.horaDesayuno = horaDesayuno;
     }
 
-    public Integer getPuesto_trabajo_id() {
-        return puesto_trabajo_id;
+    public Integer getPuestoTrabajoId() {
+        return puestoTrabajoId;
     }
 
-    public void setPuesto_trabajo_id(Integer puesto_trabajo_id) {
-        this.puesto_trabajo_id = puesto_trabajo_id;
+    public void setPuestoTrabajoId(Integer puestoTrabajoId) {
+        this.puestoTrabajoId = puestoTrabajoId;
     }
 
-    public List<Integer> getDireccion_ids() {
-        return direccion_ids;
+    public List<Integer> getDireccionIds() {
+        return direccionIds;
     }
 
-    public void setDireccion_ids(List<Integer> direccion_ids) {
-        this.direccion_ids = direccion_ids;
+    public void setDireccionIds(List<Integer> direccionIds) {
+        this.direccionIds = direccionIds;
     }
 
     // public static UsuarioPostDTO fromModel(UsuarioModel model) {

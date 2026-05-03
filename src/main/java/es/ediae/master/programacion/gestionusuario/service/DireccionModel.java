@@ -6,20 +6,20 @@ import es.ediae.master.programacion.gestionusuario.entity.DireccionEntity;
 public class DireccionModel {
 
         private Integer id;
-        private String nombre_calle;
-        private String numero_calle;
-        private boolean direccion_principal;
-        private Integer usuario_id;
+        private String nombreCalle;
+        private String numeroCalle;
+        private boolean direccionPrincipal;
+        private Integer usuarioId;
 
         public DireccionModel() {
         }
 
-        public DireccionModel(Integer id, String nombre_calle, String numero_calle, boolean direccion_principal, Integer usuario_id) {
+        public DireccionModel(Integer id, String nombreCalle, String numeroCalle, boolean direccionPrincipal, Integer usuarioId) {
                 this.id = id;
-                this.nombre_calle = nombre_calle;
-                this.numero_calle = numero_calle;
-                this.direccion_principal = direccion_principal;
-                this.usuario_id = usuario_id;
+                this.nombreCalle = nombreCalle;
+                this.numeroCalle = numeroCalle;
+                this.direccionPrincipal = direccionPrincipal;
+                this.usuarioId = usuarioId;
         }
 
         public Integer getId() {
@@ -30,45 +30,45 @@ public class DireccionModel {
                 this.id = id;
         }
 
-        public String getNombre_calle() {
-                return nombre_calle;
+        public String getNombreCalle() {
+                return nombreCalle;
         }
 
 
-        public void setNombre_calle(String nombre_calle) {
-                this.nombre_calle = nombre_calle;
+        public void setNombreCalle(String nombreCalle) {
+                this.nombreCalle = nombreCalle;
         }
 
-        public String getNumero_calle() {
-                return numero_calle;
+        public String getNumeroCalle() {
+                return numeroCalle;
         }
 
-        public void setNumero_calle(String numero_calle) {
-                this.numero_calle = numero_calle;
+        public void setNumeroCalle(String numeroCalle) {
+                this.numeroCalle = numeroCalle;
         }
 
-        public boolean isDireccion_principal() {
-                return direccion_principal;
+        public boolean isDireccionPrincipal() {
+                return direccionPrincipal;
         }
 
-        public void setDireccion_principal(boolean direccion_principal) {
-                this.direccion_principal = direccion_principal;
+        public void setDireccionPrincipal(boolean direccionPrincipal) {
+                this.direccionPrincipal = direccionPrincipal;
         }
 
-        public Integer getUsuario_id() {
-                return usuario_id;
+        public Integer getUsuarioId() {
+                return usuarioId;
         }
 
-        public void setUsuario_id(Integer usuario_id) {
-                this.usuario_id = usuario_id;
+        public void setUsuarioId(Integer usuarioId) {
+                this.usuarioId = usuarioId;
         }
 
         public static DireccionModel fromEntity(es.ediae.master.programacion.gestionusuario.entity.DireccionEntity entity) {
                 return new DireccionModel(
                         entity.getId(),
-                        entity.getNombre_calle(),
-                        entity.getNumero_calle(),
-                        entity.isDireccion_principal(),
+                        entity.getNombreCalle(),
+                        entity.getNumeroCalle(),
+                        entity.isDireccionPrincipal(),
                         entity.getUsuario() != null ? entity.getUsuario().getId() : null
                 );
         }
@@ -76,19 +76,19 @@ public class DireccionModel {
         public DireccionEntity toEntity() {
                 return new DireccionEntity(
                         this.id,
-                        this.nombre_calle,
-                        this.numero_calle,
-                        this.direccion_principal
+                        this.nombreCalle,
+                        this.numeroCalle,
+                        this.direccionPrincipal
                 );
         }
 
         public DireccionDTO toDTO() {
                 return new DireccionDTO(
                         this.id,
-                        this.nombre_calle,
-                        this.numero_calle,
-                        this.direccion_principal,
-                        this.usuario_id
+                        this.nombreCalle,
+                        this.numeroCalle,
+                        this.direccionPrincipal,
+                        this.usuarioId
                 );
         }
 }

@@ -1,11 +1,13 @@
 package es.ediae.master.programacion.gestionusuario.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.ediae.master.programacion.gestionusuario.dtos.SesionDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPostDTO;
 import es.ediae.master.programacion.gestionusuario.entity.UsuarioEntity;
 import es.ediae.master.programacion.gestionusuario.repository.IUsuarioRepository;
@@ -29,16 +31,32 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
     @Override
     public List<UsuarioModel> obtenerTodosLosUsuarios() {
-        return this.usuarioRepository.findAll().stream()
-                .map(UsuarioModel::fromEntity)
-                .toList();
+        List<UsuarioEntity> entities = this.usuarioRepository.findAll();
+        List<UsuarioModel> models = new ArrayList<>();
+        for (UsuarioEntity entity : entities) {
+            models.add(UsuarioModel.fromEntity(entity));
+        }
+        return models;
+
+        // Alternativa
+        // return this.usuarioRepository.findAll().stream()
+        //         .map(UsuarioModel::fromEntity)
+        //         .toList();
     }
 
     @Override
     public UsuarioModel obtenerUsuarioPorId(Integer id) {
-        return this.usuarioRepository.findById(id)
-                .map(UsuarioModel::fromEntity)
-                .orElse(null);
+        UsuarioEntity entity = this.usuarioRepository.findById(id).orElse(null);
+        return entity != null ? UsuarioModel.fromEntity(entity) : null;
+        // Alternativa
+        // return this.usuarioRepository.findById(id)
+        //         .map(UsuarioModel::fromEntity)
+        //         .orElse(null);
+    }
+
+    public UsuarioModel obtenerUsuariosPorNickUsuario(String nickUsuario) {
+        UsuarioEntity entity = usuarioRepository.findByNickUsuario(nickUsuario);
+        return entity != null ? UsuarioModel.fromEntity(entity) : null;
     }
 
     @Override
@@ -46,19 +64,34 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
         UsuarioModel usuarioModel = new UsuarioModel(
                 null,
-                usuarioPostDTO.getNick_usuario(),
+                usuarioPostDTO.getNickUsuario(),
                 usuarioPostDTO.getContrasena(),
                 LocalDateTime.now(),
-                usuarioPostDTO.getGenero_id() != null ? generoService.obtenerGeneroPorId(usuarioPostDTO.getGenero_id()) : null,
+                usuarioPostDTO.getGeneroId() != null ? generoService.obtenerGeneroPorId(usuarioPostDTO.getGeneroId()) : null,
                 usuarioPostDTO.getNombre(),
-                usuarioPostDTO.getPrimer_apellido(),
-                usuarioPostDTO.getSegundo_apellido(),
-                usuarioPostDTO.getFecha_nacimiento(),
-                usuarioPostDTO.getHora_desayuno(),
-                usuarioPostDTO.getPuesto_trabajo_id() != null ? puestoDeTrabajoService.obtenerPuestoDeTrabajoPorId(usuarioPostDTO.getPuesto_trabajo_id()) : null,
-                usuarioPostDTO.getDireccion_ids() != null ? usuarioPostDTO.getDireccion_ids().stream().map(direccionId -> direccionService.obtenerDireccionPorId(direccionId)).toList() : null
+                usuarioPostDTO.getPrimerApellido(),
+                usuarioPostDTO.getSegundoApellido(),
+                usuarioPostDTO.getFechaNacimiento(),
+                usuarioPostDTO.getHoraDesayuno(),
+                usuarioPostDTO.getPuestoTrabajoId() != null ? puestoDeTrabajoService.obtenerPuestoDeTrabajoPorId(usuarioPostDTO.getPuestoTrabajoId()) : null,
+                usuarioPostDTO.getDireccionIds() != null ? usuarioPostDTO.getDireccionIds().stream().map(direccionId -> direccionService.obtenerDireccionPorId(direccionId)).toList() : null
         );
         UsuarioEntity savedEntity = this.usuarioRepository.save(UsuarioModel.toNewEntity(usuarioModel));
         return UsuarioModel.fromEntity(savedEntity);
+    }
+
+    @Override
+    public UsuarioModel ComproberContrasena(UsuarioModel usuarioModel, String contrasena) {
+        return usuarioModel.getContrasena().equals(contrasena) ? usuarioModel : null;
+    }
+
+    @Override
+    public UsuarioModel iniciarSesion(SesionDTO sesionDTO) {
+        // crear Usuario model
+        UsuarioModel model = obtenerUsuariosPorNickUsuario(sesionDTO.getNickUsuario());
+        if (model == null) {
+            return null;
+        }
+        return model.getContrasena().equals(sesionDTO.getContrasena()) ? model : null;
     }
 }

@@ -17,14 +17,14 @@ public class DireccionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
-    private String nombre_calle;
+    @Column(name = "nombre_calle", nullable = false)
+    private String nombreCalle;
 
-    @Column(nullable = true)
-    private String numero_calle;
+    @Column(name = "numero_calle", nullable = true)
+    private String numeroCalle;
 
-    @Column(nullable = false)
-    private boolean direccion_principal;
+    @Column(name = "direccion_principal", nullable = false)
+    private boolean direccionPrincipal;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "usuario_id", nullable = false)
@@ -33,11 +33,11 @@ public class DireccionEntity {
     public DireccionEntity() {
     }
 
-    public DireccionEntity(Integer id, String nombre_calle, String numero_calle, boolean direccion_principal) {
+    public DireccionEntity(Integer id, String nombreCalle, String numeroCalle, boolean direccionPrincipal) {
         this.id = id;
-        this.nombre_calle = nombre_calle;
-        this.numero_calle = numero_calle;
-        this.direccion_principal = direccion_principal;
+        this.nombreCalle = nombreCalle;
+        this.numeroCalle = numeroCalle;
+        this.direccionPrincipal = direccionPrincipal;
     }
 
     public Integer getId() {
@@ -48,28 +48,28 @@ public class DireccionEntity {
         this.id = id;
     }
 
-    public String getNombre_calle() {
-        return nombre_calle;
+    public String getNombreCalle() {
+        return nombreCalle;
     }
 
-    public void setNombre_calle(String nombre_calle) {
-        this.nombre_calle = nombre_calle;
+    public void setNombreCalle(String nombreCalle) {
+        this.nombreCalle = nombreCalle;
     }
 
-    public String getNumero_calle() {
-        return numero_calle;
+    public String getNumeroCalle() {
+        return numeroCalle;
     }
 
-    public void setNumero_calle(String numero_calle) {
-        this.numero_calle = numero_calle;
+    public void setNumeroCalle(String numeroCalle) {
+        this.numeroCalle = numeroCalle;
     }
 
-    public boolean isDireccion_principal() {
-        return direccion_principal;
+    public boolean isDireccionPrincipal() {
+        return direccionPrincipal;
     }
 
-    public void setDireccion_principal(boolean direccion_principal) {
-        this.direccion_principal = direccion_principal;
+    public void setDireccionPrincipal(boolean direccionPrincipal) {
+        this.direccionPrincipal = direccionPrincipal;
     }
 
     public UsuarioEntity getUsuario() {

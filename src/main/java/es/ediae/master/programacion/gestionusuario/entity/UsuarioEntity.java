@@ -22,14 +22,14 @@ public class UsuarioEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
-    private String nick_usuario;
+    @Column(name = "nick_usuario", nullable = false)
+    private String nickUsuario;
 
     @Column(nullable = false)
     private String contrasena;
 
-    @Column(nullable = false)
-    private LocalDateTime fecha_hora_creacion;
+    @Column(name = "fecha_hora_creacion", nullable = false)
+    private LocalDateTime fechaHoraCreacion;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "genero_id", nullable = false)
@@ -38,21 +38,21 @@ public class UsuarioEntity {
     @Column(nullable = false)
     private String nombre;
 
-    @Column(nullable = false)
-    private String primer_apellido;
+    @Column(name = "primer_apellido", nullable = false)
+    private String primerApellido;
 
-    @Column(nullable = true)
-    private String segundo_apellido;
+    @Column(name = "segundo_apellido", nullable = true)
+    private String segundoApellido;
 
-    @Column(nullable = false)
-    private LocalDate fecha_nacimiento;
+    @Column(name = "fecha_nacimiento", nullable = false)
+    private LocalDate fechaNacimiento;
 
-    @Column(nullable = true)
-    private LocalTime hora_desayuno;
+    @Column(name = "hora_desayuno", nullable = true)
+    private LocalTime horaDesayuno;
 
     @ManyToOne(optional = true)
     @JoinColumn(name = "puesto_trabajo_id", nullable = true)
-    private PuestoDeTrabajoEntity puesto_trabajo;
+    private PuestoDeTrabajoEntity puestoTrabajo;
 
     @OneToMany(mappedBy = "usuario")
     private java.util.List<DireccionEntity> direcciones;
@@ -63,50 +63,50 @@ public class UsuarioEntity {
 
     public UsuarioEntity(
         Integer id,
-        String nick_usuario,
+        String nickUsuario,
         String contrasena,
         GeneroEntity genero,
         String nombre,
-        String primer_apellido,
-        String segundo_apellido,
-        LocalDate fecha_nacimiento,
-        LocalTime hora_desayuno,
-        PuestoDeTrabajoEntity puesto_trabajo) {
+        String primerApellido,
+        String segundoApellido,
+        LocalDate fechaNacimiento,
+        LocalTime horaDesayuno,
+        PuestoDeTrabajoEntity puestoTrabajo) {
         this.id = id;
-        this.nick_usuario = nick_usuario;
+        this.nickUsuario = nickUsuario;
         this.contrasena = contrasena;
         this.genero = genero;
-        this.fecha_hora_creacion = LocalDateTime.now();
+        this.fechaHoraCreacion = LocalDateTime.now();
         this.nombre = nombre;
-        this.primer_apellido = primer_apellido;
-        this.segundo_apellido = segundo_apellido;
-        this.fecha_nacimiento = fecha_nacimiento;
-        this.hora_desayuno = hora_desayuno;
-        this.puesto_trabajo = puesto_trabajo;
+        this.primerApellido = primerApellido;
+        this.segundoApellido = segundoApellido;
+        this.fechaNacimiento = fechaNacimiento;
+        this.horaDesayuno = horaDesayuno;
+        this.puestoTrabajo = puestoTrabajo;
     }
 
     public UsuarioEntity(
-        String nick_usuario,
+        String nickUsuario,
         String contrasena,
-        LocalDateTime fecha_hora_creacion,
+        LocalDateTime fechaHoraCreacion,
         GeneroEntity genero,
         String nombre,
-        String primer_apellido,
-        String segundo_apellido,
-        LocalDate fecha_nacimiento,
-        LocalTime hora_desayuno,
-        PuestoDeTrabajoEntity puesto_trabajo,
+        String primerApellido,
+        String segundoApellido,
+        LocalDate fechaNacimiento,
+        LocalTime horaDesayuno,
+        PuestoDeTrabajoEntity puestoTrabajo,
         java.util.List<DireccionEntity> direcciones) {
-         this.nick_usuario = nick_usuario;
+         this.nickUsuario = nickUsuario;
          this.contrasena = contrasena;
-         this.fecha_hora_creacion = fecha_hora_creacion;
+         this.fechaHoraCreacion = fechaHoraCreacion;
          this.genero = genero;
          this.nombre = nombre;
-         this.primer_apellido = primer_apellido;
-         this.segundo_apellido = segundo_apellido;
-         this.fecha_nacimiento = fecha_nacimiento;
-         this.hora_desayuno = hora_desayuno;
-         this.puesto_trabajo = puesto_trabajo;
+         this.primerApellido = primerApellido;
+         this.segundoApellido = segundoApellido;
+         this.fechaNacimiento = fechaNacimiento;
+         this.horaDesayuno = horaDesayuno;
+         this.puestoTrabajo = puestoTrabajo;
          this.direcciones = direcciones;
     }
 
@@ -118,12 +118,12 @@ public class UsuarioEntity {
         this.id = id;
     }
 
-    public String getNick_usuario() {
-        return nick_usuario;
+    public String getNickUsuario() {
+        return nickUsuario;
     }
 
-    public void setNick_usuario(String nick_usuario) {
-        this.nick_usuario = nick_usuario;
+    public void setNickUsuario(String nickUsuario) {
+        this.nickUsuario = nickUsuario;
     }
 
     public String getContrasena() {
@@ -134,8 +134,8 @@ public class UsuarioEntity {
         this.contrasena = contrasena;
     }
 
-    public LocalDateTime getFecha_hora_creacion() {
-        return fecha_hora_creacion;
+    public LocalDateTime getFechaHoraCreacion() {
+        return fechaHoraCreacion;
     }
 
     public GeneroEntity getGenero() {
@@ -154,44 +154,44 @@ public class UsuarioEntity {
         this.nombre = nombre;
     }
 
-    public String getPrimer_apellido() {
-        return primer_apellido;
+    public String getPrimerApellido() {
+        return primerApellido;
     }
 
-    public void setPrimer_apellido(String primer_apellido) {
-        this.primer_apellido = primer_apellido;
+    public void setPrimerApellido(String primerApellido) {
+        this.primerApellido = primerApellido;
     }
 
-    public String getSegundo_apellido() {
-        return segundo_apellido;
+    public String getSegundoApellido() {
+        return segundoApellido;
     }
 
-    public void setSegundo_apellido(String segundo_apellido) {
-        this.segundo_apellido = segundo_apellido;
+    public void setSegundoApellido(String segundoApellido) {
+        this.segundoApellido = segundoApellido;
     }
 
-    public LocalDate getFecha_nacimiento() {
-        return fecha_nacimiento;
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
     }
 
-    public void setFecha_nacimiento(LocalDate fecha_nacimiento) {
-        this.fecha_nacimiento = fecha_nacimiento;
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
-    public LocalTime getHora_desayuno() {
-        return hora_desayuno;
+    public LocalTime getHoraDesayuno() {
+        return horaDesayuno;
     }
 
-    public void setHora_desayuno(LocalTime hora_desayuno) {
-        this.hora_desayuno = hora_desayuno;
+    public void setHoraDesayuno(LocalTime horaDesayuno) {
+        this.horaDesayuno = horaDesayuno;
     }
 
-    public PuestoDeTrabajoEntity getPuesto_trabajo() {
-        return puesto_trabajo;
+    public PuestoDeTrabajoEntity getPuestoTrabajo() {
+        return puestoTrabajo;
     }
 
-    public void setPuesto_trabajo(PuestoDeTrabajoEntity puesto_trabajo) {
-        this.puesto_trabajo = puesto_trabajo;
+    public void setPuestoTrabajo(PuestoDeTrabajoEntity puestoTrabajo) {
+        this.puestoTrabajo = puestoTrabajo;
     }
 
     public java.util.List<DireccionEntity> getDirecciones() {

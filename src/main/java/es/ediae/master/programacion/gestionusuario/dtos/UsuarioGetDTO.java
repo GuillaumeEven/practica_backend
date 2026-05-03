@@ -10,15 +10,15 @@ import es.ediae.master.programacion.gestionusuario.service.UsuarioModel;
 public class UsuarioGetDTO {
 
     private Integer id;
-    private String nick_usuario;
+    private String nickUsuario;
     private String contrasena;
-    private LocalDateTime fecha_hora_creacion;
+    private LocalDateTime fechaHoraCreacion;
     private GeneroDTO genero;
     private String nombre;
-    private String primer_apellido;
-    private String segundo_apellido;
-    private LocalDate fecha_nacimiento;
-    private LocalTime hora_desayuno;
+    private String primerApellido;
+    private String segundoApellido;
+    private LocalDate fechaNacimiento;
+    private LocalTime horaDesayuno;
     private PuestoDeTrabajoDTO puestoDeTrabajo;
     private List<DireccionDTO> direcciones;
 
@@ -28,27 +28,27 @@ public class UsuarioGetDTO {
 
     public UsuarioGetDTO(
         Integer id,
-        String nick_usuario,
+        String nickUsuario,
         String contrasena,
-        LocalDateTime fecha_hora_creacion,
+        LocalDateTime fechaHoraCreacion,
         GeneroDTO genero,
         String nombre,
-        String primer_apellido,
-        String segundo_apellido,
-        LocalDate fecha_nacimiento,
-        LocalTime hora_desayuno,
+        String primerApellido,
+        String segundoApellido,
+        LocalDate fechaNacimiento,
+        LocalTime horaDesayuno,
         PuestoDeTrabajoDTO puestoDeTrabajo,
         java.util.List<DireccionDTO> direcciones) {
         this.contrasena = contrasena;
-        this.fecha_hora_creacion = fecha_hora_creacion;
-        this.fecha_nacimiento = fecha_nacimiento;
+        this.fechaHoraCreacion = fechaHoraCreacion;
+        this.fechaNacimiento = fechaNacimiento;
         this.genero = genero;
-        this.hora_desayuno = hora_desayuno;
+        this.horaDesayuno = horaDesayuno;
         this.id = id;
-        this.nick_usuario = nick_usuario;
+        this.nickUsuario = nickUsuario;
         this.nombre = nombre;
-        this.primer_apellido = primer_apellido;
-        this.segundo_apellido = segundo_apellido;
+        this.primerApellido = primerApellido;
+        this.segundoApellido = segundoApellido;
         this.puestoDeTrabajo = puestoDeTrabajo;
         this.direcciones = direcciones;
     }
@@ -61,12 +61,12 @@ public class UsuarioGetDTO {
         this.id = id;
     }
 
-    public String getNick_usuario() {
-        return nick_usuario;
+    public String getNickUsuario() {
+        return nickUsuario;
     }
 
-    public void setNick_usuario(String nick_usuario) {
-        this.nick_usuario = nick_usuario;
+    public void setNickUsuario(String nickUsuario) {
+        this.nickUsuario = nickUsuario;
     }
 
     public String getContrasena() {
@@ -77,12 +77,12 @@ public class UsuarioGetDTO {
         this.contrasena = contrasena;
     }
 
-    public LocalDateTime getFecha_hora_creacion() {
-        return fecha_hora_creacion;
+    public LocalDateTime getFechaHoraCreacion() {
+        return fechaHoraCreacion;
     }
 
-    public void setFecha_hora_creacion(LocalDateTime fecha_hora_creacion) {
-        this.fecha_hora_creacion = fecha_hora_creacion;
+    public void setFechaHoraCreacion(LocalDateTime fechaHoraCreacion) {
+        this.fechaHoraCreacion = fechaHoraCreacion;
     }
 
     public GeneroDTO getGenero() {
@@ -101,36 +101,36 @@ public class UsuarioGetDTO {
         this.nombre = nombre;
     }
 
-    public String getPrimer_apellido() {
-        return primer_apellido;
+    public String getPrimerApellido() {
+        return primerApellido;
     }
 
-    public void setPrimer_apellido(String primer_apellido) {
-        this.primer_apellido = primer_apellido;
+    public void setPrimerApellido(String primerApellido) {
+        this.primerApellido = primerApellido;
     }
 
-    public String getSegundo_apellido() {
-        return segundo_apellido;
+    public String getSegundoApellido() {
+        return segundoApellido;
     }
 
-    public void setSegundo_apellido(String segundo_apellido) {
-        this.segundo_apellido = segundo_apellido;
+    public void setSegundoApellido(String segundoApellido) {
+        this.segundoApellido = segundoApellido;
     }
 
-    public LocalDate getFecha_nacimiento() {
-        return fecha_nacimiento;
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
     }
 
-    public void setFecha_nacimiento(LocalDate fecha_nacimiento) {
-        this.fecha_nacimiento = fecha_nacimiento;
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
-    public LocalTime getHora_desayuno() {
-        return hora_desayuno;
+    public LocalTime getHoraDesayuno() {
+        return horaDesayuno;
     }
 
-    public void setHora_desayuno(LocalTime hora_desayuno) {
-        this.hora_desayuno = hora_desayuno;
+    public void setHoraDesayuno(LocalTime horaDesayuno) {
+        this.horaDesayuno = horaDesayuno;
     }
 
     public PuestoDeTrabajoDTO getPuestoDeTrabajo() {
@@ -144,15 +144,15 @@ public class UsuarioGetDTO {
     public static UsuarioGetDTO fromModel(UsuarioModel model) {
         return new UsuarioGetDTO(
             model.getId(),
-            model.getNick_usuario(),
+            model.getNickUsuario(),
             model.getContrasena(),
-            model.getFecha_hora_creacion(),
+            model.getFechaHoraCreacion(),
             model.getGenero() != null ? GeneroDTO.fromModel(model.getGenero()) : null,
             model.getNombre(),
-            model.getPrimer_apellido(),
-            model.getSegundo_apellido(),
-            model.getFecha_nacimiento(),
-            model.getHora_desayuno(),
+            model.getPrimerApellido(),
+            model.getSegundoApellido(),
+            model.getFechaNacimiento(),
+            model.getHoraDesayuno(),
             model.getPuestoDeTrabajo() != null ? PuestoDeTrabajoDTO.fromEntity(model.getPuestoDeTrabajo().toEntity()) : null,
             // PuestoDeTrabajoDTO.fromEntity(model.getPuestoDeTrabajo() != null ? model.getPuestoDeTrabajo().toEntity() : null ),
             model.getDirecciones() != null ? model.getDirecciones().stream().map(DireccionDTO::fromModel).toList() : null
