@@ -7,13 +7,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.ediae.master.programacion.gestionusuario.dtos.ProductoDTO;
 import jakarta.validation.Valid;
 
 
 @RestController
 @Validated
-@RequestMapping("/validation")
-public class ValidationController {
+@RequestMapping("/productos")
+public class ProductoController {
 
     @PostMapping("/producto")
     public ResponseEntity<ProductoDTO> createProducto(@Valid @RequestBody ProductoDTO productoDTO) {

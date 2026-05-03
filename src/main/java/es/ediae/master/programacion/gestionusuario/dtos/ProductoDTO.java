@@ -1,4 +1,4 @@
-package es.ediae.master.programacion.gestionusuario.controller;
+package es.ediae.master.programacion.gestionusuario.dtos;
 
 import jakarta.validation.constraints.NotEmpty;
 
