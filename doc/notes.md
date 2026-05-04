@@ -190,3 +190,5 @@ estar en el controlador de usuario, pero debe tener su propio servicio).
 - [ ] fixes:
   - [ ] harmonisar las respuestas en responseEntity
   - [ ] quedan snake case en las entities
+
+Front repo: https://github.com/Kalebros/practica_frontend

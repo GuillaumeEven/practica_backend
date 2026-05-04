@@ -3,6 +3,7 @@ package es.ediae.master.programacion.gestionusuario.service.impl;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -118,6 +119,16 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     public UsuarioModel ComproberContrasena(UsuarioModel usuarioModel, String contrasena) {
         return usuarioModel.getContrasena().equals(contrasena) ? usuarioModel : null;
+    }
+
+    public boolean eliminarUsuario(UsuarioPutDTO dto) {
+        UsuarioEntity entity = this.usuarioRepository.findById(dto.getId()).orElse(null);
+        if (entity != null && entity.getContrasena().equals(dto.getContrasena())) {
+            this.usuarioRepository.deleteById(dto.getId());
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
