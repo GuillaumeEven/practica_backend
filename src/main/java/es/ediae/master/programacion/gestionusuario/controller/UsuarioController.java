@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import es.ediae.master.programacion.gestionusuario.dtos.SesionDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioGetDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPostDTO;
+import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPutDTO;
 import es.ediae.master.programacion.gestionusuario.service.UsuarioModel;
 import es.ediae.master.programacion.gestionusuario.service.impl.UsuarioServiceImpl;
 import jakarta.validation.Valid;
@@ -46,18 +48,17 @@ public class UsuarioController {
         return UsuarioGetDTO.fromModel(usuarioService.obtenerUsuarioPorId(id));
     }
 
-    @PostMapping("/{id}")
-    public ResponseEntity<UsuarioGetDTO> actualizarUsuario(@Valid @PathVariable Integer id, @RequestBody UsuarioGetDTO usuarioGetDTO) {
+    @PutMapping("/{id}")
+    public ResponseEntity<UsuarioGetDTO> actualizarUsuario(@Valid @PathVariable Integer id, @RequestBody UsuarioPutDTO usuarioPutDTO) {
         // validar si existe una sesion
-        UsuarioPostDTO usuarioPostDTO = UsuarioPostDTO.fromGetDTO(usuarioGetDTO);
-        UsuarioGetDTO updatedUsuarioGetDTO = this.usuarioService.actualizarUsuario(usuarioPostDTO).toGetDTO();
-        return ResponseEntity.ok(updatedUsuarioGetDTO);
+        UsuarioGetDTO usuarioGetDTO = this.usuarioService.actualizarUsuario(usuarioPutDTO).toGetDTO();
+        return ResponseEntity.ok(usuarioGetDTO);
     }
 
     @PostMapping
     public ResponseEntity<UsuarioGetDTO> crearUsuario(@Valid @RequestBody UsuarioPostDTO usuarioPostDTO) {
         UsuarioGetDTO usuarioGetDTO = this.usuarioService.crearUsuario(usuarioPostDTO).toGetDTO();
-        return ResponseEntity.ok(usuarioGetDTO);
+        return ResponseEntity.created(null).body(usuarioGetDTO);
     }
 
     @PostMapping("/iniciar-sesion")

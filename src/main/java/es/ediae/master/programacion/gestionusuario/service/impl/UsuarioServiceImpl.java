@@ -8,9 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.ediae.master.programacion.gestionusuario.dtos.SesionDTO;
+import es.ediae.master.programacion.gestionusuario.dtos.UsuarioGetDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPostDTO;
+import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPutDTO;
+import es.ediae.master.programacion.gestionusuario.entity.DireccionEntity;
 import es.ediae.master.programacion.gestionusuario.entity.UsuarioEntity;
 import es.ediae.master.programacion.gestionusuario.repository.IUsuarioRepository;
+import es.ediae.master.programacion.gestionusuario.service.DireccionModel;
 import es.ediae.master.programacion.gestionusuario.service.IUsuarioService;
 import es.ediae.master.programacion.gestionusuario.service.UsuarioModel;
 
@@ -80,25 +84,35 @@ public class UsuarioServiceImpl implements IUsuarioService {
         return UsuarioModel.fromEntity(savedEntity);
     }
 
-        @Override
-    public UsuarioModel actualizarUsuario(UsuarioPostDTO usuarioPostDTO) {
+    @Override
+    public UsuarioModel actualizarUsuario(UsuarioPutDTO usuarioPutDTO) {
+        UsuarioEntity entity = usuarioRepository.findById(usuarioPutDTO.getId()).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+            entity.setNickUsuario(usuarioPutDTO.getNickUsuario());
+            entity.setContrasena(usuarioPutDTO.getContrasena());
+            entity.setNombre(usuarioPutDTO.getNombre());
+            entity.setPrimerApellido(usuarioPutDTO.getPrimerApellido());
+            entity.setSegundoApellido(usuarioPutDTO.getSegundoApellido());
+            entity.setFechaNacimiento(usuarioPutDTO.getFechaNacimiento());
+            entity.setHoraDesayuno(usuarioPutDTO.getHoraDesayuno());
+            entity.setGenero(usuarioPutDTO.getGeneroId() != null ? generoService.obtenerGeneroPorId(usuarioPutDTO.getGeneroId()).toEntity() : null);
+            entity.setPuestoTrabajo(usuarioPutDTO.getPuestoTrabajoId() != null ? puestoDeTrabajoService.obtenerPuestoDeTrabajoPorId(usuarioPutDTO.getPuestoTrabajoId()).toEntity() : null);
 
-        UsuarioModel usuarioModel = new UsuarioModel(
-                null,
-                usuarioPostDTO.getNickUsuario(),
-                usuarioPostDTO.getContrasena(),
-                LocalDateTime.now(),
-                usuarioPostDTO.getGeneroId() != null ? generoService.obtenerGeneroPorId(usuarioPostDTO.getGeneroId()) : null,
-                usuarioPostDTO.getNombre(),
-                usuarioPostDTO.getPrimerApellido(),
-                usuarioPostDTO.getSegundoApellido(),
-                usuarioPostDTO.getFechaNacimiento(),
-                usuarioPostDTO.getHoraDesayuno(),
-                usuarioPostDTO.getPuestoTrabajoId() != null ? puestoDeTrabajoService.obtenerPuestoDeTrabajoPorId(usuarioPostDTO.getPuestoTrabajoId()) : null,
-                usuarioPostDTO.getDireccionIds() != null ? usuarioPostDTO.getDireccionIds().stream().map(direccionId -> direccionService.obtenerDireccionPorId(direccionId)).toList() : null
-        );
-        UsuarioEntity savedEntity = this.usuarioRepository.save(UsuarioModel.toNewEntity(usuarioModel));
-        return UsuarioModel.fromEntity(savedEntity);
+            // Direcciones : récupérer les entités et s'assurer de setUsuario(...)
+            List<DireccionEntity> direcciones = new ArrayList<>();
+            if (usuarioPutDTO.getDireccionIds() != null) {
+                for (Integer dirId : usuarioPutDTO.getDireccionIds()) {
+                    DireccionModel dm = direccionService.obtenerDireccionPorId(dirId);
+                    if (dm != null) {
+                        DireccionEntity de = dm.toEntity();
+                        de.setUsuario(entity);
+                        direcciones.add(de);
+                    }
+                }
+            }
+            entity.setDirecciones(direcciones);
+
+            UsuarioEntity saved = usuarioRepository.save(entity);
+            return UsuarioModel.fromEntity(saved);
     }
 
     @Override

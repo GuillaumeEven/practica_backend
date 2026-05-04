@@ -3,6 +3,7 @@ package es.ediae.master.programacion.gestionusuario.dtos;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
@@ -143,18 +144,27 @@ public class UsuarioPostDTO {
         this.direccionIds = direccionIds;
     }
 
-    public void fromGetDTO(UsuarioGetDTO usuarioGetDTO) {
-        this.nickUsuario = usuarioGetDTO.getNickUsuario();
-        this.contrasena = usuarioGetDTO.getContrasena();
-        this.fechaHoraCreacion = usuarioGetDTO.getFechaHoraCreacion();
-        this.generoId = usuarioGetDTO.getGenero() != null ? usuarioGetDTO.getGenero().getId() : null;
-        this.nombre = usuarioGetDTO.getNombre();
-        this.primerApellido = usuarioGetDTO.getPrimerApellido();
-        this.segundoApellido = usuarioGetDTO.getSegundoApellido();
-        this.fechaNacimiento = usuarioGetDTO.getFechaNacimiento();
-        this.horaDesayuno = usuarioGetDTO.getHoraDesayuno();
-        this.puestoTrabajoId = usuarioGetDTO.getPuestoTrabajo() != null ? usuarioGetDTO.getPuestoTrabajo().getId() : null;
-        this.direccionIds = usuarioGetDTO.getDirecciones() != null ? usuarioGetDTO.getDirecciones().stream().map(DireccionDTO::getId).toList() : null;
+    public UsuarioPostDTO fromGetDTO(UsuarioGetDTO usuarioGetDTO) {
+        ArrayList<Integer> direccionIds = new ArrayList<>();
+        if (usuarioGetDTO.getDirecciones() != null) {
+            for (DireccionDTO direccionDTO : usuarioGetDTO.getDirecciones()) {
+                direccionIds.add(direccionDTO.getId());
+            }
+        }
+        return new UsuarioPostDTO(
+            usuarioGetDTO.getNickUsuario(),
+            null,
+            null,
+            usuarioGetDTO.getGenero() != null ? usuarioGetDTO.getGenero().getId() : null,
+            usuarioGetDTO.getNombre(),
+            usuarioGetDTO.getPrimerApellido(),
+            usuarioGetDTO.getSegundoApellido(),
+            usuarioGetDTO.getFechaNacimiento(),
+            usuarioGetDTO.getHoraDesayuno(),
+            usuarioGetDTO.getPuestoTrabajo() != null ? usuarioGetDTO.getPuestoTrabajo().getId() : null,
+            direccionIds
+
+        );
     }
 
     // public static UsuarioPostDTO fromModel(UsuarioModel model) {

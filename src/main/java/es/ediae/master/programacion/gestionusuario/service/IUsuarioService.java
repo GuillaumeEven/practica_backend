@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import es.ediae.master.programacion.gestionusuario.dtos.SesionDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPostDTO;
+import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPutDTO;
 
 public interface IUsuarioService {
 
@@ -19,7 +20,7 @@ public interface IUsuarioService {
 
     public UsuarioModel crearUsuario(UsuarioPostDTO usuarioPostDTO);
 
-    public UsuarioModel actualizarUsuario(UsuarioPostDTO usuarioPostDTO);
+    public UsuarioModel actualizarUsuario(UsuarioPutDTO usuarioPutDTO);
 
     public UsuarioModel ComproberContrasena(UsuarioModel usuarioModel, String contrasena);
 

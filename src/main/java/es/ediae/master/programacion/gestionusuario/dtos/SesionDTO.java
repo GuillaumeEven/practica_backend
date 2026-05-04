@@ -1,5 +1,7 @@
 package es.ediae.master.programacion.gestionusuario.dtos;
 
+import jakarta.validation.constraints.NotEmpty;
+
 public class SesionDTO {
 
     @NotEmpty(message = "El nickUsuario no puede estar vacío")
