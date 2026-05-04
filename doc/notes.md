@@ -178,8 +178,8 @@ puesto de trabajo (id y nombre).
 - [x] crearUsuario: crea un nuevo usuario.
 - [x] actualizarUsuario: actualiza un usuario existente.
 - [x] eliminarUsuario: elimina un usuario.
-- [ ] obtenerDirecciones: lista todas las direcciones de un usuario específico.
-- [ ] obtenerDireccion: obtiene una dirección por id.
+- [x] obtenerDirecciones: lista todas las direcciones de un usuario específico.
+- [x] obtenerDireccion: obtiene una dirección por id.
 - [ ] crearDireccion: crea una dirección para un usuario.
 - [ ] actualizarDireccion: actualiza una dirección.
 - [ ] eliminarDireccion: elimina una dirección.

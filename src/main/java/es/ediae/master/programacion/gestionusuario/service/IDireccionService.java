@@ -1,7 +1,9 @@
 package es.ediae.master.programacion.gestionusuario.service;
 
+import es.ediae.master.programacion.gestionusuario.dtos.DireccionDTO;
+
 public interface IDireccionService {
 
-    public DireccionModel obtenerDireccionPorId(Integer id);
+    public DireccionDTO obtenerDireccionPorId(Integer id);
 
 }
