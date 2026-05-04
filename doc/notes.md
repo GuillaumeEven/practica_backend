@@ -176,8 +176,8 @@ simplemente un boolean (true/false) o lo que consideres.
 puesto de trabajo (id y nombre).
 - [x] obtenerUsuario: obtiene un usuario por su id.
 - [x] crearUsuario: crea un nuevo usuario.
-- [ ] actualizarUsuario: actualiza un usuario existente.
-- [ ] eliminarUsuario: elimina un usuario.
+- [x] actualizarUsuario: actualiza un usuario existente.
+- [x] eliminarUsuario: elimina un usuario.
 - [ ] obtenerDirecciones: lista todas las direcciones de un usuario específico.
 - [ ] obtenerDireccion: obtiene una dirección por id.
 - [ ] crearDireccion: crea una dirección para un usuario.

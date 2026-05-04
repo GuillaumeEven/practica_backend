@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.ediae.master.programacion.gestionusuario.dtos.DireccionDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.SesionDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioGetDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPostDTO;
@@ -85,6 +86,12 @@ public class UsuarioController {
             return ResponseEntity.status(401).build();
         }
         return ResponseEntity.ok(usuarioModel.toGetDTO());
+    }
+
+    @GetMapping("/{id}/obtener-direcciones")
+    public ResponseEntity<List<DireccionDTO>> obtenerDirecciones(@PathVariable Integer id) {
+        List<DireccionDTO> dtos = this.usuarioService.obtenerDireccionesPorUsuarioId(id);
+        return ResponseEntity.ok(dtos);
     }
 
 

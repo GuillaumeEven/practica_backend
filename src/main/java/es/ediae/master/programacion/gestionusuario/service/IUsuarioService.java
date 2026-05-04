@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 
+import es.ediae.master.programacion.gestionusuario.dtos.DireccionDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.SesionDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPostDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPutDTO;
@@ -26,4 +27,7 @@ public interface IUsuarioService {
 
     public UsuarioModel iniciarSesion(SesionDTO sesionDTO);
 
+    public boolean eliminarUsuario(UsuarioPutDTO dto);
+
+    public List<DireccionDTO> obtenerDireccionesPorUsuarioId(Integer id);
 }

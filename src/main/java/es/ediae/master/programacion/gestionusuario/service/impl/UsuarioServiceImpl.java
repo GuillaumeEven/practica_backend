@@ -8,6 +8,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ch.qos.logback.core.read.ListAppender;
+import es.ediae.master.programacion.gestionusuario.dtos.DireccionDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.SesionDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioGetDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPostDTO;
@@ -121,6 +123,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
         return usuarioModel.getContrasena().equals(contrasena) ? usuarioModel : null;
     }
 
+    @Override
     public boolean eliminarUsuario(UsuarioPutDTO dto) {
         UsuarioEntity entity = this.usuarioRepository.findById(dto.getId()).orElse(null);
         if (entity != null && entity.getContrasena().equals(dto.getContrasena())) {
@@ -139,5 +142,16 @@ public class UsuarioServiceImpl implements IUsuarioService {
             return null;
         }
         return model.getContrasena().equals(sesionDTO.getContrasena()) ? model : null;
+    }
+
+    @Override
+    public List<DireccionDTO> obtenerDireccionesPorUsuarioId(Integer id) {
+        List<DireccionDTO> direccionDTOS= new ArrayList<>();
+        List<DireccionModel> direccionModels = obtenerUsuarioPorId(id).getDirecciones();
+        for (DireccionModel direccionModel : direccionModels) {
+            DireccionDTO dto = direccionModel.toDTO();
+            direccionDTOS.add(dto);
+        }
+        return direccionDTOS;
     }
 }
