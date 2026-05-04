@@ -143,6 +143,20 @@ public class UsuarioPostDTO {
         this.direccionIds = direccionIds;
     }
 
+    public void fromGetDTO(UsuarioGetDTO usuarioGetDTO) {
+        this.nickUsuario = usuarioGetDTO.getNickUsuario();
+        this.contrasena = usuarioGetDTO.getContrasena();
+        this.fechaHoraCreacion = usuarioGetDTO.getFechaHoraCreacion();
+        this.generoId = usuarioGetDTO.getGenero() != null ? usuarioGetDTO.getGenero().getId() : null;
+        this.nombre = usuarioGetDTO.getNombre();
+        this.primerApellido = usuarioGetDTO.getPrimerApellido();
+        this.segundoApellido = usuarioGetDTO.getSegundoApellido();
+        this.fechaNacimiento = usuarioGetDTO.getFechaNacimiento();
+        this.horaDesayuno = usuarioGetDTO.getHoraDesayuno();
+        this.puestoTrabajoId = usuarioGetDTO.getPuestoTrabajo() != null ? usuarioGetDTO.getPuestoTrabajo().getId() : null;
+        this.direccionIds = usuarioGetDTO.getDirecciones() != null ? usuarioGetDTO.getDirecciones().stream().map(DireccionDTO::getId).toList() : null;
+    }
+
     // public static UsuarioPostDTO fromModel(UsuarioModel model) {
     //     return new UsuarioPostDTO(
     //         model.getNick_usuario(),
@@ -154,7 +168,7 @@ public class UsuarioPostDTO {
     //         model.getSegundo_apellido(),
     //         model.getFecha_nacimiento(),
     //         model.getHora_desayuno(),
-    //         PuestoDeTrabajoDTO.fromEntity(model.getPuestoDeTrabajo() != null ? model.getPuestoDeTrabajo().toEntity() : null ),
+    //         PuestoTrabajoDTO.fromEntity(model.getPuestoTrabajo() != null ? model.getPuestoTrabajo().toEntity() : null ),
     //         model.getDirecciones() != null ? model.getDirecciones().stream().map(DireccionDTO::fromModel).toList() : null
     //     );
 }

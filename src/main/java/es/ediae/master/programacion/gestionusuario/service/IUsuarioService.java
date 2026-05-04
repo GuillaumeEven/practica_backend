@@ -19,6 +19,8 @@ public interface IUsuarioService {
 
     public UsuarioModel crearUsuario(UsuarioPostDTO usuarioPostDTO);
 
+    public UsuarioModel actualizarUsuario(UsuarioPostDTO usuarioPostDTO);
+
     public UsuarioModel ComproberContrasena(UsuarioModel usuarioModel, String contrasena);
 
     public UsuarioModel iniciarSesion(SesionDTO sesionDTO);

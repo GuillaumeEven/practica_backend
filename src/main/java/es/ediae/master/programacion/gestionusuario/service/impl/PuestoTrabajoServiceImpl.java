@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import es.ediae.master.programacion.gestionusuario.repository.IPuestoTrabajoRepository;
 import es.ediae.master.programacion.gestionusuario.service.IPuestoTrabajoService;
-import es.ediae.master.programacion.gestionusuario.service.PuestoDeTrabajoModel;
+import es.ediae.master.programacion.gestionusuario.service.PuestoTrabajoModel;
 
 @Service
 public class PuestoTrabajoServiceImpl implements IPuestoTrabajoService {
@@ -14,9 +14,9 @@ public class PuestoTrabajoServiceImpl implements IPuestoTrabajoService {
     private IPuestoTrabajoRepository puestoTrabajoRepository;
 
     @Override
-    public PuestoDeTrabajoModel obtenerPuestoDeTrabajoPorId(Integer id) {
+    public PuestoTrabajoModel obtenerPuestoDeTrabajoPorId(Integer id) {
         return this.puestoTrabajoRepository.findById(id)
-        .map(PuestoDeTrabajoModel::fromEntity)
+        .map(PuestoTrabajoModel::fromEntity)
         .orElseThrow(() -> new RuntimeException("Puesto de trabajo no encontrado con id: " + id));
     }
 

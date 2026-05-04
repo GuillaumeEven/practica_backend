@@ -80,6 +80,27 @@ public class UsuarioServiceImpl implements IUsuarioService {
         return UsuarioModel.fromEntity(savedEntity);
     }
 
+        @Override
+    public UsuarioModel actualizarUsuario(UsuarioPostDTO usuarioPostDTO) {
+
+        UsuarioModel usuarioModel = new UsuarioModel(
+                null,
+                usuarioPostDTO.getNickUsuario(),
+                usuarioPostDTO.getContrasena(),
+                LocalDateTime.now(),
+                usuarioPostDTO.getGeneroId() != null ? generoService.obtenerGeneroPorId(usuarioPostDTO.getGeneroId()) : null,
+                usuarioPostDTO.getNombre(),
+                usuarioPostDTO.getPrimerApellido(),
+                usuarioPostDTO.getSegundoApellido(),
+                usuarioPostDTO.getFechaNacimiento(),
+                usuarioPostDTO.getHoraDesayuno(),
+                usuarioPostDTO.getPuestoTrabajoId() != null ? puestoDeTrabajoService.obtenerPuestoDeTrabajoPorId(usuarioPostDTO.getPuestoTrabajoId()) : null,
+                usuarioPostDTO.getDireccionIds() != null ? usuarioPostDTO.getDireccionIds().stream().map(direccionId -> direccionService.obtenerDireccionPorId(direccionId)).toList() : null
+        );
+        UsuarioEntity savedEntity = this.usuarioRepository.save(UsuarioModel.toNewEntity(usuarioModel));
+        return UsuarioModel.fromEntity(savedEntity);
+    }
+
     @Override
     public UsuarioModel ComproberContrasena(UsuarioModel usuarioModel, String contrasena) {
         return usuarioModel.getContrasena().equals(contrasena) ? usuarioModel : null;

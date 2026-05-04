@@ -20,7 +20,7 @@ public class UsuarioModel {
     private String segundoApellido;
     private LocalDate fechaNacimiento;
     private LocalTime horaDesayuno;
-    private PuestoDeTrabajoModel puestoDeTrabajo;
+    private PuestoTrabajoModel puestoDeTrabajo;
     private List<DireccionModel> direcciones;
 
     public UsuarioModel(
@@ -34,7 +34,7 @@ public class UsuarioModel {
             String segundoApellido,
             LocalDate fechaNacimiento,
             LocalTime horaDesayuno,
-            PuestoDeTrabajoModel puestoDeTrabajo,
+            PuestoTrabajoModel puestoDeTrabajo,
             List<DireccionModel> direcciones
         ) {
         this.id = id;
@@ -135,11 +135,11 @@ public class UsuarioModel {
         this.horaDesayuno = horaDesayuno;
     }
 
-    public PuestoDeTrabajoModel getPuestoDeTrabajo() {
+    public PuestoTrabajoModel getPuestoTrabajo() {
         return puestoDeTrabajo;
     }
 
-    public void setPuestoDeTrabajo(PuestoDeTrabajoModel puestoDeTrabajo) {
+    public void setPuestoTrabajo(PuestoTrabajoModel puestoDeTrabajo) {
         this.puestoDeTrabajo = puestoDeTrabajo;
     }
 
@@ -163,7 +163,7 @@ public class UsuarioModel {
             usuarioEntity.getSegundoApellido(),
             usuarioEntity.getFechaNacimiento(),
             usuarioEntity.getHoraDesayuno(),
-            usuarioEntity.getPuestoTrabajo() != null ? PuestoDeTrabajoModel.fromEntity(usuarioEntity.getPuestoTrabajo()) : null,
+            usuarioEntity.getPuestoTrabajo() != null ? PuestoTrabajoModel.fromEntity(usuarioEntity.getPuestoTrabajo()) : null,
             usuarioEntity.getDirecciones() != null ? usuarioEntity.getDirecciones().stream().map(DireccionModel::fromEntity).toList() : null
         );
     }
@@ -179,7 +179,7 @@ public class UsuarioModel {
             model.getSegundoApellido(),
             model.getFechaNacimiento(),
             model.getHoraDesayuno(),
-            model.getPuestoDeTrabajo() != null ? model.getPuestoDeTrabajo().toEntity() : null,
+            model.getPuestoTrabajo() != null ? model.getPuestoTrabajo().toEntity() : null,
             model.getDirecciones() != null ? model.getDirecciones().stream().map(DireccionModel::toEntity).toList() : null
         );
     }

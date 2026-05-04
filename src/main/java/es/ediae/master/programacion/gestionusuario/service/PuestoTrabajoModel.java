@@ -1,17 +1,17 @@
 package es.ediae.master.programacion.gestionusuario.service;
 
-import es.ediae.master.programacion.gestionusuario.dtos.PuestoDeTrabajoDTO;
+import es.ediae.master.programacion.gestionusuario.dtos.PuestoTrabajoDTO;
 import es.ediae.master.programacion.gestionusuario.entity.PuestoDeTrabajoEntity;
 
-public class PuestoDeTrabajoModel {
+public class PuestoTrabajoModel {
 
     private Integer id;
     private String nombre;
 
-    public PuestoDeTrabajoModel() {
+    public PuestoTrabajoModel() {
     }
 
-    public PuestoDeTrabajoModel(Integer id, String nombre) {
+    public PuestoTrabajoModel(Integer id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
@@ -32,8 +32,8 @@ public class PuestoDeTrabajoModel {
         this.nombre = nombre;
     }
 
-    public static PuestoDeTrabajoModel fromEntity(PuestoDeTrabajoEntity entity) {
-        return new PuestoDeTrabajoModel(entity.getId(), entity.getNombre());
+    public static PuestoTrabajoModel fromEntity(PuestoDeTrabajoEntity entity) {
+        return new PuestoTrabajoModel(entity.getId(), entity.getNombre());
     }
 
     public PuestoDeTrabajoEntity toEntity() {
@@ -43,8 +43,8 @@ public class PuestoDeTrabajoModel {
         return entity;
     }
 
-    public PuestoDeTrabajoDTO toDTO() {
-        return new PuestoDeTrabajoDTO(this.id, this.nombre);
+    public PuestoTrabajoDTO toDTO() {
+        return new PuestoTrabajoDTO(this.id, this.nombre);
     }
 
 }

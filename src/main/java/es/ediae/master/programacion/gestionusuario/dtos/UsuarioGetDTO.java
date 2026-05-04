@@ -19,7 +19,7 @@ public class UsuarioGetDTO {
     private String segundoApellido;
     private LocalDate fechaNacimiento;
     private LocalTime horaDesayuno;
-    private PuestoDeTrabajoDTO puestoDeTrabajo;
+    private PuestoTrabajoDTO puestoDeTrabajo;
     private List<DireccionDTO> direcciones;
 
 
@@ -37,7 +37,7 @@ public class UsuarioGetDTO {
         String segundoApellido,
         LocalDate fechaNacimiento,
         LocalTime horaDesayuno,
-        PuestoDeTrabajoDTO puestoDeTrabajo,
+        PuestoTrabajoDTO puestoDeTrabajo,
         java.util.List<DireccionDTO> direcciones) {
         this.contrasena = contrasena;
         this.fechaHoraCreacion = fechaHoraCreacion;
@@ -133,11 +133,11 @@ public class UsuarioGetDTO {
         this.horaDesayuno = horaDesayuno;
     }
 
-    public PuestoDeTrabajoDTO getPuestoDeTrabajo() {
+    public PuestoTrabajoDTO getPuestoTrabajo() {
         return puestoDeTrabajo;
     }
 
-    public void setPuestoDeTrabajo(PuestoDeTrabajoDTO puestoDeTrabajo) {
+    public void setPuestoTrabajo(PuestoTrabajoDTO puestoDeTrabajo) {
         this.puestoDeTrabajo = puestoDeTrabajo;
     }
 
@@ -153,8 +153,8 @@ public class UsuarioGetDTO {
             model.getSegundoApellido(),
             model.getFechaNacimiento(),
             model.getHoraDesayuno(),
-            model.getPuestoDeTrabajo() != null ? PuestoDeTrabajoDTO.fromEntity(model.getPuestoDeTrabajo().toEntity()) : null,
-            // PuestoDeTrabajoDTO.fromEntity(model.getPuestoDeTrabajo() != null ? model.getPuestoDeTrabajo().toEntity() : null ),
+            model.getPuestoTrabajo() != null ? PuestoTrabajoDTO.fromEntity(model.getPuestoTrabajo().toEntity()) : null,
+            // PuestoTrabajoDTO.fromEntity(model.getPuestoTrabajo() != null ? model.getPuestoTrabajo().toEntity() : null ),
             model.getDirecciones() != null ? model.getDirecciones().stream().map(DireccionDTO::fromModel).toList() : null
         );
     }

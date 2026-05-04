@@ -113,7 +113,7 @@ public static UsuarioModel fromEntity(UsuarioEntity e) {
         e.getSegundo_apellido()
     );
     m.setGenero(GeneroModel.fromEntity(e.getGenero()));
-    // m.setPuestoDeTrabajo(PuestoDeTrabajoModel.fromEntity(e.getPuesto_trabajo()));
+    // m.setPuestoTrabajo(PuestoTrabajoModel.fromEntity(e.getPuesto_trabajo()));
     return m;
 }
 ```

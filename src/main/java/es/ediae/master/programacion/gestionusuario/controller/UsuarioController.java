@@ -46,6 +46,14 @@ public class UsuarioController {
         return UsuarioGetDTO.fromModel(usuarioService.obtenerUsuarioPorId(id));
     }
 
+    @PostMapping("/{id}")
+    public ResponseEntity<UsuarioGetDTO> actualizarUsuario(@Valid @PathVariable Integer id, @RequestBody UsuarioGetDTO usuarioGetDTO) {
+        // validar si existe una sesion
+        UsuarioPostDTO usuarioPostDTO = UsuarioPostDTO.fromGetDTO(usuarioGetDTO);
+        UsuarioGetDTO updatedUsuarioGetDTO = this.usuarioService.actualizarUsuario(usuarioPostDTO).toGetDTO();
+        return ResponseEntity.ok(updatedUsuarioGetDTO);
+    }
+
     @PostMapping
     public ResponseEntity<UsuarioGetDTO> crearUsuario(@Valid @RequestBody UsuarioPostDTO usuarioPostDTO) {
         UsuarioGetDTO usuarioGetDTO = this.usuarioService.crearUsuario(usuarioPostDTO).toGetDTO();
