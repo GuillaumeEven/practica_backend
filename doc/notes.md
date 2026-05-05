@@ -185,7 +185,7 @@ puesto de trabajo (id y nombre).
 - [x] eliminarDireccion: elimina una dirección.
 - [x] obtenerGeneros: lista todos los géneros disponibles (puede estar en el controlador
 de usuario, pero debe tener su propio servicio).
-- [ ] obtenerPuestosDeTrabajo: lista todos los puestos de trabajo disponibles (puede
+- [x] obtenerPuestosDeTrabajo: lista todos los puestos de trabajo disponibles (puede
 estar en el controlador de usuario, pero debe tener su propio servicio).
 - [ ] fixes:
   - [ ] harmonisar las respuestas en responseEntity
