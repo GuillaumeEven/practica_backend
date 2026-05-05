@@ -23,7 +23,7 @@ public interface IUsuarioService {
 
     public UsuarioModel iniciarSesion(SesionDTO sesionDTO);
 
-    public boolean eliminarUsuario(UsuarioPutDTO dto);
+    public boolean eliminarUsuario(SesionDTO dto, Integer id);
 
     public List<DireccionDTO> obtenerDireccionesPorUsuarioId(Integer id);
 }

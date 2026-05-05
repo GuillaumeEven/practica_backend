@@ -24,6 +24,7 @@ public class UsuarioPostDTO {
     private String segundoApellido;
     private LocalDate fechaNacimiento;
     private LocalTime horaDesayuno;
+    private Boolean esAdmin;
     private Integer puestoTrabajoId;
     private List<Integer> direccionIds;
 
@@ -41,6 +42,7 @@ public class UsuarioPostDTO {
         String segundoApellido,
         LocalDate fechaNacimiento,
         LocalTime horaDesayuno,
+        Boolean esAdmin,
         Integer puestoTrabajoId,
         java.util.List<Integer> direccionIds) {
         this.contrasena = contrasena;
@@ -48,6 +50,7 @@ public class UsuarioPostDTO {
         this.fechaNacimiento = fechaNacimiento;
         this.generoId = generoId;
         this.horaDesayuno = horaDesayuno;
+        this.esAdmin = esAdmin;
         this.nickUsuario = nickUsuario;
         this.nombre = nombre;
         this.primerApellido = primerApellido;
@@ -128,6 +131,14 @@ public class UsuarioPostDTO {
         this.horaDesayuno = horaDesayuno;
     }
 
+    public Boolean isEsAdmin() {
+        return esAdmin;
+    }
+
+    public void setEsAdmin(Boolean esAdmin) {
+        this.esAdmin = esAdmin;
+    }
+
     public Integer getPuestoTrabajoId() {
         return puestoTrabajoId;
     }
@@ -161,6 +172,7 @@ public class UsuarioPostDTO {
             usuarioGetDTO.getSegundoApellido(),
             usuarioGetDTO.getFechaNacimiento(),
             usuarioGetDTO.getHoraDesayuno(),
+            usuarioGetDTO.isEsAdmin(),
             usuarioGetDTO.getPuestoTrabajo() != null ? usuarioGetDTO.getPuestoTrabajo().getId() : null,
             direccionIds
 

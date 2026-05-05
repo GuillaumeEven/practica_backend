@@ -84,6 +84,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
             usuarioPostDTO.getSegundoApellido(),
             usuarioPostDTO.getFechaNacimiento(),
             usuarioPostDTO.getHoraDesayuno(),
+            usuarioPostDTO.isEsAdmin(),
             usuarioPostDTO.getPuestoTrabajoId() != null ? puestoDeTrabajoService.obtenerPuestoDeTrabajoPorId(usuarioPostDTO.getPuestoTrabajoId()) : null,
             direcciones
         );
@@ -128,10 +129,10 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public boolean eliminarUsuario(UsuarioPutDTO dto) {
-        UsuarioEntity entity = this.usuarioRepository.findById(dto.getId()).orElse(null);
+    public boolean eliminarUsuario(SesionDTO dto, Integer id) {
+        UsuarioEntity entity = this.usuarioRepository.findById(id).orElse(null);
         if (entity != null && entity.getContrasena().equals(dto.getContrasena())) {
-            this.usuarioRepository.deleteById(dto.getId());
+            this.usuarioRepository.deleteById(id);
             return true;
         } else {
             return false;

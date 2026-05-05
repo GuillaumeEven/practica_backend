@@ -12,6 +12,7 @@ body:
       "fecha_nacimiento": "1995-07-20",
       "hora_desayuno": "07:30:00",
       "genero_id": 1,
+      "es_admin":false,
       "puesto_trabajo_id": 8,
       "direcciones_ids": [1,2]
     }

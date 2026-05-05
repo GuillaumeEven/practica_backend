@@ -19,6 +19,7 @@ public class UsuarioGetDTO {
     private String segundoApellido;
     private LocalDate fechaNacimiento;
     private LocalTime horaDesayuno;
+    private Boolean esAdmin;
     private PuestoTrabajoDTO puestoDeTrabajo;
     private List<DireccionDTO> direcciones;
 
@@ -37,12 +38,15 @@ public class UsuarioGetDTO {
         String segundoApellido,
         LocalDate fechaNacimiento,
         LocalTime horaDesayuno,
+        Boolean esAdmin,
         PuestoTrabajoDTO puestoDeTrabajo,
         java.util.List<DireccionDTO> direcciones) {
         this.contrasena = contrasena;
         this.fechaHoraCreacion = fechaHoraCreacion;
         this.fechaNacimiento = fechaNacimiento;
         this.genero = genero;
+        this.horaDesayuno = horaDesayuno;
+        this.esAdmin = esAdmin;
         this.horaDesayuno = horaDesayuno;
         this.id = id;
         this.nickUsuario = nickUsuario;
@@ -133,6 +137,14 @@ public class UsuarioGetDTO {
         this.horaDesayuno = horaDesayuno;
     }
 
+    public Boolean isEsAdmin() {
+        return esAdmin;
+    }
+
+    public void setEsAdmin(Boolean esAdmin) {
+        this.esAdmin = esAdmin;
+    }
+
     public PuestoTrabajoDTO getPuestoTrabajo() {
         return puestoDeTrabajo;
     }
@@ -161,6 +173,7 @@ public class UsuarioGetDTO {
             model.getSegundoApellido(),
             model.getFechaNacimiento(),
             model.getHoraDesayuno(),
+            model.isEsAdmin(),
             model.getPuestoTrabajo() != null ? PuestoTrabajoDTO.fromEntity(model.getPuestoTrabajo().toEntity()) : null,
             // PuestoTrabajoDTO.fromEntity(model.getPuestoTrabajo() != null ? model.getPuestoTrabajo().toEntity() : null ),
             model.getDirecciones() != null ? model.getDirecciones().stream().map(DireccionDTO::fromModel).toList() : null

@@ -1,0 +1,1 @@
+alter table usuarios add es_admin bit not null DEFAULT 0;

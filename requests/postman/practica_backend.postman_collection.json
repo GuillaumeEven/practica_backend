@@ -18,7 +18,12 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"nick_usuario\": \"jdoe42\",\n  \"contrasena\": \"S3cur3Pass!\",\n  \"nombre\": \"John\",\n  \"primer_apellido\": \"Doe\",\n  \"segundo_apellido\": \"Smith\",\n  \"fecha_nacimiento\": \"1995-07-20\",\n  \"hora_desayuno\": \"07:30:00\",\n  \"genero_id\": 1,\n  \"puesto_trabajo_id\": 2,\n  \"direcciones_ids\": [1,2]\n}"
+          "raw": "{\n  \"nick_usuario\": \"jdoe42\",\n  \"contrasena\": \"S3cur3Pass!\",\n  \"nombre\": \"John\",\n  \"primer_apellido\": \"Doe\",\n  \"segundo_apellido\": \"Smith\",\n  \"fecha_nacimiento\": \"1995-07-20\",\n  \"hora_desayuno\": \"07:30:00\",\n  \"genero_id\": 1,\n  \"puesto_trabajo_id\": 2,\n  \"es_admin\": false,\n  \"direcciones_ids\": [1,2]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
         },
         "url": {
           "raw": "http://localhost:8080/api/v1/usuarios",
@@ -48,7 +53,12 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"nick_usuario\": \"jdoe42\",\n  \"contrasena\": \"S3cur3Pass!\",\n  \"nombre\": \"John\",\n  \"primer_apellido\": \"Doe\",\n  \"segundo_apellido\": \"Smith\",\n  \"fecha_nacimiento\": \"1995-07-20\",\n  \"hora_desayuno\": \"07:30:00\",\n  \"genero_id\": 1,\n  \"puesto_trabajo_id\": 8,\n  \"direcciones_ids\": [1,2]\n}"
+          "raw": "{\n  \"nick_usuario\": \"jdoe42\",\n  \"contrasena\": \"S3cur3Pass!\",\n  \"nombre\": \"John\",\n  \"primer_apellido\": \"Doe\",\n  \"segundo_apellido\": \"Smith\",\n  \"fecha_nacimiento\": \"1995-07-20\",\n  \"hora_desayuno\": \"07:30:00\",\n  \"es_admin\": false,\n  \"genero_id\": 1,\n  \"puesto_trabajo_id\": 8,\n  \"direcciones_ids\": [1,2]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
         },
         "url": {
           "raw": "http://localhost:8080/api/v1/usuarios",
@@ -78,7 +88,12 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"nick_usuario\": \"\",\n  \"contrasena\": \"S3cur3Pass!\",\n  \"nombre\": \"John\",\n  \"primer_apellido\": \"Doe\",\n  \"segundo_apellido\": \"Smith\",\n  \"fecha_nacimiento\": \"1995-07-20\",\n  \"hora_desayuno\": \"07:30:00\",\n  \"genero_id\": 1,\n  \"puesto_trabajo_id\": 2,\n  \"direcciones_ids\": [1,2]\n}"
+          "raw": "{\n  \"nick_usuario\": \"\",\n  \"contrasena\": \"S3cur3Pass!\",\n  \"nombre\": \"John\",\n  \"primer_apellido\": \"Doe\",\n  \"segundo_apellido\": \"Smith\",\n  \"fecha_nacimiento\": \"1995-07-20\",\n  \"hora_desayuno\": \"07:30:00\",\n  \"genero_id\": 1,\n  \"es_admin\": false,\n  \"puesto_trabajo_id\": 2,\n  \"direcciones_ids\": [1,2]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
         },
         "url": {
           "raw": "http://localhost:8080/api/v1/usuarios",
@@ -425,10 +440,15 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"id\": 17,\n  \"nick_usuario\": \"jdoe43\",\n  \"contrasena\": \"S3cur3Pass!\",\n  \"nombre\": \"John\",\n  \"primer_apellido\": \"Doe\",\n  \"segundo_apellido\": \"Smith\",\n  \"fecha_nacimiento\": \"1995-07-20\",\n  \"hora_desayuno\": \"07:30:00\",\n  \"genero_id\": 1,\n  \"puesto_trabajo_id\": 2,\n  \"direccion_ids\": [1,2]\n}"
+          "raw": "{\n    \"nick_usuario\": \"jdoe42\",\n    \"contrasena\": \"S3cur3Pass!\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
         },
         "url": {
-          "raw": "http://localhost:8080/api/v1/usuarios/1",
+          "raw": "http://localhost:8080/api/v1/usuarios/20",
           "protocol": "http",
           "host": [
             "localhost"
@@ -438,7 +458,7 @@
             "api",
             "v1",
             "usuarios",
-            "1"
+            "20"
           ]
         }
       },

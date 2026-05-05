@@ -70,9 +70,9 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarUsuario(@Valid @PathVariable Integer id, @RequestBody UsuarioPutDTO dto) {
+    public ResponseEntity<Void> eliminarUsuario(@Valid @PathVariable Integer id, @RequestBody SesionDTO dto) {
         //comprobar si existe el usuario
-        if (this.usuarioService.eliminarUsuario(dto)) {
+        if (this.usuarioService.eliminarUsuario(dto, id)) {
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.badRequest().build();

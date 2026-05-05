@@ -7,7 +7,7 @@ public class DireccionDTO {
     private Integer id;
     private String nombreCalle;
     private String numeroCalle;
-    private boolean direccionPrincipal;
+    private Boolean direccionPrincipal;
     private Integer usuarioId;
 
     public DireccionDTO() {
@@ -17,7 +17,7 @@ public class DireccionDTO {
         Integer id,
         String nombreCalle,
         String numeroCalle,
-        boolean direccionPrincipal,
+        Boolean direccionPrincipal,
         Integer usuarioId
     ) {
         this.id = id;
@@ -51,11 +51,11 @@ public class DireccionDTO {
         this.numeroCalle = numeroCalle;
     }
 
-    public boolean isDireccionPrincipal() {
+    public Boolean isDireccionPrincipal() {
         return direccionPrincipal;
     }
 
-    public void setDireccionPrincipal(boolean direccionPrincipal) {
+    public void setDireccionPrincipal(Boolean direccionPrincipal) {
         this.direccionPrincipal = direccionPrincipal;
     }
 

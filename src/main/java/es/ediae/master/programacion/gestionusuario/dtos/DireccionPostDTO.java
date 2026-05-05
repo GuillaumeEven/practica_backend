@@ -10,7 +10,7 @@ public class DireccionPostDTO {
 
     private String nombreCalle;
     private String numeroCalle;
-    private boolean direccionPrincipal;
+    private Boolean direccionPrincipal;
     private Integer usuarioId;
 
     public DireccionPostDTO() {
@@ -19,7 +19,7 @@ public class DireccionPostDTO {
     public DireccionPostDTO(
         String nombreCalle,
         String numeroCalle,
-        boolean direccionPrincipal,
+        Boolean direccionPrincipal,
         Integer usuarioId
     ) {
         this.nombreCalle = nombreCalle;
@@ -45,11 +45,11 @@ public class DireccionPostDTO {
         this.numeroCalle = numeroCalle;
     }
 
-    public boolean isDireccionPrincipal() {
+    public Boolean isDireccionPrincipal() {
         return direccionPrincipal;
     }
 
-    public void setDireccionPrincipal(boolean direccionPrincipal) {
+    public void setDireccionPrincipal(Boolean direccionPrincipal) {
         this.direccionPrincipal = direccionPrincipal;
     }
 

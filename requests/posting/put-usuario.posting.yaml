@@ -5,7 +5,7 @@ body:
   content: |-
     {
       "id": 15,
-      "nick_usuario": "jdoe43",
+      "nick_usuario": "jdoe3",
       "contrasena": "S3cur3Pass!",
       "nombre": "John",
       "primer_apellido": "Doe",

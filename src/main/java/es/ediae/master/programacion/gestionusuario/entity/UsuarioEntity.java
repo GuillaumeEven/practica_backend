@@ -50,6 +50,9 @@ public class UsuarioEntity {
     @Column(name = "hora_desayuno", nullable = true)
     private LocalTime horaDesayuno;
 
+    @Column(name = "es_admin", nullable = false)
+    private boolean esAdmin;
+
     @ManyToOne(optional = true)
     @JoinColumn(name = "puesto_trabajo_id", nullable = true)
     private PuestoDeTrabajoEntity puestoTrabajo;
@@ -95,20 +98,22 @@ public class UsuarioEntity {
         String segundoApellido,
         LocalDate fechaNacimiento,
         LocalTime horaDesayuno,
+        boolean esAdmin,
         PuestoDeTrabajoEntity puestoTrabajo,
         java.util.List<DireccionEntity> direcciones) {
-         this.nickUsuario = nickUsuario;
-         this.contrasena = contrasena;
-         this.fechaHoraCreacion = fechaHoraCreacion;
-         this.genero = genero;
-         this.nombre = nombre;
-         this.primerApellido = primerApellido;
-         this.segundoApellido = segundoApellido;
-         this.fechaNacimiento = fechaNacimiento;
-         this.horaDesayuno = horaDesayuno;
-         this.puestoTrabajo = puestoTrabajo;
-         this.direcciones = direcciones;
-    }
+            this.nickUsuario = nickUsuario;
+            this.contrasena = contrasena;
+            this.fechaHoraCreacion = fechaHoraCreacion;
+            this.genero = genero;
+            this.nombre = nombre;
+            this.primerApellido = primerApellido;
+            this.segundoApellido = segundoApellido;
+            this.fechaNacimiento = fechaNacimiento;
+            this.horaDesayuno = horaDesayuno;
+            this.esAdmin = esAdmin;
+            this.puestoTrabajo = puestoTrabajo;
+            this.direcciones = direcciones;
+        }
 
     public Integer getId() {
         return id;
@@ -184,6 +189,14 @@ public class UsuarioEntity {
 
     public void setHoraDesayuno(LocalTime horaDesayuno) {
         this.horaDesayuno = horaDesayuno;
+    }
+
+    public boolean isEsAdmin() {
+        return esAdmin;
+    }
+
+    public void setEsAdmin(boolean esAdmin) {
+        this.esAdmin = esAdmin;
     }
 
     public PuestoDeTrabajoEntity getPuestoTrabajo() {
