@@ -15,11 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.ediae.master.programacion.gestionusuario.dtos.DireccionDTO;
+import es.ediae.master.programacion.gestionusuario.dtos.GeneroDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.SesionDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioGetDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPostDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPutDTO;
+import es.ediae.master.programacion.gestionusuario.service.GeneroModel;
 import es.ediae.master.programacion.gestionusuario.service.UsuarioModel;
+import es.ediae.master.programacion.gestionusuario.service.impl.GeneroServiceImpl;
 import es.ediae.master.programacion.gestionusuario.service.impl.UsuarioServiceImpl;
 import jakarta.validation.Valid;
 
@@ -31,6 +34,9 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioServiceImpl usuarioService;
+
+    @Autowired
+    private GeneroServiceImpl generoService;
 
     @GetMapping
     public List<UsuarioGetDTO> obtenerUsuarios() {
@@ -92,6 +98,18 @@ public class UsuarioController {
     public ResponseEntity<List<DireccionDTO>> obtenerDirecciones(@PathVariable Integer id) {
         List<DireccionDTO> dtos = this.usuarioService.obtenerDireccionesPorUsuarioId(id);
         return ResponseEntity.ok(dtos);
+    }
+
+    @GetMapping("/obtener-generos")
+    public ResponseEntity<List<GeneroDTO>> obtenerGeneros() {
+        List<GeneroModel> generos = this.generoService.obtenerGeneros();
+        List<GeneroDTO> generosDTO = new ArrayList<>();
+
+        for (GeneroModel generoModel: generos) {
+            generosDTO.add(GeneroDTO.fromModel(generoModel));
+        }
+
+        return ResponseEntity.ok(generosDTO);
     }
 
 
