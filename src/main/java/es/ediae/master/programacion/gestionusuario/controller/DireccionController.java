@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,5 +39,11 @@ public class DireccionController {
     public ResponseEntity<DireccionDTO> crearDireccion(@RequestBody DireccionPostDTO direccionPostDTO) {
         DireccionDTO direccionDTO =  direccionService.crearDireccion(direccionPostDTO);
         return ResponseEntity.ok(direccionDTO);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<DireccionDTO> actualizarDireccion(@RequestBody DireccionPostDTO requestDto, @PathVariable Integer id) {
+        DireccionDTO direccionActualizada = direccionService.actualizarDireccion(id, requestDto);
+        return ResponseEntity.ok(direccionActualizada);
     }
 }

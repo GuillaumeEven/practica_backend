@@ -46,4 +46,21 @@ public class DireccionServiceImpl implements IDireccionService {
         DireccionModel savedModel = DireccionModel.fromEntity(savedEntity);
         return DireccionDTO.fromModel(savedModel);
     }
+
+    @Override
+    public DireccionDTO actualizarDireccion(Integer id, DireccionPostDTO direccionPostDTO) {
+        DireccionEntity entity = this.direccionRepository.findById(id).orElseThrow();
+        entity.setNombreCalle(direccionPostDTO.getNombreCalle());
+        entity.setNumeroCalle(direccionPostDTO.getNumeroCalle());
+        entity.setDireccionPrincipal(direccionPostDTO.isDireccionPrincipal());
+        Optional<UsuarioEntity> usuarioEntity = this.usuarioRepository.findById(direccionPostDTO.getUsuarioId());
+        if (usuarioEntity.isPresent()) {
+                entity.setUsuario(usuarioEntity.get());
+        } else {
+                logger.warning("Usuario con ID " + direccionPostDTO.getUsuarioId() + " no encontrado. No se actualizará el usuario de la dirección.");
+        }
+        DireccionEntity updatedEntity = this.direccionRepository.save(entity);
+        DireccionModel updatedModel = DireccionModel.fromEntity(updatedEntity);
+        return DireccionDTO.fromModel(updatedModel);
+    }
 }

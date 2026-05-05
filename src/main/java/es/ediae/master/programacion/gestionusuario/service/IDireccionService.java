@@ -9,4 +9,6 @@ public interface IDireccionService {
 
     public DireccionDTO crearDireccion(DireccionPostDTO direccionPostDTO);
 
+    public DireccionDTO actualizarDireccion(Integer id, DireccionPostDTO direccionPostDTO);
+
 }
