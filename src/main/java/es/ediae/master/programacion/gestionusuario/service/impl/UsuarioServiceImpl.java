@@ -3,15 +3,12 @@ package es.ediae.master.programacion.gestionusuario.service.impl;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ch.qos.logback.core.read.ListAppender;
 import es.ediae.master.programacion.gestionusuario.dtos.DireccionDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.SesionDTO;
-import es.ediae.master.programacion.gestionusuario.dtos.UsuarioGetDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPostDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPutDTO;
 import es.ediae.master.programacion.gestionusuario.entity.DireccionEntity;
@@ -68,20 +65,27 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
     @Override
     public UsuarioModel crearUsuario(UsuarioPostDTO usuarioPostDTO) {
+        List<DireccionModel> direcciones = new ArrayList<>();
+        if (usuarioPostDTO.getDireccionIds() != null) {
+            for (Integer dirId : usuarioPostDTO.getDireccionIds()) {
+                DireccionModel dirModel = direccionService.obtenerDireccionPorId(dirId).toModel();
+                direcciones.add(dirModel);
+            }
+        }
 
         UsuarioModel usuarioModel = new UsuarioModel(
-                null,
-                usuarioPostDTO.getNickUsuario(),
-                usuarioPostDTO.getContrasena(),
-                LocalDateTime.now(),
-                usuarioPostDTO.getGeneroId() != null ? generoService.obtenerGeneroPorId(usuarioPostDTO.getGeneroId()) : null,
-                usuarioPostDTO.getNombre(),
-                usuarioPostDTO.getPrimerApellido(),
-                usuarioPostDTO.getSegundoApellido(),
-                usuarioPostDTO.getFechaNacimiento(),
-                usuarioPostDTO.getHoraDesayuno(),
-                usuarioPostDTO.getPuestoTrabajoId() != null ? puestoDeTrabajoService.obtenerPuestoDeTrabajoPorId(usuarioPostDTO.getPuestoTrabajoId()) : null,
-                usuarioPostDTO.getDireccionIds() != null ? usuarioPostDTO.getDireccionIds().stream().map(direccionId -> direccionService.obtenerDireccionPorId(direccionId)).toList() : null
+            null,
+            usuarioPostDTO.getNickUsuario(),
+            usuarioPostDTO.getContrasena(),
+            LocalDateTime.now(),
+            usuarioPostDTO.getGeneroId() != null ? generoService.obtenerGeneroPorId(usuarioPostDTO.getGeneroId()) : null,
+            usuarioPostDTO.getNombre(),
+            usuarioPostDTO.getPrimerApellido(),
+            usuarioPostDTO.getSegundoApellido(),
+            usuarioPostDTO.getFechaNacimiento(),
+            usuarioPostDTO.getHoraDesayuno(),
+            usuarioPostDTO.getPuestoTrabajoId() != null ? puestoDeTrabajoService.obtenerPuestoDeTrabajoPorId(usuarioPostDTO.getPuestoTrabajoId()) : null,
+            direcciones
         );
         UsuarioEntity savedEntity = this.usuarioRepository.save(UsuarioModel.toNewEntity(usuarioModel));
         return UsuarioModel.fromEntity(savedEntity);
@@ -104,11 +108,10 @@ public class UsuarioServiceImpl implements IUsuarioService {
             List<DireccionEntity> direcciones = new ArrayList<>();
             if (usuarioPutDTO.getDireccionIds() != null) {
                 for (Integer dirId : usuarioPutDTO.getDireccionIds()) {
-                    DireccionModel dm = direccionService.obtenerDireccionPorId(dirId);
-                    if (dm != null) {
-                        DireccionEntity de = dm.toEntity();
-                        de.setUsuario(entity);
-                        direcciones.add(de);
+                    DireccionEntity dirEntity = direccionService.obtenerDireccionPorId(dirId).toModel().toEntity();
+                    if (dirEntity != null) {
+                        dirEntity.setUsuario(entity); // Associer la dirección à l'utilisateur
+                        direcciones.add(dirEntity);
                     }
                 }
             }

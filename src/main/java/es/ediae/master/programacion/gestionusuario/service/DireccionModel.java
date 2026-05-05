@@ -22,6 +22,13 @@ public class DireccionModel {
                 this.usuarioId = usuarioId;
         }
 
+        public DireccionModel(String nombreCalle, String numeroCalle, boolean direccionPrincipal, Integer usuarioId) {
+                this.nombreCalle = nombreCalle;
+                this.numeroCalle = numeroCalle;
+                this.direccionPrincipal = direccionPrincipal;
+                this.usuarioId = usuarioId;
+        }
+
         public Integer getId() {
                 return id;
         }
@@ -73,12 +80,12 @@ public class DireccionModel {
                 );
         }
 
-        public DireccionEntity toEntity() {
+        public static DireccionEntity toEntity(DireccionModel model) {
                 return new DireccionEntity(
-                        this.id,
-                        this.nombreCalle,
-                        this.numeroCalle,
-                        this.direccionPrincipal
+                        model.id,
+                        model.nombreCalle,
+                        model.numeroCalle,
+                        model.direccionPrincipal
                 );
         }
 

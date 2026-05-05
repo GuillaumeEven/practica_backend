@@ -180,7 +180,7 @@ puesto de trabajo (id y nombre).
 - [x] eliminarUsuario: elimina un usuario.
 - [x] obtenerDirecciones: lista todas las direcciones de un usuario específico.
 - [x] obtenerDireccion: obtiene una dirección por id.
-- [ ] crearDireccion: crea una dirección para un usuario.
+- [x] crearDireccion: crea una dirección para un usuario.
 - [ ] actualizarDireccion: actualiza una dirección.
 - [ ] eliminarDireccion: elimina una dirección.
 - [ ] obtenerGeneros: lista todos los géneros disponibles (puede estar en el controlador

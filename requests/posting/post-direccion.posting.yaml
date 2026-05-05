@@ -1,0 +1,15 @@
+name: Post direccion
+method: POST
+url: http://localhost:8080/api/v1/direcciones
+body:
+  content: |-
+    {
+      "nombre_calle": "Calle Falsa",
+      "numero_calle": "123",
+      "direccion_principal": true,
+      "usuario_id": 2
+    }
+  content_type: application/json
+headers:
+- name: content-type
+  value: application/json

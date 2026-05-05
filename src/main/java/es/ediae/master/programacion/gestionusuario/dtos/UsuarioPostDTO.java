@@ -166,19 +166,4 @@ public class UsuarioPostDTO {
 
         );
     }
-
-    // public static UsuarioPostDTO fromModel(UsuarioModel model) {
-    //     return new UsuarioPostDTO(
-    //         model.getNick_usuario(),
-    //         model.getContrasena(),
-    //         model.getFecha_hora_creacion(),
-    //         model.getGenero() != null ? GeneroDTO.fromModel(model.getGenero()) : null,
-    //         model.getNombre(),
-    //         model.getPrimer_apellido(),
-    //         model.getSegundo_apellido(),
-    //         model.getFecha_nacimiento(),
-    //         model.getHora_desayuno(),
-    //         PuestoTrabajoDTO.fromEntity(model.getPuestoTrabajo() != null ? model.getPuestoTrabajo().toEntity() : null ),
-    //         model.getDirecciones() != null ? model.getDirecciones().stream().map(DireccionDTO::fromModel).toList() : null
-    //     );
 }

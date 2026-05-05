@@ -200,34 +200,4 @@ public class UsuarioModel {
             this.direcciones != null ? this.direcciones.stream().map(DireccionModel::toDTO).toList() : null
         );
     }
-
-     // public static UsuarioModel fromEntity(UsuarioEntity entity) {
-
-    // public static fromDto(UsuarioDTO usuarioDTO) {
-    //     return new UsuarioModel(
-    //             usuarioDTO.getContrasena(),
-    //             usuarioDTO.getFecha_hora_creacion(),
-    //             usuarioDTO.getFecha_nacimiento(),
-    //             usuarioDTO.getHora_desayuno(),
-    //             null,
-    //             usuarioDTO.getNick_usuario(),
-    //             usuarioDTO.getNombre(),
-    //             usuarioDTO.getPrimer_apellido(),
-    //             usuarioDTO.getSegundo_apellido());
-    // }
-
-    // public static UsuarioModel fromPostDto(UsuarioPostDTO usuarioPostDTO) {
-    //     return new UsuarioModel(
-    //             usuarioPostDTO.getContrasena(),
-    //             LocalDateTime.now(),
-    //             usuarioPostDTO.getFecha_nacimiento(),
-    //             usuarioPostDTO.getHora_desayuno(),
-    //             null,
-    //             usuarioPostDTO.getNick_usuario(),
-    //             usuarioPostDTO.getNombre(),
-    //             usuarioPostDTO.getPrimer_apellido(),
-    //             usuarioPostDTO.getSegundo_apellido());
-    // }
-
-
 }
