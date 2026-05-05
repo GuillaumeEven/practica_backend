@@ -16,13 +16,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.ediae.master.programacion.gestionusuario.dtos.DireccionDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.GeneroDTO;
+import es.ediae.master.programacion.gestionusuario.dtos.PuestoTrabajoDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.SesionDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioGetDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPostDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPutDTO;
 import es.ediae.master.programacion.gestionusuario.service.GeneroModel;
+import es.ediae.master.programacion.gestionusuario.service.PuestoTrabajoModel;
 import es.ediae.master.programacion.gestionusuario.service.UsuarioModel;
 import es.ediae.master.programacion.gestionusuario.service.impl.GeneroServiceImpl;
+import es.ediae.master.programacion.gestionusuario.service.impl.PuestoTrabajoServiceImpl;
 import es.ediae.master.programacion.gestionusuario.service.impl.UsuarioServiceImpl;
 import jakarta.validation.Valid;
 
@@ -37,6 +40,9 @@ public class UsuarioController {
 
     @Autowired
     private GeneroServiceImpl generoService;
+
+    @Autowired
+    private PuestoTrabajoServiceImpl puestoTrabajoService;
 
     @GetMapping
     public List<UsuarioGetDTO> obtenerUsuarios() {
@@ -112,6 +118,13 @@ public class UsuarioController {
         return ResponseEntity.ok(generosDTO);
     }
 
-
-
+    @GetMapping("/obtener-puestos")
+    public ResponseEntity<List<PuestoTrabajoDTO>> obtenerPuestos() {
+        List<PuestoTrabajoModel> puestos = this.puestoTrabajoService.obtenerPuestosDeTrabajo();
+        List<PuestoTrabajoDTO> puestosDTO = new ArrayList<>();
+        for (PuestoTrabajoModel puestoTrabajoModel: puestos) {
+            puestosDTO.add(PuestoTrabajoDTO.fromModel(puestoTrabajoModel));
+        }
+        return ResponseEntity.ok(puestosDTO);
+    }
 }

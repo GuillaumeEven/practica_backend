@@ -1,0 +1,2 @@
+name: Get puestos de trabajo
+url: http://localhost:8080/api/v1/usuarios/obtener-puestos

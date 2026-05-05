@@ -45,4 +45,11 @@ public class PuestoTrabajoDTO {
         );
     }
 
+    public static PuestoTrabajoDTO fromModel(PuestoTrabajoModel model) {
+        return new PuestoTrabajoDTO(
+                model.getId(),
+                model.getNombre()
+        );
+    }
+
 }

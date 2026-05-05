@@ -108,7 +108,8 @@ public class UsuarioServiceImpl implements IUsuarioService {
             List<DireccionEntity> direcciones = new ArrayList<>();
             if (usuarioPutDTO.getDireccionIds() != null) {
                 for (Integer dirId : usuarioPutDTO.getDireccionIds()) {
-                    DireccionEntity dirEntity = direccionService.obtenerDireccionPorId(dirId).toModel().toEntity();
+                    DireccionModel dirModel = direccionService.obtenerDireccionPorId(dirId).toModel();
+                    DireccionEntity dirEntity = DireccionModel.toEntity(dirModel);
                     if (dirEntity != null) {
                         dirEntity.setUsuario(entity); // Associer la dirección à l'utilisateur
                         direcciones.add(dirEntity);
