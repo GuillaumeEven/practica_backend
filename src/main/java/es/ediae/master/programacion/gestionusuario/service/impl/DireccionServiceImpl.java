@@ -63,4 +63,14 @@ public class DireccionServiceImpl implements IDireccionService {
         DireccionModel updatedModel = DireccionModel.fromEntity(updatedEntity);
         return DireccionDTO.fromModel(updatedModel);
     }
+
+    @Override
+    public Boolean eliminarDireccion(Integer id) {
+        if (!this.direccionRepository.existsById(id)) {
+            logger.warning("Dirección con ID " + id + " no encontrada. No se puede eliminar.");
+            return false;
+        }
+        this.direccionRepository.deleteById(id);
+        return true;
+    }
 }

@@ -11,4 +11,6 @@ public interface IDireccionService {
 
     public DireccionDTO actualizarDireccion(Integer id, DireccionPostDTO direccionPostDTO);
 
+    public Boolean eliminarDireccion(Integer id);
+
 }

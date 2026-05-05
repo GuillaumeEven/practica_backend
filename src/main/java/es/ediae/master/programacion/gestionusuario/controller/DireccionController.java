@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,5 +46,11 @@ public class DireccionController {
     public ResponseEntity<DireccionDTO> actualizarDireccion(@RequestBody DireccionPostDTO requestDto, @PathVariable Integer id) {
         DireccionDTO direccionActualizada = direccionService.actualizarDireccion(id, requestDto);
         return ResponseEntity.ok(direccionActualizada);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarDireccion(@PathVariable Integer id) {
+        direccionService.eliminarDireccion(id);
+        return ResponseEntity.noContent().build();
     }
 }
