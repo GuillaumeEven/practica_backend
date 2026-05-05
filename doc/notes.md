@@ -153,10 +153,8 @@ Para mappings Entity ↔ DTO a gran escala, usar **MapStruct** (Spring).
 - [ ] Pasar todos los DTOs a `record`
 - [ ] Impedir duplicación de género
 - [ ] Impedir duplicación de nombre
-- [ ] refactor: [controllers = [dtos] + controllers, services = [models] + services, repository = [entities] + repos ?]
+- [x] refactor: [controllers = [dtos] + controllers, services = [models] + services, repository = [entities] + repos ?]
 - [ ] Añadir endpoints de error globales (404, 403...)
-- [ ] Cambiar tipo de `id` de `Integer` a `Integer`
-- [ ] crear un unico script para la db
 - [ ] validar en la capa controllers/dtos:
   - [ ] nick_usuario not null
   - [ ] contrasena not null
