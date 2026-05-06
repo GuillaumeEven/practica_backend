@@ -29,7 +29,10 @@ public class GeneralConstant {
     public static final int GENERO_YA_EXISTE_ERROR_CODE = 9;
 
     public static final int PUESTO_DE_TRABAJO_YA_EXISTE_ERROR_CODE = 10;
+
     public static final int NO_ENCONTRADO_ERROR_CODE = 404;
+
+    public static final int CONTRASENA_NO_COINCIDE_ERROR_CODE = 11;
 
     public static final String GENERAL_ERROR_MESSAGE = "Error inesperado en el servidor";
 
@@ -61,5 +64,7 @@ public class GeneralConstant {
     public static final String DIRECCION_PRINCIPAL_NO_ENCONTRADA_ERROR_MESSAGE = "El usuario indicado no tiene direccion principal";
 
     public static final String USUARIO_NO_ADMIN_ERROR_MESSAGE = "El usuario no puede realizar esta operación porque no es admin";
+
+    public static final String CONTRASENA_NO_COINCIDE_ERROR_MESSAGE = "La contraseña actual no coincide con la contraseña del usuario";
 
 }

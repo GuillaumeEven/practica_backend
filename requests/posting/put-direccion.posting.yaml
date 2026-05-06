@@ -4,7 +4,7 @@ url: http://localhost:8080/api/v1/direcciones/2
 body:
   content: |-
     {
-      "nombre_calle": "Calle Falsade verdad",
+      "nombre_calle": "Calle Falsa de verdad",
       "numero_calle": "123",
       "direccion_principal": true,
       "usuario_id": 2

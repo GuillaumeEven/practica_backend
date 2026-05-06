@@ -9,6 +9,14 @@ public class SesionDTO {
     @NotEmpty(message = "La contraseña no puede estar vacía")
     private String contrasena;
 
+    public SesionDTO() {
+    }
+
+    public SesionDTO(String nickUsuario, String contrasena) {
+        this.nickUsuario = nickUsuario;
+        this.contrasena = contrasena;
+    }
+
     public String getNickUsuario() {
         return nickUsuario;
     }

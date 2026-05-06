@@ -2,7 +2,6 @@ package es.ediae.master.programacion.gestionusuario.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.ediae.master.programacion.gestionusuario.dtos.DireccionDTO;
@@ -45,75 +45,40 @@ public class UsuarioController {
     @Autowired
     private PuestoTrabajoServiceImpl puestoTrabajoService;
 
+
     @GetMapping
-    public List<UsuarioGetDTO> obtenerUsuarios() {
+    public List<UsuarioGetDTO> obtenerUsuarios(@RequestParam String nickUsuario, @RequestParam String contrasena) {
+
+        usuarioService.verificarContrasena(new SesionDTO(nickUsuario, contrasena));
+
         List<UsuarioGetDTO> dtos = new ArrayList<>();
         for (UsuarioModel usuarioModel: usuarioService.obtenerTodosLosUsuarios()) {
             dtos.add(UsuarioGetDTO.fromModel(usuarioModel));
         }
-        return dtos;
+
         // Alternativa
         // return usuarioService.obtenerTodosLosUsuarios().stream()
         //         .map(UsuarioGetDTO::fromModel)
         //         .toList();
+
+        return dtos;
     }
 
     @GetMapping("/{id}")
-    public UsuarioGetDTO obtenerUsuario(@PathVariable Integer id) {
+    public UsuarioGetDTO obtenerUsuario(@PathVariable Integer id, @RequestParam String nickUsuario, @RequestParam String contrasena) {
+
+        usuarioService.verificarContrasena(new SesionDTO(nickUsuario, contrasena));
+
         return UsuarioGetDTO.fromModel(usuarioService.obtenerUsuarioPorId(id));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<UsuarioGetDTO> actualizarUsuario(@Valid @PathVariable Integer id, @RequestBody UsuarioPutDTO usuarioPutDTO) {
-        // validar si existe una sesion
-        UsuarioGetDTO usuarioGetDTO = this.usuarioService.actualizarUsuario(usuarioPutDTO).toGetDTO();
-        return ResponseEntity.ok(usuarioGetDTO);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarUsuario(@Valid @PathVariable Integer id, @RequestBody SesionDTO dto) {
-        //comprobar si existe el usuario
-        if (this.usuarioService.eliminarUsuario(dto, id)) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
-    }
-
-    @PostMapping
-    public ResponseEntity<UsuarioGetDTO> crearUsuario(@Valid @RequestBody UsuarioPostDTO usuarioPostDTO) {
-        Logger.getLogger(UsuarioController.class.getName()).info("Recibido request para crear usuario: " + usuarioPostDTO.getNickUsuario());
-        UsuarioGetDTO usuarioGetDTO = this.usuarioService.crearUsuario(usuarioPostDTO).toGetDTO();
-
-        return ResponseEntity.created(null).body(usuarioGetDTO);
-    }
-
-    @PostMapping("/iniciar-sesion")
-    public ResponseEntity<UsuarioGetDTO> iniciarSesion(@RequestBody SesionDTO sesionDTO) {
-
-        UsuarioModel usuarioModel = this.usuarioService.obtenerUsuariosPorNickUsuario(sesionDTO.getNickUsuario());
-        if (usuarioModel == null) {
-            // Return 404 Not Found
-            return ResponseEntity.notFound().build();
-        }
-        if (!usuarioModel.getContrasena().equals(sesionDTO.getContrasena())) {
-            // Return 401 Unauthorized
-            return ResponseEntity.status(401).build();
-        }
-        return ResponseEntity.ok(usuarioModel.toGetDTO());
-    }
-
-    @GetMapping("/{id}/obtener-direcciones")
-    public ResponseEntity<List<DireccionDTO>> obtenerDirecciones(@PathVariable Integer id) {
-        List<DireccionDTO> dtos = this.usuarioService.obtenerDireccionesPorUsuarioId(id);
-        return ResponseEntity.ok(dtos);
-    }
-
     @GetMapping("/obtener-generos")
-    public ResponseEntity<List<GeneroDTO>> obtenerGeneros() {
+    public ResponseEntity<List<GeneroDTO>> obtenerGeneros(@RequestParam String nickUsuario, @RequestParam String contrasena) {
+
+        usuarioService.verificarContrasena(new SesionDTO(nickUsuario, contrasena));
+
         List<GeneroModel> generos = this.generoService.obtenerGeneros();
         List<GeneroDTO> generosDTO = new ArrayList<>();
-
         for (GeneroModel generoModel: generos) {
             generosDTO.add(GeneroDTO.fromModel(generoModel));
         }
@@ -122,12 +87,63 @@ public class UsuarioController {
     }
 
     @GetMapping("/obtener-puestos")
-    public ResponseEntity<List<PuestoTrabajoDTO>> obtenerPuestos() {
+    public ResponseEntity<List<PuestoTrabajoDTO>> obtenerPuestos(@RequestParam String nickUsuario, @RequestParam String contrasena) {
+
+        usuarioService.verificarContrasena(new SesionDTO(nickUsuario, contrasena));
+
         List<PuestoTrabajoModel> puestos = this.puestoTrabajoService.obtenerPuestosDeTrabajo();
         List<PuestoTrabajoDTO> puestosDTO = new ArrayList<>();
         for (PuestoTrabajoModel puestoTrabajoModel: puestos) {
             puestosDTO.add(PuestoTrabajoDTO.fromModel(puestoTrabajoModel));
         }
+
         return ResponseEntity.ok(puestosDTO);
+    }
+
+    @GetMapping("/{id}/obtener-direcciones")
+    public ResponseEntity<List<DireccionDTO>> obtenerDirecciones(@PathVariable Integer id, @RequestParam String nickUsuario, @RequestParam String contrasena) {
+
+        usuarioService.verificarContrasena(new SesionDTO(nickUsuario, contrasena));
+
+        List<DireccionDTO> dtos = this.usuarioService.obtenerDireccionesPorUsuarioId(id);
+
+        return ResponseEntity.ok(dtos);
+    }
+
+    @PostMapping
+    public ResponseEntity<UsuarioGetDTO> crearUsuario(@Valid @RequestBody UsuarioPostDTO usuarioPostDTO) {
+
+        UsuarioGetDTO usuarioGetDTO = this.usuarioService.crearUsuario(usuarioPostDTO).toGetDTO();
+
+        return ResponseEntity.created(null).body(usuarioGetDTO);
+    }
+
+    @PostMapping("/iniciar-sesion")
+    public ResponseEntity<UsuarioGetDTO> iniciarSesion(@RequestParam String nickUsuario, @RequestParam String contrasena) {
+
+        usuarioService.verificarContrasena(new SesionDTO(nickUsuario, contrasena));
+
+        UsuarioModel usuarioModel = this.usuarioService.obtenerUsuarioPorNickUsuario(nickUsuario);
+
+        return ResponseEntity.ok(usuarioModel.toGetDTO());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UsuarioGetDTO> actualizarUsuario(@Valid @PathVariable Integer id, @RequestBody UsuarioPutDTO usuarioPutDTO, @RequestParam String nickUsuario, @RequestParam String contrasena) {
+
+        usuarioService.verificarContrasena(new SesionDTO(nickUsuario, contrasena));
+
+        UsuarioGetDTO usuarioGetDTO = this.usuarioService.actualizarUsuario(usuarioPutDTO).toGetDTO();
+
+        return ResponseEntity.ok(usuarioGetDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarUsuario(@Valid @PathVariable Integer id, @RequestParam String nickUsuario, @RequestParam String contrasena) {
+
+        usuarioService.verificarContrasena(new SesionDTO(nickUsuario, contrasena));
+        this.usuarioService.eliminarUsuario(id);
+
+        return ResponseEntity.noContent().build();
     }
 }

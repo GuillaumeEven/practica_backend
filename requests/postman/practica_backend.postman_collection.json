@@ -312,6 +312,10 @@
             "api",
             "v1",
             "usuarios"
+          ],
+          "query": [
+            {"key": "nickUsuario", "value": "Usuario1"},
+            {"key": "contrasena", "value": "contrasena123"}
           ]
         }
       },
@@ -334,6 +338,10 @@
             "v1",
             "usuarios",
             "2"
+          ],
+          "query": [
+            {"key": "nickUsuario", "value": "Usuario1"},
+            {"key": "contrasena", "value": "contrasena123"}
           ]
         }
       },
@@ -356,6 +364,10 @@
             "v1",
             "usuarios",
             "obtener-puestos"
+          ],
+          "query": [
+            {"key": "nickUsuario", "value": "Usuario1"},
+            {"key": "contrasena", "value": "contrasena123"}
           ]
         }
       },
@@ -378,6 +390,10 @@
             "v1",
             "usuarios",
             "obtener-generos"
+          ],
+          "query": [
+            {"key": "nickUsuario", "value": "Usuario1"},
+            {"key": "contrasena", "value": "contrasena123"}
           ]
         }
       },
@@ -401,6 +417,10 @@
             "usuarios",
             "2",
             "obtener-direcciones"
+          ],
+          "query": [
+            {"key": "nickUsuario", "value": "Usuario1"},
+            {"key": "contrasena", "value": "contrasena123"}
           ]
         }
       },

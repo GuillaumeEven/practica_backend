@@ -1,18 +1,18 @@
-name: Post usuario
-method: POST
-url: http://localhost:8080/api/v1/usuarios
+name: Put usuario existing nick
+method: PUT
+url: http://localhost:8080/api/v1/usuarios/1
 body:
   content: |-
     {
-      "nick_usuario": "kdoe42",
+      "id": 25,
+      "nick_usuario": "Usuario1",
       "contrasena": "S3cur3Pass!",
-      "nombre": "John",
+      "nombre": "Johnny",
       "primer_apellido": "Doe",
       "segundo_apellido": "Smith",
       "fecha_nacimiento": "1995-07-20",
       "hora_desayuno": "07:30:00",
       "genero_id": 1,
-      "es_admin": false,
       "puesto_trabajo_id": 2,
       "direccion_ids": [1,2]
     }
@@ -20,3 +20,8 @@ body:
 headers:
 - name: content-type
   value: application/json
+params:
+- name: nickUsuario
+  value: Usuario1
+- name: contrasena
+  value: contrasena123

@@ -4,10 +4,10 @@ url: http://localhost:8080/api/v1/usuarios/1
 body:
   content: |-
     {
-      "id": 15,
-      "nick_usuario": "jdoe3",
+      "id": 26,
+      "nick_usuario": "jdoe42",
       "contrasena": "S3cur3Pass!",
-      "nombre": "John",
+      "nombre": "Johnny",
       "primer_apellido": "Doe",
       "segundo_apellido": "Smith",
       "fecha_nacimiento": "1995-07-20",
@@ -20,3 +20,8 @@ body:
 headers:
 - name: content-type
   value: application/json
+params:
+- name: nickUsuario
+  value: Usuario1
+- name: contrasena
+  value: contrasena123

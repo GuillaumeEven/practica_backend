@@ -1,7 +1,7 @@
-name: Get usuarios
+name: Get usuarios wrong pass
 url: http://localhost:8080/api/v1/usuarios
 params:
 - name: nickUsuario
   value: Usuario1
 - name: contrasena
-  value: contrasena123
+  value: contrasena1234

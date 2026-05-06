@@ -13,7 +13,7 @@ public interface IUsuarioService {
 
     public UsuarioModel obtenerUsuarioPorId(Integer id);
 
-    public UsuarioModel obtenerUsuariosPorNickUsuario(String nickUsuario);
+    public UsuarioModel obtenerUsuarioPorNickUsuario(String nickUsuario);
 
     public UsuarioModel crearUsuario(UsuarioPostDTO usuarioPostDTO);
 
@@ -23,7 +23,9 @@ public interface IUsuarioService {
 
     public UsuarioModel iniciarSesion(SesionDTO sesionDTO);
 
-    public boolean eliminarUsuario(SesionDTO dto, Integer id);
+    public void eliminarUsuario(Integer id);
 
     public List<DireccionDTO> obtenerDireccionesPorUsuarioId(Integer id);
+
+    public Boolean verificarContrasena(SesionDTO sesionDTO);
 }

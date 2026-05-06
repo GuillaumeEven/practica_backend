@@ -14,7 +14,9 @@ import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPostDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPutDTO;
 import es.ediae.master.programacion.gestionusuario.entity.DireccionEntity;
 import es.ediae.master.programacion.gestionusuario.entity.UsuarioEntity;
+import es.ediae.master.programacion.gestionusuario.exception.GeneralException;
 import es.ediae.master.programacion.gestionusuario.exception.UsuarioNoValidoException;
+import es.ediae.master.programacion.gestionusuario.exception.WrongPasswordException;
 import es.ediae.master.programacion.gestionusuario.repository.IUsuarioRepository;
 import es.ediae.master.programacion.gestionusuario.service.DireccionModel;
 import es.ediae.master.programacion.gestionusuario.service.IUsuarioService;
@@ -60,7 +62,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
         //         .orElse(null);
     }
 
-    public UsuarioModel obtenerUsuariosPorNickUsuario(String nickUsuario) {
+    public UsuarioModel obtenerUsuarioPorNickUsuario(String nickUsuario) {
         UsuarioEntity entity = usuarioRepository.findByNickUsuario(nickUsuario);
         return entity != null ? UsuarioModel.fromEntity(entity) : null;
     }
@@ -105,8 +107,11 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     public UsuarioModel actualizarUsuario(UsuarioPutDTO usuarioPutDTO) {
         UsuarioEntity entity = usuarioRepository.findById(usuarioPutDTO.getId()).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-
-        if (usuarioPutDTO.getNickUsuario().equalsIgnoreCase(entity.getNickUsuario())) {
+        UsuarioEntity existingByNick = usuarioRepository.findByNickUsuario(usuarioPutDTO.getNickUsuario());
+        if (
+            existingByNick != null &&
+            !usuarioPutDTO.getId().equals(existingByNick.getId())
+        ) {
             throw new UsuarioNoValidoException("El nick de usuario ya existe");
         }
 
@@ -147,20 +152,19 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public boolean eliminarUsuario(SesionDTO dto, Integer id) {
+    public void eliminarUsuario(Integer id) {
         UsuarioEntity entity = this.usuarioRepository.findById(id).orElse(null);
-        if (entity != null && entity.getContrasena().equals(dto.getContrasena())) {
+        if (entity != null) {
             this.usuarioRepository.deleteById(id);
-            return true;
         } else {
-            return false;
+            throw new GeneralException(404, "Usuario no encontrado");
         }
     }
 
     @Override
     public UsuarioModel iniciarSesion(SesionDTO sesionDTO) {
         // crear Usuario model
-        UsuarioModel model = obtenerUsuariosPorNickUsuario(sesionDTO.getNickUsuario());
+        UsuarioModel model = obtenerUsuarioPorNickUsuario(sesionDTO.getNickUsuario());
         if (model == null) {
             return null;
         }
@@ -176,5 +180,18 @@ public class UsuarioServiceImpl implements IUsuarioService {
             direccionDTOS.add(dto);
         }
         return direccionDTOS;
+    }
+
+    @Override
+    public Boolean verificarContrasena(SesionDTO sesionDTO) {
+        UsuarioModel model = obtenerUsuarioPorNickUsuario(sesionDTO.getNickUsuario());
+        if (model == null) {
+            throw new GeneralException(404, "Usuario no encontrado");
+        }
+        if (model.getContrasena().equals(sesionDTO.getContrasena())) {
+            return true;
+        } else {
+            throw new WrongPasswordException();
+        }
     }
 }
