@@ -1,6 +1,6 @@
 name: Delete usuario
 method: DELETE
-url: http://localhost:8080/api/v1/usuarios/26
+url: http://localhost:8080/api/v1/usuarios/28
 params:
 - name: nickUsuario
   value: Usuario1

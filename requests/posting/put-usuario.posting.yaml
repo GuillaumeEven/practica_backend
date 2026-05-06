@@ -1,18 +1,18 @@
 name: Put usuario
 method: PUT
-url: http://localhost:8080/api/v1/usuarios/1
+url: http://localhost:8080/api/v1/usuarios/25
 body:
   content: |-
     {
-      "id": 26,
-      "nick_usuario": "jdoe42",
-      "contrasena": "S3cur3Pass!",
+      "nick_usuario": "Johnny",
+      "contrasena": "S3cur",
       "nombre": "Johnny",
       "primer_apellido": "Doe",
       "segundo_apellido": "Smith",
       "fecha_nacimiento": "1995-07-20",
       "hora_desayuno": "07:30:00",
       "genero_id": 1,
+      "es_admin": true,
       "puesto_trabajo_id": 2,
       "direccion_ids": [1,2]
     }

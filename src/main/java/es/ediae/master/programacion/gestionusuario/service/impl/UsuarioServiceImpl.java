@@ -1,14 +1,11 @@
 package es.ediae.master.programacion.gestionusuario.service.impl;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import es.ediae.master.programacion.gestionusuario.dtos.DireccionDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.SesionDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPostDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPutDTO;
@@ -19,7 +16,9 @@ import es.ediae.master.programacion.gestionusuario.exception.UsuarioNoValidoExce
 import es.ediae.master.programacion.gestionusuario.exception.WrongPasswordException;
 import es.ediae.master.programacion.gestionusuario.repository.IUsuarioRepository;
 import es.ediae.master.programacion.gestionusuario.service.DireccionModel;
+import es.ediae.master.programacion.gestionusuario.service.GeneroModel;
 import es.ediae.master.programacion.gestionusuario.service.IUsuarioService;
+import es.ediae.master.programacion.gestionusuario.service.PuestoTrabajoModel;
 import es.ediae.master.programacion.gestionusuario.service.UsuarioModel;
 
 @Service
@@ -73,7 +72,6 @@ public class UsuarioServiceImpl implements IUsuarioService {
         usuarioPostDTO.getNickUsuario().equalsIgnoreCase(usuarioRepository.findByNickUsuario(usuarioPostDTO.getNickUsuario()).getNickUsuario())) {
             throw new UsuarioNoValidoException("El nick de usuario ya existe");
         }
-        Logger.getLogger(UsuarioServiceImpl.class.getName()).info("Creando usuario con direcciones: " + usuarioPostDTO.getDireccionIds());
 
         List<DireccionModel> direcciones = new ArrayList<>();
         if (usuarioPostDTO.getDireccionIds() != null && !usuarioPostDTO.getDireccionIds().isEmpty()) {
@@ -84,66 +82,53 @@ public class UsuarioServiceImpl implements IUsuarioService {
         } else {
             throw new UsuarioNoValidoException("El usuario debe tener al menos una dirección");
         }
+        GeneroModel genero = generoService.obtenerGeneroPorId(usuarioPostDTO.getGeneroId());
+        PuestoTrabajoModel puestoTrabajo = puestoDeTrabajoService.obtenerPuestoDeTrabajoPorId(usuarioPostDTO.getPuestoTrabajoId());
 
-        UsuarioModel usuarioModel = new UsuarioModel(
-            null,
-            usuarioPostDTO.getNickUsuario(),
-            usuarioPostDTO.getContrasena(),
-            LocalDateTime.now(),
-            usuarioPostDTO.getGeneroId() != null ? generoService.obtenerGeneroPorId(usuarioPostDTO.getGeneroId()) : null,
-            usuarioPostDTO.getNombre(),
-            usuarioPostDTO.getPrimerApellido(),
-            usuarioPostDTO.getSegundoApellido(),
-            usuarioPostDTO.getFechaNacimiento(),
-            usuarioPostDTO.getHoraDesayuno(),
-            usuarioPostDTO.isEsAdmin(),
-            usuarioPostDTO.getPuestoTrabajoId() != null ? puestoDeTrabajoService.obtenerPuestoDeTrabajoPorId(usuarioPostDTO.getPuestoTrabajoId()) : null,
-            direcciones
-        );
-        UsuarioEntity savedEntity = this.usuarioRepository.save(UsuarioModel.toNewEntity(usuarioModel));
+        UsuarioModel model = UsuarioModel.fromPostDTO(usuarioPostDTO);
+        model.setGenero(genero);
+        model.setPuestoTrabajo(puestoTrabajo);
+        model.setDirecciones(direcciones);
+
+        UsuarioEntity savedEntity = this.usuarioRepository.save(UsuarioModel.toNewEntity(model));
         return UsuarioModel.fromEntity(savedEntity);
     }
 
     @Override
-    public UsuarioModel actualizarUsuario(UsuarioPutDTO usuarioPutDTO) {
-        UsuarioEntity entity = usuarioRepository.findById(usuarioPutDTO.getId()).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        UsuarioEntity existingByNick = usuarioRepository.findByNickUsuario(usuarioPutDTO.getNickUsuario());
+    public UsuarioModel actualizarUsuario(Integer id, UsuarioPostDTO requestDto) {
+        UsuarioEntity entity = usuarioRepository.findById(id).orElseThrow(() -> new GeneralException(404, "Usuario no encontrado"));
+        UsuarioEntity existingByNick = usuarioRepository.findByNickUsuario(requestDto.getNickUsuario());
+
         if (
             existingByNick != null &&
-            !usuarioPutDTO.getId().equals(existingByNick.getId())
+            !id.equals(existingByNick.getId())
         ) {
             throw new UsuarioNoValidoException("El nick de usuario ya existe");
         }
 
-            entity.setNickUsuario(usuarioPutDTO.getNickUsuario());
-            entity.setContrasena(usuarioPutDTO.getContrasena());
-            entity.setNombre(usuarioPutDTO.getNombre());
-            entity.setPrimerApellido(usuarioPutDTO.getPrimerApellido());
-            entity.setSegundoApellido(usuarioPutDTO.getSegundoApellido());
-            entity.setFechaNacimiento(usuarioPutDTO.getFechaNacimiento());
-            entity.setHoraDesayuno(usuarioPutDTO.getHoraDesayuno());
-            entity.setGenero(usuarioPutDTO.getGeneroId() != null ? generoService.obtenerGeneroPorId(usuarioPutDTO.getGeneroId()).toEntity() : null);
-            entity.setPuestoTrabajo(usuarioPutDTO.getPuestoTrabajoId() != null ? puestoDeTrabajoService.obtenerPuestoDeTrabajoPorId(usuarioPutDTO.getPuestoTrabajoId()).toEntity() : null);
-
-            // Direcciones : récupérer les entités et s'assurer de setUsuario(...)
-            List<DireccionEntity> direcciones = new ArrayList<>();
-            if (usuarioPutDTO.getDireccionIds() != null) {
-                for (Integer dirId : usuarioPutDTO.getDireccionIds()) {
-                    DireccionModel dirModel = direccionService.obtenerDireccionPorId(dirId).toModel();
-                    DireccionEntity dirEntity = DireccionModel.toEntity(dirModel);
-                    if (dirEntity != null) {
-                        dirEntity.setUsuario(entity); // Associer la dirección à l'utilisateur
-                        direcciones.add(dirEntity);
-                    }
-                }
-                entity.setDirecciones(direcciones);
-            } else {
-                throw new UsuarioNoValidoException("El usuario debe tener al menos una dirección");
+        List<DireccionModel> direcciones  = new ArrayList<>();
+        if (requestDto.getDireccionIds() != null && !requestDto.getDireccionIds().isEmpty()) {
+            for (Integer dirId : requestDto.getDireccionIds()) {
+                DireccionModel dirModel = direccionService.obtenerDireccionPorId(dirId).toModel();
+                direcciones.add(dirModel);
             }
+        } else {
+            throw new UsuarioNoValidoException("El usuario debe tener al menos una dirección");
+        }
+        GeneroModel genero = generoService.obtenerGeneroPorId(requestDto.getGeneroId());
+        PuestoTrabajoModel puestoTrabajo = puestoDeTrabajoService.obtenerPuestoDeTrabajoPorId(requestDto.getPuestoTrabajoId());
 
+        UsuarioModel model = UsuarioModel.fromPostDTO(requestDto);
 
-            UsuarioEntity saved = usuarioRepository.save(entity);
-            return UsuarioModel.fromEntity(saved);
+        model.setGenero(genero);
+        model.setPuestoTrabajo(puestoTrabajo);
+        model.setDirecciones(direcciones);
+
+        entity = UsuarioModel.toNewEntity(model);
+        entity.setId(id);
+
+        UsuarioEntity saved = usuarioRepository.save(entity);
+        return UsuarioModel.fromEntity(saved);
     }
 
     @Override
@@ -172,14 +157,10 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public List<DireccionDTO> obtenerDireccionesPorUsuarioId(Integer id) {
-        List<DireccionDTO> direccionDTOS= new ArrayList<>();
+    public List<DireccionModel> obtenerDireccionesPorUsuarioId(Integer id) {
         List<DireccionModel> direccionModels = obtenerUsuarioPorId(id).getDirecciones();
-        for (DireccionModel direccionModel : direccionModels) {
-            DireccionDTO dto = direccionModel.toDTO();
-            direccionDTOS.add(dto);
-        }
-        return direccionDTOS;
+
+        return direccionModels != null ? direccionModels : new ArrayList<>();
     }
 
     @Override

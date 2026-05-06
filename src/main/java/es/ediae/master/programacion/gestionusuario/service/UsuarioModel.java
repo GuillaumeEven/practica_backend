@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioGetDTO;
+import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPostDTO;
 import es.ediae.master.programacion.gestionusuario.entity.UsuarioEntity;
 
 public class UsuarioModel {
@@ -54,6 +55,33 @@ public class UsuarioModel {
         this.puestoDeTrabajo = puestoDeTrabajo;
         this.direcciones = direcciones;
     }
+
+    // constructor sin id ni horaCreacion para crear nuevos usuarios
+    // public UsuarioModel(
+    //         String nickUsuario,
+    //         String contrasena,
+    //         GeneroModel genero,
+    //         String nombre,
+    //         String primerApellido,
+    //         String segundoApellido,
+    //         LocalDate fechaNacimiento,
+    //         LocalTime horaDesayuno,
+    //         boolean esAdmin,
+    //         PuestoTrabajoModel puestoDeTrabajo,
+    //         List<DireccionModel> direcciones
+    //     ) {
+    //     this.nickUsuario = nickUsuario;
+    //     this.contrasena = contrasena;
+    //     this.genero = genero;
+    //     this.nombre = nombre;
+    //     this.primerApellido = primerApellido;
+    //     this.segundoApellido = segundoApellido;
+    //     this.fechaNacimiento = fechaNacimiento;
+    //     this.horaDesayuno = horaDesayuno;
+    //     this.esAdmin = esAdmin;
+    //     this.puestoDeTrabajo = puestoDeTrabajo;
+    //     this.direcciones = direcciones;
+    // }
 
     public GeneroModel getGenero() {
         return genero;
@@ -213,6 +241,24 @@ public class UsuarioModel {
             this.esAdmin,
             this.puestoDeTrabajo != null ? this.puestoDeTrabajo.toDTO() : null,
             this.direcciones != null ? this.direcciones.stream().map(DireccionModel::toDTO).toList() : null
+        );
+    }
+
+    public static UsuarioModel fromPostDTO(UsuarioPostDTO postDTO) {
+        return new UsuarioModel(
+            null,
+            postDTO.getNickUsuario(),
+            postDTO.getContrasena(),
+            LocalDateTime.now(),
+            null,
+            postDTO.getNombre(),
+            postDTO.getPrimerApellido(),
+            postDTO.getSegundoApellido(),
+            postDTO.getFechaNacimiento(),
+            postDTO.getHoraDesayuno(),
+            postDTO.isEsAdmin(),
+            null,
+            null
         );
     }
 }

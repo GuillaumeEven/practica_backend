@@ -21,7 +21,7 @@ import es.ediae.master.programacion.gestionusuario.dtos.PuestoTrabajoDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.SesionDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioGetDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPostDTO;
-import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPutDTO;
+import es.ediae.master.programacion.gestionusuario.service.DireccionModel;
 import es.ediae.master.programacion.gestionusuario.service.GeneroModel;
 import es.ediae.master.programacion.gestionusuario.service.PuestoTrabajoModel;
 import es.ediae.master.programacion.gestionusuario.service.UsuarioModel;
@@ -105,7 +105,11 @@ public class UsuarioController {
 
         usuarioService.verificarContrasena(new SesionDTO(nickUsuario, contrasena));
 
-        List<DireccionDTO> dtos = this.usuarioService.obtenerDireccionesPorUsuarioId(id);
+        List<DireccionModel> direccionModels = this.usuarioService.obtenerDireccionesPorUsuarioId(id);
+        List<DireccionDTO> dtos = new ArrayList<>();
+        for (DireccionModel direccionModel : direccionModels) {
+            dtos.add(DireccionDTO.fromModel(direccionModel));
+        }
 
         return ResponseEntity.ok(dtos);
     }
@@ -129,11 +133,11 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UsuarioGetDTO> actualizarUsuario(@Valid @PathVariable Integer id, @RequestBody UsuarioPutDTO usuarioPutDTO, @RequestParam String nickUsuario, @RequestParam String contrasena) {
+    public ResponseEntity<UsuarioGetDTO> actualizarUsuario(@Valid @PathVariable Integer id, @RequestBody UsuarioPostDTO requestDto, @RequestParam String nickUsuario, @RequestParam String contrasena) {
 
         usuarioService.verificarContrasena(new SesionDTO(nickUsuario, contrasena));
 
-        UsuarioGetDTO usuarioGetDTO = this.usuarioService.actualizarUsuario(usuarioPutDTO).toGetDTO();
+        UsuarioGetDTO usuarioGetDTO = this.usuarioService.actualizarUsuario(id, requestDto).toGetDTO();
 
         return ResponseEntity.ok(usuarioGetDTO);
     }
