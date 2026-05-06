@@ -44,7 +44,7 @@ public class UsuarioPostDTO {
         LocalTime horaDesayuno,
         Boolean esAdmin,
         Integer puestoTrabajoId,
-        java.util.List<Integer> direccionIds) {
+        List<Integer> direccionIds) {
         this.contrasena = contrasena;
         this.fechaHoraCreacion = fechaHoraCreacion;
         this.fechaNacimiento = fechaNacimiento;

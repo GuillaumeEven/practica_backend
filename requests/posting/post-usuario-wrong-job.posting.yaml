@@ -14,7 +14,7 @@ body:
       "genero_id": 1,
       "es_admin":false,
       "puesto_trabajo_id": 8,
-      "direcciones_ids": [1,2]
+      "direccion_ids": [1,2]
     }
   content_type: application/json
 headers:

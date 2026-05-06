@@ -1,4 +1,4 @@
-name: Post usuario
+name: Post usuario with existing name
 method: POST
 url: http://localhost:8080/api/v1/usuarios
 body:

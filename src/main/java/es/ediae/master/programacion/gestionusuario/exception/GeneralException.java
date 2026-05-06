@@ -1,6 +1,6 @@
 package es.ediae.master.programacion.gestionusuario.exception;
 
-public class GeneralException extends Exception {
+public class GeneralException extends RuntimeException {
 
     public GeneralException(int codigoDeError, String mensajeDeError) {
         super(mensajeDeError);

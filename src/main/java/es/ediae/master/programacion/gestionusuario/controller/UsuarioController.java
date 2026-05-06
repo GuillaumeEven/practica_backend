@@ -2,6 +2,7 @@ package es.ediae.master.programacion.gestionusuario.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -81,7 +82,9 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<UsuarioGetDTO> crearUsuario(@Valid @RequestBody UsuarioPostDTO usuarioPostDTO) {
+        Logger.getLogger(UsuarioController.class.getName()).info("Recibido request para crear usuario: " + usuarioPostDTO.getNickUsuario());
         UsuarioGetDTO usuarioGetDTO = this.usuarioService.crearUsuario(usuarioPostDTO).toGetDTO();
+
         return ResponseEntity.created(null).body(usuarioGetDTO);
     }
 

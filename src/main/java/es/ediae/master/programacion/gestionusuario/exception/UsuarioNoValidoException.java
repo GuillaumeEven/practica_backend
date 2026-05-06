@@ -8,4 +8,8 @@ public class UsuarioNoValidoException extends GeneralException {
         super(GeneralConstant.USUARIO_NO_VALIDO_ERROR_CODE, GeneralConstant.USUARIO_NO_VALIDO_ERROR_MESSAGE);
     }
 
+    public UsuarioNoValidoException(String message) {
+        super(GeneralConstant.USUARIO_NO_VALIDO_ERROR_CODE, message);
+    }
+
 }

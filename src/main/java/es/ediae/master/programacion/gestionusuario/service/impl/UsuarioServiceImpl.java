@@ -3,6 +3,7 @@ package es.ediae.master.programacion.gestionusuario.service.impl;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPostDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPutDTO;
 import es.ediae.master.programacion.gestionusuario.entity.DireccionEntity;
 import es.ediae.master.programacion.gestionusuario.entity.UsuarioEntity;
+import es.ediae.master.programacion.gestionusuario.exception.UsuarioNoValidoException;
 import es.ediae.master.programacion.gestionusuario.repository.IUsuarioRepository;
 import es.ediae.master.programacion.gestionusuario.service.DireccionModel;
 import es.ediae.master.programacion.gestionusuario.service.IUsuarioService;
@@ -65,12 +67,20 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
     @Override
     public UsuarioModel crearUsuario(UsuarioPostDTO usuarioPostDTO) {
+        if (usuarioRepository.findByNickUsuario(usuarioPostDTO.getNickUsuario()) != null &&
+        usuarioPostDTO.getNickUsuario().equalsIgnoreCase(usuarioRepository.findByNickUsuario(usuarioPostDTO.getNickUsuario()).getNickUsuario())) {
+            throw new UsuarioNoValidoException("El nick de usuario ya existe");
+        }
+        Logger.getLogger(UsuarioServiceImpl.class.getName()).info("Creando usuario con direcciones: " + usuarioPostDTO.getDireccionIds());
+
         List<DireccionModel> direcciones = new ArrayList<>();
-        if (usuarioPostDTO.getDireccionIds() != null) {
+        if (usuarioPostDTO.getDireccionIds() != null && !usuarioPostDTO.getDireccionIds().isEmpty()) {
             for (Integer dirId : usuarioPostDTO.getDireccionIds()) {
                 DireccionModel dirModel = direccionService.obtenerDireccionPorId(dirId).toModel();
                 direcciones.add(dirModel);
             }
+        } else {
+            throw new UsuarioNoValidoException("El usuario debe tener al menos una dirección");
         }
 
         UsuarioModel usuarioModel = new UsuarioModel(
@@ -95,6 +105,11 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     public UsuarioModel actualizarUsuario(UsuarioPutDTO usuarioPutDTO) {
         UsuarioEntity entity = usuarioRepository.findById(usuarioPutDTO.getId()).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        if (usuarioPutDTO.getNickUsuario().equalsIgnoreCase(entity.getNickUsuario())) {
+            throw new UsuarioNoValidoException("El nick de usuario ya existe");
+        }
+
             entity.setNickUsuario(usuarioPutDTO.getNickUsuario());
             entity.setContrasena(usuarioPutDTO.getContrasena());
             entity.setNombre(usuarioPutDTO.getNombre());
@@ -116,8 +131,11 @@ public class UsuarioServiceImpl implements IUsuarioService {
                         direcciones.add(dirEntity);
                     }
                 }
+                entity.setDirecciones(direcciones);
+            } else {
+                throw new UsuarioNoValidoException("El usuario debe tener al menos una dirección");
             }
-            entity.setDirecciones(direcciones);
+
 
             UsuarioEntity saved = usuarioRepository.save(entity);
             return UsuarioModel.fromEntity(saved);
