@@ -1,11 +1,290 @@
 {
   "info": {
-    "_postman_id": "7a3dbf7d-2d38-41b3-88b6-a47cf3f242eb",
-    "name": "practica_backend - posting (import)",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "52915145"
+    "_postman_id": "regenerated-by-script",
+    "name": "practica_backend - posting (import) [regenerated]",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
+    {
+      "name": "Delete direccion",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://localhost:8080/api/v1/direcciones/7"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete usuario",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://localhost:8080/api/v1/usuarios/26",
+          "query": [
+            {
+              "key": "nickUsuario",
+              "value": "Usuario1"
+            },
+            {
+              "key": "contrasena",
+              "value": "contrasena123"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get direccion por id",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8080/api/v1/direcciones/1"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get direcciones por usuario id",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8080/api/v1/usuarios/2/obtener-direcciones",
+          "query": [
+            {
+              "key": "nickUsuario",
+              "value": "Usuario1"
+            },
+            {
+              "key": "contrasena",
+              "value": "contrasena123"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get generos",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8080/api/v1/usuarios/obtener-generos",
+          "query": [
+            {
+              "key": "nickUsuario",
+              "value": "Usuario1"
+            },
+            {
+              "key": "contrasena",
+              "value": "contrasena123"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get puestos de trabajo",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8080/api/v1/usuarios/obtener-puestos",
+          "query": [
+            {
+              "key": "nickUsuario",
+              "value": "Usuario1"
+            },
+            {
+              "key": "contrasena",
+              "value": "contrasena123"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get unico usuario wrong nick",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8080/api/v1/usuarios/2",
+          "query": [
+            {
+              "key": "nickUsuario",
+              "value": "Usuario1"
+            },
+            {
+              "key": "contrasena",
+              "value": "contrasena123"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get unico usuario",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8080/api/v1/usuarios/2",
+          "query": [
+            {
+              "key": "nickUsuario",
+              "value": "Usuario1"
+            },
+            {
+              "key": "contrasena",
+              "value": "contrasena123"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get usuarios wrong pass",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8080/api/v1/usuarios",
+          "query": [
+            {
+              "key": "nickUsuario",
+              "value": "Usuario1"
+            },
+            {
+              "key": "contrasena",
+              "value": "contrasena1234"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get usuarios",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8080/api/v1/usuarios",
+          "query": [
+            {
+              "key": "nickUsuario",
+              "value": "Usuario1"
+            },
+            {
+              "key": "contrasena",
+              "value": "contrasena123"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Iniciar sesion wrong pass",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "http://localhost:8080/api/v1/usuarios/iniciar-sesion",
+          "query": [
+            {
+              "key": "nickUsuario",
+              "value": "Usuario1"
+            },
+            {
+              "key": "contrasena",
+              "value": "contrasena1234"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Iniciar sesion wrong user",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "http://localhost:8080/api/v1/usuarios/iniciar-sesion",
+          "query": [
+            {
+              "key": "nickUsuario",
+              "value": "Usuario64"
+            },
+            {
+              "key": "contrasena",
+              "value": "contrasena123"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Iniciar sesion",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "http://localhost:8080/api/v1/usuarios/iniciar-sesion",
+          "query": [
+            {
+              "key": "nickUsuario",
+              "value": "Usuario1"
+            },
+            {
+              "key": "contrasena",
+              "value": "contrasena123"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Post direccion",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "http://localhost:8080/api/v1/direcciones"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Post usuario empty name",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "http://localhost:8080/api/v1/usuarios"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Post usuario with existing name",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "http://localhost:8080/api/v1/usuarios"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Post usuario wrong job",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "http://localhost:8080/api/v1/usuarios"
+        }
+      },
+      "response": []
+    },
     {
       "name": "Post usuario",
       "request": {
@@ -18,7 +297,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"nick_usuario\": \"jdoe42\",\n  \"contrasena\": \"S3cur3Pass!\",\n  \"nombre\": \"John\",\n  \"primer_apellido\": \"Doe\",\n  \"segundo_apellido\": \"Smith\",\n  \"fecha_nacimiento\": \"1995-07-20\",\n  \"hora_desayuno\": \"07:30:00\",\n  \"genero_id\": 1,\n  \"puesto_trabajo_id\": 2,\n  \"es_admin\": false,\n  \"direccion_ids\": [1,2]\n}",
+          "raw": "{\n  \"nick_usuario\": \"kdoe42\",\n  \"contrasena\": \"S3cur3Pass!\",\n  \"nombre\": \"John\",\n  \"primer_apellido\": \"Doe\",\n  \"segundo_apellido\": \"Smith\",\n  \"fecha_nacimiento\": \"1995-07-20\",\n  \"hora_desayuno\": \"07:30:00\",\n  \"genero_id\": 1,\n  \"es_admin\": false,\n  \"puesto_trabajo_id\": 2,\n  \"direccion_ids\": [1,2]\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -26,116 +305,36 @@
           }
         },
         "url": {
-          "raw": "http://localhost:8080/api/v1/usuarios",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "v1",
-            "usuarios"
-          ]
+          "raw": "http://localhost:8080/api/v1/usuarios"
         }
       },
       "response": []
     },
     {
-      "name": "Post usuario wrong job",
+      "name": "Put direccion",
       "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "content-type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"nick_usuario\": \"jdoe42\",\n  \"contrasena\": \"S3cur3Pass!\",\n  \"nombre\": \"John\",\n  \"primer_apellido\": \"Doe\",\n  \"segundo_apellido\": \"Smith\",\n  \"fecha_nacimiento\": \"1995-07-20\",\n  \"hora_desayuno\": \"07:30:00\",\n  \"es_admin\": false,\n  \"genero_id\": 1,\n  \"puesto_trabajo_id\": 8,\n  \"direccion_ids\": [1,2]\n}",
-          "options": {
-            "raw": {
-              "language": "json"
+        "method": "PUT",
+        "url": {
+          "raw": "http://localhost:8080/api/v1/direcciones/2"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Put usuario existing nick",
+      "request": {
+        "method": "PUT",
+        "url": {
+          "raw": "http://localhost:8080/api/v1/usuarios/1",
+          "query": [
+            {
+              "key": "nickUsuario",
+              "value": "Usuario1"
+            },
+            {
+              "key": "contrasena",
+              "value": "contrasena123"
             }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:8080/api/v1/usuarios",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "v1",
-            "usuarios"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Post usuario empty name",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "content-type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"nick_usuario\": \"\",\n  \"contrasena\": \"S3cur3Pass!\",\n  \"nombre\": \"John\",\n  \"primer_apellido\": \"Doe\",\n  \"segundo_apellido\": \"Smith\",\n  \"fecha_nacimiento\": \"1995-07-20\",\n  \"hora_desayuno\": \"07:30:00\",\n  \"genero_id\": 1,\n  \"es_admin\": false,\n  \"puesto_trabajo_id\": 2,\n  \"direccion_ids\": [1,2]\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:8080/api/v1/usuarios",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "v1",
-            "usuarios"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Post direccion",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "content-type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"nombre_calle\": \"Calle Falsa\",\n  \"numero_calle\": \"123\",\n  \"direccion_principal\": true,\n  \"usuario_id\": 2\n}"
-        },
-        "url": {
-          "raw": "http://localhost:8080/api/v1/direcciones",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "v1",
-            "direcciones"
           ]
         }
       },
@@ -145,371 +344,17 @@
       "name": "Put usuario",
       "request": {
         "method": "PUT",
-        "header": [
-          {
-            "key": "content-type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"id\": 15,\n  \"nick_usuario\": \"jdoe43\",\n  \"contrasena\": \"S3cur3Pass!\",\n  \"nombre\": \"John\",\n  \"primer_apellido\": \"Doe\",\n  \"segundo_apellido\": \"Smith\",\n  \"fecha_nacimiento\": \"1995-07-20\",\n  \"hora_desayuno\": \"07:30:00\",\n  \"genero_id\": 1,\n  \"puesto_trabajo_id\": 2,\n  \"direccion_ids\": [1,2]\n}"
-        },
         "url": {
           "raw": "http://localhost:8080/api/v1/usuarios/1",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "v1",
-            "usuarios",
-            "1"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Put direccion",
-      "request": {
-        "method": "PUT",
-        "header": [
-          {
-            "key": "content-type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"nombre_calle\": \"Calle Falsa de verdad\",\n  \"numero_calle\": \"123\",\n  \"direccion_principal\": true,\n  \"usuario_id\": 2\n}"
-        },
-        "url": {
-          "raw": "http://localhost:8080/api/v1/direcciones/2",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "v1",
-            "direcciones",
-            "2"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Iniciar sesion",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "content-type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"nickUsuario\": \"Usuario1\",\n  \"contrasena\": \"contrasena123\"\n}"
-        },
-        "url": {
-          "raw": "http://localhost:8080/api/v1/usuarios/iniciar-sesion",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "v1",
-            "usuarios",
-            "iniciar-sesion"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Iniciar sesion wrong pass",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "content-type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"nickUsuario\": \"Usuario1\",\n  \"contrasena\": \"trasena123\"\n}"
-        },
-        "url": {
-          "raw": "http://localhost:8080/api/v1/usuarios/iniciar-sesion",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "v1",
-            "usuarios",
-            "iniciar-sesion"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Iniciar sesion wrong user",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "content-type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"nickUsuario\": \"Usuario128\",\n  \"contrasena\": \"contrasena123\"\n}"
-        },
-        "url": {
-          "raw": "http://localhost:8080/api/v1/usuarios/iniciar-sesion",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "v1",
-            "usuarios",
-            "iniciar-sesion"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Get usuarios",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/api/v1/usuarios",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "v1",
-            "usuarios"
-          ],
           "query": [
-            {"key": "nickUsuario", "value": "Usuario1"},
-            {"key": "contrasena", "value": "contrasena123"}
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Get unico usuario",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/api/v1/usuarios/2",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "v1",
-            "usuarios",
-            "2"
-          ],
-          "query": [
-            {"key": "nickUsuario", "value": "Usuario1"},
-            {"key": "contrasena", "value": "contrasena123"}
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Get puestos de trabajo",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/api/v1/usuarios/obtener-puestos",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "v1",
-            "usuarios",
-            "obtener-puestos"
-          ],
-          "query": [
-            {"key": "nickUsuario", "value": "Usuario1"},
-            {"key": "contrasena", "value": "contrasena123"}
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Get generos",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/api/v1/usuarios/obtener-generos",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "v1",
-            "usuarios",
-            "obtener-generos"
-          ],
-          "query": [
-            {"key": "nickUsuario", "value": "Usuario1"},
-            {"key": "contrasena", "value": "contrasena123"}
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Get direcciones por usuario id",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/api/v1/usuarios/2/obtener-direcciones",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "v1",
-            "usuarios",
-            "2",
-            "obtener-direcciones"
-          ],
-          "query": [
-            {"key": "nickUsuario", "value": "Usuario1"},
-            {"key": "contrasena", "value": "contrasena123"}
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "get direccion por id",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/api/v1/direcciones/1",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "v1",
-            "direcciones",
-            "1"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Delete usuario",
-      "request": {
-        "method": "DELETE",
-        "header": [
-          {
-            "key": "content-type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n    \"nick_usuario\": \"jdoe42\",\n    \"contrasena\": \"S3cur3Pass!\"\n}",
-          "options": {
-            "raw": {
-              "language": "json"
+            {
+              "key": "nickUsuario",
+              "value": "Usuario1"
+            },
+            {
+              "key": "contrasena",
+              "value": "contrasena123"
             }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:8080/api/v1/usuarios/20",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "v1",
-            "usuarios",
-            "20"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Delete direccion",
-      "request": {
-        "method": "DELETE",
-        "header": [
-          {
-            "key": "content-type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": ""
-        },
-        "url": {
-          "raw": "http://localhost:8080/api/v1/direcciones/7",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "v1",
-            "direcciones",
-            "7"
           ]
         }
       },

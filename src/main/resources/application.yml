@@ -30,6 +30,7 @@ spring:
     # baseline-on-migrate: true
     baseline-on-migrate: false
 springdoc:
+  api-docs:
+    path: /api/v1/api-docs
   swagger-ui:
-    path: /misproductos.html
-    operationsSorter: method
+    path: /api/v1/swagger-ui.html

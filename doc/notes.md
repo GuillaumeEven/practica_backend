@@ -189,5 +189,7 @@ estar en el controlador de usuario, pero debe tener su propio servicio).
   - [ ] harmonisar las respuestas en responseEntity
   - [ ] quedan snake case en las entities
 - [ ] usuarioController.actualizar(): es posible cambiar por un PostUsuarioDTO ?
+- [ ] no se hacen los toDtos, fromModel... dentro de los servicios.
+- [ ] usar sqlite para los tests
 
 Front repo: https://github.com/Kalebros/practica_frontend
