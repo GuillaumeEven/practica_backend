@@ -1,5 +1,7 @@
 package es.ediae.master.programacion.gestionusuario.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -24,6 +26,16 @@ public class DireccionServiceImpl implements IDireccionService {
 
     @Autowired
     public IUsuarioRepository usuarioRepository;
+
+    @Override
+    public List<DireccionModel> obtenerAllDirecciones() {
+        List<DireccionEntity> entities = this.direccionRepository.findAll();
+        List<DireccionModel> models = new ArrayList<>();
+        for (DireccionEntity entity : entities) {
+            models.add(DireccionModel.fromEntity(entity));
+        }
+        return models;
+    }
 
     @Override
     public DireccionDTO obtenerDireccionPorId(Integer id) {

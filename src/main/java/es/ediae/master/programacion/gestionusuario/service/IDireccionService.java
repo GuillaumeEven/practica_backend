@@ -1,9 +1,13 @@
 package es.ediae.master.programacion.gestionusuario.service;
 
+import java.util.List;
+
 import es.ediae.master.programacion.gestionusuario.dtos.DireccionDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.DireccionPostDTO;
 
 public interface IDireccionService {
+
+    public List<DireccionModel> obtenerAllDirecciones();
 
     public DireccionDTO obtenerDireccionPorId(Integer id);
 
