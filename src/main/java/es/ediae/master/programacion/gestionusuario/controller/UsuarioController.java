@@ -126,11 +126,11 @@ public class UsuarioController {
     }
 
     @PostMapping("/iniciar-sesion")
-    public ResponseEntity<UsuarioGetDTO> iniciarSesion(@RequestParam String nickUsuario, @RequestParam String contrasena) {
+    public ResponseEntity<UsuarioGetDTO> iniciarSesion(@Valid @RequestBody SesionDTO sesionDTO) {
 
-        usuarioService.verificarContrasena(new SesionDTO(nickUsuario, contrasena));
+        usuarioService.verificarContrasena(sesionDTO);
 
-        UsuarioModel usuarioModel = this.usuarioService.obtenerUsuarioPorNickUsuario(nickUsuario);
+        UsuarioModel usuarioModel = this.usuarioService.obtenerUsuarioPorNickUsuario(sesionDTO.getNickUsuario());
 
         return ResponseEntity.ok(usuarioModel.toGetDTO());
     }
