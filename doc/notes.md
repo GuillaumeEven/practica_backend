@@ -191,5 +191,6 @@ estar en el controlador de usuario, pero debe tener su propio servicio).
 - [ ] usuarioController.actualizar(): es posible cambiar por un PostUsuarioDTO ?
 - [ ] no se hacen los toDtos, fromModel... dentro de los servicios.
 - [ ] usar sqlite para los tests
+= [ ] sacar la authenticacion del usuarioServicio por un authServicio
 
 Front repo: https://github.com/Kalebros/practica_frontend
