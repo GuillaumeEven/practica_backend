@@ -262,6 +262,4 @@ public class UsuarioModel {
             this.direcciones != null ? this.direcciones.stream().map(DireccionModel::toGetDTO).toList() : null
         );
     }
-
-
 }
