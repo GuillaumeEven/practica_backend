@@ -1,8 +1,0 @@
-name: Iniciar sesion wrong user
-method: POST
-url: http://localhost:8080/api/v1/usuarios/iniciar-sesion
-params:
-- name: nickUsuario
-  value: Usuario64
-- name: contrasena
-  value: contrasena123

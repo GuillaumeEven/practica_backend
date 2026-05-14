@@ -1,7 +1,0 @@
-name: Get generos
-url: http://localhost:8080/api/v1/usuarios/obtener-generos
-params:
-- name: nickUsuario
-  value: Usuario1
-- name: contrasena
-  value: contrasena123

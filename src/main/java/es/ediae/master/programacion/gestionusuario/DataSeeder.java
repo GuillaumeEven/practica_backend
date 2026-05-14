@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import es.ediae.master.programacion.gestionusuario.entity.DireccionEntity;
@@ -26,26 +27,31 @@ public class DataSeeder implements CommandLineRunner {
     private final IUsuarioRepository usuarioRepo;
     private final IGeneroRepository generoRepo;
     private final IPuestoTrabajoRepository puestoRepo;
+    private final JdbcTemplate jdbc;
 
     public DataSeeder(
         IDireccionRepository direccionRepo,
         IUsuarioRepository usuarioRepo,
         IGeneroRepository generoRepo,
-        IPuestoTrabajoRepository puestoRepo
+        IPuestoTrabajoRepository puestoRepo,
+        JdbcTemplate jdbc
     ) {
         this.direccionRepo = direccionRepo;
         this.usuarioRepo = usuarioRepo;
         this.generoRepo = generoRepo;
         this.puestoRepo = puestoRepo;
+        this.jdbc = jdbc;
     }
 
     @Override
     public void run(String... args) {
-        // -- Vider dans l'ordre FK (dependant d'abord)
-        direccionRepo.deleteAll();
-        usuarioRepo.deleteAll();
-        generoRepo.deleteAll();
-        puestoRepo.deleteAll();
+        // -- Vider + reset auto-increment (ordre FK : dependants d'abord)
+        jdbc.execute("SET FOREIGN_KEY_CHECKS = 0");
+        jdbc.execute("TRUNCATE TABLE direcciones");
+        jdbc.execute("TRUNCATE TABLE usuarios");
+        jdbc.execute("TRUNCATE TABLE generos");
+        jdbc.execute("TRUNCATE TABLE puestos_de_trabajo");
+        jdbc.execute("SET FOREIGN_KEY_CHECKS = 1");
 
         // -- Generos
         GeneroEntity masculino = generoRepo.save(new GeneroEntity(null, "Masculino"));

@@ -1,0 +1,465 @@
+{
+  "info": {
+    "_postman_id": "2a0be035-5d6e-42cb-9ddc-28ae6957eb00",
+    "name": "practica_backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52915145"
+  },
+  "item": [
+    {
+      "name": "Usuarios",
+      "item": [
+        {
+          "name": "GET todos los usuarios",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/usuarios?nickUsuario=alice&contrasena=pass1234",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "usuarios"
+              ],
+              "query": [
+                {
+                  "key": "nickUsuario",
+                  "value": "alice"
+                },
+                {
+                  "key": "contrasena",
+                  "value": "pass1234"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET usuario por id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/usuarios/2?nickUsuario=alice&contrasena=pass1234",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "usuarios",
+                "2"
+              ],
+              "query": [
+                {
+                  "key": "nickUsuario",
+                  "value": "alice"
+                },
+                {
+                  "key": "contrasena",
+                  "value": "pass1234"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST crear usuario",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nick_usuario\": \"dave\",\n  \"contrasena\": \"pass0000\",\n  \"nombre\": \"Dave\",\n  \"primer_apellido\": \"Lopez\",\n  \"segundo_apellido\": null,\n  \"fecha_nacimiento\": \"1990-01-01\",\n  \"hora_desayuno\": \"08:00:00\",\n  \"es_admin\": false,\n  \"genero_id\": 1,\n  \"puesto_trabajo_id\": 1,\n  \"direccion_ids\": [1]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/usuarios",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "usuarios"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT actualizar usuario",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nick_usuario\": \"bob\",\n  \"contrasena\": \"pass5678\",\n  \"nombre\": \"Mike\",\n  \"primer_apellido\": \"Martinez\",\n  \"segundo_apellido\": \"Sanchez\",\n  \"fecha_nacimiento\": \"1988-07-22\",\n  \"hora_desayuno\": \"07:30:00\",\n  \"es_admin\": false,\n  \"genero_id\": 1,\n  \"puesto_trabajo_id\": 2,\n  \"direccion_ids\": [3]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/usuarios/2?nickUsuario=alice&contrasena=pass1234",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "usuarios",
+                "2"
+              ],
+              "query": [
+                {
+                  "key": "nickUsuario",
+                  "value": "alice"
+                },
+                {
+                  "key": "contrasena",
+                  "value": "pass1234"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE usuario",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/usuarios/2?nickUsuario=alice&contrasena=pass1234",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "usuarios",
+                "2"
+              ],
+              "query": [
+                {
+                  "key": "nickUsuario",
+                  "value": "alice"
+                },
+                {
+                  "key": "contrasena",
+                  "value": "pass1234"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST iniciar sesion",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nick_usuario\": \"alice\",\n  \"contrasena\": \"pass1234\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/usuarios/iniciar-sesion",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "usuarios",
+                "iniciar-sesion"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET generos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/usuarios/obtener-generos?nickUsuario=alice&contrasena=pass1234",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "usuarios",
+                "obtener-generos"
+              ],
+              "query": [
+                {
+                  "key": "nickUsuario",
+                  "value": "alice"
+                },
+                {
+                  "key": "contrasena",
+                  "value": "pass1234"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET puestos de trabajo",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/usuarios/obtener-puestos?nickUsuario=alice&contrasena=pass1234",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "usuarios",
+                "obtener-puestos"
+              ],
+              "query": [
+                {
+                  "key": "nickUsuario",
+                  "value": "alice"
+                },
+                {
+                  "key": "contrasena",
+                  "value": "pass1234"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET direcciones por usuario id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/usuarios/1/obtener-direcciones?nickUsuario=alice&contrasena=pass1234",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "usuarios",
+                "1",
+                "obtener-direcciones"
+              ],
+              "query": [
+                {
+                  "key": "nickUsuario",
+                  "value": "alice"
+                },
+                {
+                  "key": "contrasena",
+                  "value": "pass1234"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Direcciones",
+      "item": [
+        {
+          "name": "GET todas las direcciones",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/direcciones",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "direcciones"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET direccion por id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/direcciones/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "direcciones",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST crear direccion",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre_calle\": \"Calle Nueva\",\n  \"numero_calle\": \"5\",\n  \"direccion_principal\": false,\n  \"usuario_id\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/direcciones",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "direcciones"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT actualizar direccion",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre_calle\": \"Calle Mayor Actualizada\",\n  \"numero_calle\": \"99\",\n  \"direccion_principal\": true,\n  \"usuario_id\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/direcciones/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "direcciones",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE direccion",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/direcciones/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "direcciones",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
