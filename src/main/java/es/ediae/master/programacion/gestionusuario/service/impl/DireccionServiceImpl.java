@@ -14,7 +14,7 @@ import es.ediae.master.programacion.gestionusuario.entity.DireccionEntity;
 import es.ediae.master.programacion.gestionusuario.entity.UsuarioEntity;
 import es.ediae.master.programacion.gestionusuario.repository.IDireccionRepository;
 import es.ediae.master.programacion.gestionusuario.repository.IUsuarioRepository;
-import es.ediae.master.programacion.gestionusuario.service.DireccionModel;
+import es.ediae.master.programacion.gestionusuario.model.DireccionModel;
 import es.ediae.master.programacion.gestionusuario.service.IDireccionService;
 
 @Service
@@ -41,14 +41,14 @@ public class DireccionServiceImpl implements IDireccionService {
     public DireccionDTO obtenerDireccionPorId(Integer id) {
         DireccionEntity entity = this.direccionRepository.findById(id).orElseThrow();
         DireccionModel model = DireccionModel.fromEntity(entity);
-        return DireccionDTO.fromModel(model);
+        return model.toGetDTO();
     }
 
     @Override
     public DireccionDTO crearDireccion(DireccionPostDTO direccionPostDTO) {
-        DireccionModel model = direccionPostDTO.toModel();
+        DireccionModel model = DireccionModel.fromPostDTO(direccionPostDTO);
         Optional<UsuarioEntity> usuarioEntity = this.usuarioRepository.findById(direccionPostDTO.getUsuarioId());
-        DireccionEntity entity = DireccionModel.toEntity(model);
+        DireccionEntity entity = model.toEntity();
         if (usuarioEntity.isPresent()) {
                 entity.setUsuario(usuarioEntity.get());
         } else {
@@ -56,7 +56,7 @@ public class DireccionServiceImpl implements IDireccionService {
         }
         DireccionEntity savedEntity = this.direccionRepository.save(entity);
         DireccionModel savedModel = DireccionModel.fromEntity(savedEntity);
-        return DireccionDTO.fromModel(savedModel);
+        return savedModel.toGetDTO();
     }
 
     @Override
@@ -73,7 +73,7 @@ public class DireccionServiceImpl implements IDireccionService {
         }
         DireccionEntity updatedEntity = this.direccionRepository.save(entity);
         DireccionModel updatedModel = DireccionModel.fromEntity(updatedEntity);
-        return DireccionDTO.fromModel(updatedModel);
+        return updatedModel.toGetDTO();
     }
 
     @Override

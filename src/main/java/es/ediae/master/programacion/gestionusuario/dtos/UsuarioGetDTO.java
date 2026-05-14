@@ -5,8 +5,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
-import es.ediae.master.programacion.gestionusuario.service.UsuarioModel;
-
 public class UsuarioGetDTO {
 
     private Integer id;
@@ -161,27 +159,5 @@ public class UsuarioGetDTO {
         this.direcciones = direcciones;
     }
 
-    public static UsuarioGetDTO fromModel(UsuarioModel model) {
-        return new UsuarioGetDTO(
-            model.getId(),
-            model.getNickUsuario(),
-            model.getContrasena(),
-            model.getFechaHoraCreacion(),
-            model.getGenero() != null ? GeneroDTO.fromModel(model.getGenero()) : null,
-            model.getNombre(),
-            model.getPrimerApellido(),
-            model.getSegundoApellido(),
-            model.getFechaNacimiento(),
-            model.getHoraDesayuno(),
-            model.isEsAdmin(),
-            model.getPuestoTrabajo() != null ? PuestoTrabajoDTO.fromEntity(model.getPuestoTrabajo().toEntity()) : null,
-            // PuestoTrabajoDTO.fromEntity(model.getPuestoTrabajo() != null ? model.getPuestoTrabajo().toEntity() : null ),
-            model.getDirecciones() != null ? model.getDirecciones().stream().map(DireccionDTO::fromModel).toList() : null
-        );
-    }
-
-
-
-
-
+    // Mapping handled in Models; keep DTO as response POJO.
 }

@@ -1,6 +1,7 @@
-package es.ediae.master.programacion.gestionusuario.service;
+package es.ediae.master.programacion.gestionusuario.model;
 
 import es.ediae.master.programacion.gestionusuario.dtos.DireccionDTO;
+import es.ediae.master.programacion.gestionusuario.dtos.DireccionPostDTO;
 import es.ediae.master.programacion.gestionusuario.entity.DireccionEntity;
 
 public class DireccionModel {
@@ -70,7 +71,7 @@ public class DireccionModel {
                 this.usuarioId = usuarioId;
         }
 
-        public static DireccionModel fromEntity(es.ediae.master.programacion.gestionusuario.entity.DireccionEntity entity) {
+        public static DireccionModel fromEntity(DireccionEntity entity) {
                 return new DireccionModel(
                         entity.getId(),
                         entity.getNombreCalle(),
@@ -80,16 +81,7 @@ public class DireccionModel {
                 );
         }
 
-        public static DireccionEntity toEntity(DireccionModel model) {
-                return new DireccionEntity(
-                        model.id,
-                        model.nombreCalle,
-                        model.numeroCalle,
-                        model.direccionPrincipal
-                );
-        }
-
-        public DireccionDTO toDTO() {
+        public DireccionDTO toGetDTO() {
                 return new DireccionDTO(
                         this.id,
                         this.nombreCalle,
@@ -98,4 +90,35 @@ public class DireccionModel {
                         this.usuarioId
                 );
         }
+
+        public static DireccionModel fromDTO(DireccionDTO dto) {
+
+                return new DireccionModel(
+                        dto.getId(),
+                        dto.getNombreCalle(),
+                        dto.getNumeroCalle(),
+                        dto.isDireccionPrincipal(),
+                        dto.getUsuarioId()
+                );
+        }
+
+        public static DireccionModel fromPostDTO(DireccionPostDTO dto) {
+                if (dto == null) return null;
+                return new DireccionModel(
+                        dto.getNombreCalle(),
+                        dto.getNumeroCalle(),
+                        dto.isDireccionPrincipal() != null ? dto.isDireccionPrincipal() : false,
+                        dto.getUsuarioId()
+                );
+        }
+
+        public DireccionEntity toEntity() {
+                return new DireccionEntity(
+                        this.id,
+                        this.nombreCalle,
+                        this.numeroCalle,
+                        this.direccionPrincipal
+                );
+        }
+
 }

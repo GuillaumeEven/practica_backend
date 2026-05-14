@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import es.ediae.master.programacion.gestionusuario.entity.PuestoDeTrabajoEntity;
 import es.ediae.master.programacion.gestionusuario.repository.IPuestoTrabajoRepository;
 import es.ediae.master.programacion.gestionusuario.service.IPuestoTrabajoService;
-import es.ediae.master.programacion.gestionusuario.service.PuestoTrabajoModel;
+import es.ediae.master.programacion.gestionusuario.model.PuestoTrabajoModel;
 
 @Service
 public class PuestoTrabajoServiceImpl implements IPuestoTrabajoService {

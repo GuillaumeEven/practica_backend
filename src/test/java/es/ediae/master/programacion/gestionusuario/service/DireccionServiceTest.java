@@ -19,6 +19,8 @@ import es.ediae.master.programacion.gestionusuario.entity.DireccionEntity;
 import es.ediae.master.programacion.gestionusuario.entity.UsuarioEntity;
 import es.ediae.master.programacion.gestionusuario.repository.IDireccionRepository;
 import es.ediae.master.programacion.gestionusuario.service.impl.DireccionServiceImpl;
+import es.ediae.master.programacion.gestionusuario.model.DireccionModel;
+
 
 @ExtendWith(MockitoExtension.class)                  // (1) activa Mockito
 class DireccionServiceTest {

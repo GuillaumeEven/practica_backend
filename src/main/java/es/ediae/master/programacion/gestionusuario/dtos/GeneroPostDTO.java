@@ -1,14 +1,15 @@
 package es.ediae.master.programacion.gestionusuario.dtos;
 
-public class PuestoTrabajoDTO {
+
+public class GeneroPostDTO {
 
     private Integer id;
     private String nombre;
 
-    public PuestoTrabajoDTO() {
+    public GeneroPostDTO() {
     }
 
-    public PuestoTrabajoDTO(Integer id, String nombre) {
+    public GeneroPostDTO(Integer id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
@@ -28,7 +29,5 @@ public class PuestoTrabajoDTO {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-    // Mapping kept in Models; DTO is a simple response object.
 
 }

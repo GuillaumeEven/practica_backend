@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import es.ediae.master.programacion.gestionusuario.entity.GeneroEntity;
 import es.ediae.master.programacion.gestionusuario.repository.IGeneroRepository;
-import es.ediae.master.programacion.gestionusuario.service.GeneroModel;
+import es.ediae.master.programacion.gestionusuario.model.GeneroModel;
 import es.ediae.master.programacion.gestionusuario.service.IGeneroService;
 
 @Service

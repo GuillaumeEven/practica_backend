@@ -4,6 +4,7 @@ import java.util.List;
 
 import es.ediae.master.programacion.gestionusuario.dtos.DireccionDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.DireccionPostDTO;
+import es.ediae.master.programacion.gestionusuario.model.DireccionModel;
 
 public interface IDireccionService {
 

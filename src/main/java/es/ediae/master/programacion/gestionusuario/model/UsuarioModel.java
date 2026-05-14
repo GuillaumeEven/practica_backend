@@ -1,4 +1,4 @@
-package es.ediae.master.programacion.gestionusuario.service;
+package es.ediae.master.programacion.gestionusuario.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -55,33 +55,6 @@ public class UsuarioModel {
         this.puestoDeTrabajo = puestoDeTrabajo;
         this.direcciones = direcciones;
     }
-
-    // constructor sin id ni horaCreacion para crear nuevos usuarios
-    // public UsuarioModel(
-    //         String nickUsuario,
-    //         String contrasena,
-    //         GeneroModel genero,
-    //         String nombre,
-    //         String primerApellido,
-    //         String segundoApellido,
-    //         LocalDate fechaNacimiento,
-    //         LocalTime horaDesayuno,
-    //         boolean esAdmin,
-    //         PuestoTrabajoModel puestoDeTrabajo,
-    //         List<DireccionModel> direcciones
-    //     ) {
-    //     this.nickUsuario = nickUsuario;
-    //     this.contrasena = contrasena;
-    //     this.genero = genero;
-    //     this.nombre = nombre;
-    //     this.primerApellido = primerApellido;
-    //     this.segundoApellido = segundoApellido;
-    //     this.fechaNacimiento = fechaNacimiento;
-    //     this.horaDesayuno = horaDesayuno;
-    //     this.esAdmin = esAdmin;
-    //     this.puestoDeTrabajo = puestoDeTrabajo;
-    //     this.direcciones = direcciones;
-    // }
 
     public GeneroModel getGenero() {
         return genero;
@@ -191,38 +164,84 @@ public class UsuarioModel {
         this.direcciones = direcciones;
     }
 
+    public static UsuarioModel fromPostDTO(UsuarioPostDTO dto) {
+
+        GeneroModel genero = dto.getGeneroId() != null
+        ? new GeneroModel(dto.getGeneroId(), null)
+        : null;
+
+        PuestoTrabajoModel puestoTrabajo = dto.getPuestoTrabajoId() != null
+        ? new PuestoTrabajoModel(dto.getPuestoTrabajoId(), null)
+        : null;
+
+        return new UsuarioModel(
+            null,
+            dto.getNickUsuario(),
+            dto.getContrasena(),
+            LocalDateTime.now(),
+            genero,
+            dto.getNombre(),
+            dto.getPrimerApellido(),
+            dto.getSegundoApellido(),
+            dto.getFechaNacimiento(),
+            dto.getHoraDesayuno(),
+            dto.isEsAdmin(),
+            puestoTrabajo,
+             null
+        );
+    }
+
+    public static UsuarioEntity toEntity(UsuarioModel model) {
+        return new UsuarioEntity(
+            model.nickUsuario,
+            model.contrasena,
+            model.fechaHoraCreacion,
+            model.genero != null ? model.genero.toEntity() : null,
+            model.nombre,
+            model.primerApellido,
+            model.segundoApellido,
+            model.fechaNacimiento,
+            model.horaDesayuno,
+            model.esAdmin,
+            model.puestoDeTrabajo != null ? model.puestoDeTrabajo.toEntity() : null,
+            model.direcciones != null ? model.direcciones.stream().map(DireccionModel::toEntity).toList() : null
+        );
+    }
+
     public static UsuarioModel fromEntity(UsuarioEntity usuarioEntity) {
+
+        GeneroModel genero = usuarioEntity.getGenero() != null
+        ? new GeneroModel(
+            usuarioEntity.getGenero().getId(),
+            usuarioEntity.getGenero().getNombre()
+        )
+        : null;
+
+        PuestoTrabajoModel puestoTrabajo = usuarioEntity.getPuestoTrabajo() != null
+        ? new PuestoTrabajoModel(
+            usuarioEntity.getPuestoTrabajo().getId(),
+            usuarioEntity.getPuestoTrabajo().getNombre()
+        )
+        : null;
+
+        List<DireccionModel> direcciones = usuarioEntity.getDirecciones() != null
+        ? usuarioEntity.getDirecciones().stream().map(DireccionModel::fromEntity).toList()
+        : null;
+
         return new UsuarioModel(
             usuarioEntity.getId(),
             usuarioEntity.getNickUsuario(),
             usuarioEntity.getContrasena(),
             usuarioEntity.getFechaHoraCreacion(),
-            usuarioEntity.getGenero() != null ? GeneroModel.fromEntity(usuarioEntity.getGenero()) : null,
+            genero,
             usuarioEntity.getNombre(),
             usuarioEntity.getPrimerApellido(),
             usuarioEntity.getSegundoApellido(),
             usuarioEntity.getFechaNacimiento(),
             usuarioEntity.getHoraDesayuno(),
             usuarioEntity.isEsAdmin(),
-            usuarioEntity.getPuestoTrabajo() != null ? PuestoTrabajoModel.fromEntity(usuarioEntity.getPuestoTrabajo()) : null,
-            usuarioEntity.getDirecciones() != null ? usuarioEntity.getDirecciones().stream().map(DireccionModel::fromEntity).toList() : null
-        );
-    }
-
-    public static UsuarioEntity toNewEntity(UsuarioModel model) {
-        return new UsuarioEntity(
-            model.getNickUsuario(),
-            model.getContrasena(),
-            model.getFechaHoraCreacion(),
-            model.getGenero() != null ? model.getGenero().toEntity() : null,
-            model.getNombre(),
-            model.getPrimerApellido(),
-            model.getSegundoApellido(),
-            model.getFechaNacimiento(),
-            model.getHoraDesayuno(),
-            model.isEsAdmin(),
-            model.getPuestoTrabajo() != null ? model.getPuestoTrabajo().toEntity() : null,
-            model.getDirecciones() != null ? model.getDirecciones().stream().map(DireccionModel::toEntity).toList() : null
+            puestoTrabajo,
+            direcciones
         );
     }
 
@@ -232,33 +251,17 @@ public class UsuarioModel {
             this.nickUsuario,
             this.contrasena,
             this.fechaHoraCreacion,
-            this.genero != null ? this.genero.toDTO() : null,
+            this.genero != null ? this.genero.toGetDTO() : null,
             this.nombre,
             this.primerApellido,
             this.segundoApellido,
             this.fechaNacimiento,
             this.horaDesayuno,
             this.esAdmin,
-            this.puestoDeTrabajo != null ? this.puestoDeTrabajo.toDTO() : null,
-            this.direcciones != null ? this.direcciones.stream().map(DireccionModel::toDTO).toList() : null
+            this.puestoDeTrabajo != null ? this.puestoDeTrabajo.toGetDTO() : null,
+            this.direcciones != null ? this.direcciones.stream().map(DireccionModel::toGetDTO).toList() : null
         );
     }
 
-    public static UsuarioModel fromPostDTO(UsuarioPostDTO postDTO) {
-        return new UsuarioModel(
-            null,
-            postDTO.getNickUsuario(),
-            postDTO.getContrasena(),
-            LocalDateTime.now(),
-            null,
-            postDTO.getNombre(),
-            postDTO.getPrimerApellido(),
-            postDTO.getSegundoApellido(),
-            postDTO.getFechaNacimiento(),
-            postDTO.getHoraDesayuno(),
-            postDTO.isEsAdmin(),
-            null,
-            null
-        );
-    }
+
 }

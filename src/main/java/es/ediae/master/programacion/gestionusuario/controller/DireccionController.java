@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import es.ediae.master.programacion.gestionusuario.dtos.DireccionDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.DireccionPostDTO;
 import es.ediae.master.programacion.gestionusuario.repository.IDireccionRepository;
-import es.ediae.master.programacion.gestionusuario.service.DireccionModel;
+import es.ediae.master.programacion.gestionusuario.model.DireccionModel;
 import es.ediae.master.programacion.gestionusuario.service.impl.DireccionServiceImpl;
 
 @RestController
@@ -39,7 +39,7 @@ public class DireccionController {
         List<DireccionModel> direcciones = direccionService.obtenerAllDirecciones();
         List<DireccionDTO> direccionDtos = new ArrayList<>();
         for (DireccionModel direccion : direcciones) {
-            direccionDtos.add(DireccionDTO.fromModel(direccion));
+            direccionDtos.add(direccion.toGetDTO());
         }
         return ResponseEntity.ok(direccionDtos);
     }

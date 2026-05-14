@@ -23,10 +23,10 @@ import es.ediae.master.programacion.gestionusuario.dtos.PuestoTrabajoDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.SesionDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioGetDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPostDTO;
-import es.ediae.master.programacion.gestionusuario.service.DireccionModel;
-import es.ediae.master.programacion.gestionusuario.service.GeneroModel;
-import es.ediae.master.programacion.gestionusuario.service.PuestoTrabajoModel;
-import es.ediae.master.programacion.gestionusuario.service.UsuarioModel;
+import es.ediae.master.programacion.gestionusuario.model.DireccionModel;
+import es.ediae.master.programacion.gestionusuario.model.GeneroModel;
+import es.ediae.master.programacion.gestionusuario.model.PuestoTrabajoModel;
+import es.ediae.master.programacion.gestionusuario.model.UsuarioModel;
 import es.ediae.master.programacion.gestionusuario.service.impl.GeneroServiceImpl;
 import es.ediae.master.programacion.gestionusuario.service.impl.PuestoTrabajoServiceImpl;
 import es.ediae.master.programacion.gestionusuario.service.impl.UsuarioServiceImpl;
@@ -56,7 +56,7 @@ public class UsuarioController {
 
         List<UsuarioGetDTO> dtos = new ArrayList<>();
         for (UsuarioModel usuarioModel: usuarioService.obtenerTodosLosUsuarios()) {
-            dtos.add(UsuarioGetDTO.fromModel(usuarioModel));
+            dtos.add(usuarioModel.toGetDTO());
         }
 
         // Alternativa
@@ -72,7 +72,7 @@ public class UsuarioController {
 
         usuarioService.verificarContrasena(new SesionDTO(nickUsuario, contrasena));
 
-        return UsuarioGetDTO.fromModel(usuarioService.obtenerUsuarioPorId(id));
+        return usuarioService.obtenerUsuarioPorId(id) != null ? usuarioService.obtenerUsuarioPorId(id).toGetDTO() : null;
     }
 
     @GetMapping("/obtener-generos")
@@ -83,7 +83,7 @@ public class UsuarioController {
         List<GeneroModel> generos = this.generoService.obtenerGeneros();
         List<GeneroDTO> generosDTO = new ArrayList<>();
         for (GeneroModel generoModel: generos) {
-            generosDTO.add(GeneroDTO.fromModel(generoModel));
+            generosDTO.add(generoModel.toGetDTO());
         }
 
         return ResponseEntity.ok(generosDTO);
@@ -97,7 +97,7 @@ public class UsuarioController {
         List<PuestoTrabajoModel> puestos = this.puestoTrabajoService.obtenerPuestosDeTrabajo();
         List<PuestoTrabajoDTO> puestosDTO = new ArrayList<>();
         for (PuestoTrabajoModel puestoTrabajoModel: puestos) {
-            puestosDTO.add(PuestoTrabajoDTO.fromModel(puestoTrabajoModel));
+            puestosDTO.add(puestoTrabajoModel.toGetDTO());
         }
 
         return ResponseEntity.ok(puestosDTO);
@@ -111,7 +111,7 @@ public class UsuarioController {
         List<DireccionModel> direccionModels = this.usuarioService.obtenerDireccionesPorUsuarioId(id);
         List<DireccionDTO> dtos = new ArrayList<>();
         for (DireccionModel direccionModel : direccionModels) {
-            dtos.add(DireccionDTO.fromModel(direccionModel));
+            dtos.add(direccionModel.toGetDTO());
         }
 
         return ResponseEntity.ok(dtos);

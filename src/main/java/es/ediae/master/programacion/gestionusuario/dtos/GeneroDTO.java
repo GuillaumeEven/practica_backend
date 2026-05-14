@@ -1,7 +1,5 @@
 package es.ediae.master.programacion.gestionusuario.dtos;
 
-import es.ediae.master.programacion.gestionusuario.service.GeneroModel;
-
 public class GeneroDTO {
 
     private Integer id;
@@ -31,24 +29,5 @@ public class GeneroDTO {
         this.nombre = nombre;
     }
 
-    public static GeneroDTO fromEntity(es.ediae.master.programacion.gestionusuario.entity.GeneroEntity generoEntity) {
-        return new GeneroDTO(
-                generoEntity.getId(),
-                generoEntity.getNombre()
-        );
-    }
-
-    public static GeneroDTO fromModel(es.ediae.master.programacion.gestionusuario.service.GeneroModel generoModel) {
-        return new GeneroDTO(
-                generoModel.getId(),
-                generoModel.getNombre()
-        );
-    }
-
-    public GeneroModel toModel() {
-        return new GeneroModel(
-                this.id,
-                this.nombre
-        );
-    }
+    // Mapping is implemented in Models; DTO stays as POJO.
 }

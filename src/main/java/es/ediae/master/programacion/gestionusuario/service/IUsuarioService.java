@@ -4,6 +4,8 @@ import java.util.List;
 
 import es.ediae.master.programacion.gestionusuario.dtos.SesionDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPostDTO;
+import es.ediae.master.programacion.gestionusuario.model.DireccionModel;
+import es.ediae.master.programacion.gestionusuario.model.UsuarioModel;
 
 public interface IUsuarioService {
 

@@ -3,8 +3,6 @@ package es.ediae.master.programacion.gestionusuario.dtos;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
-import es.ediae.master.programacion.gestionusuario.service.DireccionModel;
-
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class DireccionPostDTO {
 
@@ -61,13 +59,13 @@ public class DireccionPostDTO {
         this.usuarioId = usuarioId;
     }
 
-    public DireccionModel toModel() {
-        return new DireccionModel(
-            this.nombreCalle,
-            this.numeroCalle,
-            this.direccionPrincipal,
-            this.usuarioId
-        );
-    }
+    // public DireccionModel toModel() {
+    //     return new DireccionModel(
+    //         this.nombreCalle,
+    //         this.numeroCalle,
+    //         this.direccionPrincipal,
+    //         this.usuarioId
+    //     );
+    // }
 
 }

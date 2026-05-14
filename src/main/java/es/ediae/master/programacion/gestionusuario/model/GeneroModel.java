@@ -1,4 +1,4 @@
-package es.ediae.master.programacion.gestionusuario.service;
+package es.ediae.master.programacion.gestionusuario.model;
 
 import es.ediae.master.programacion.gestionusuario.dtos.GeneroDTO;
 import es.ediae.master.programacion.gestionusuario.entity.GeneroEntity;
@@ -33,9 +33,7 @@ public class GeneroModel {
     }
 
     public static GeneroModel fromEntity(GeneroEntity generoEntity) {
-        if (generoEntity == null) {
-            return null;
-        }
+        if (generoEntity == null) return null;
         return new GeneroModel(generoEntity.getId(), generoEntity.getNombre());
     }
 
@@ -43,7 +41,7 @@ public class GeneroModel {
         return new GeneroEntity(this.id, this.nombre);
     }
 
-    public GeneroDTO toDTO() {
+    public GeneroDTO toGetDTO() {
         return new GeneroDTO(this.id, this.nombre);
     }
 

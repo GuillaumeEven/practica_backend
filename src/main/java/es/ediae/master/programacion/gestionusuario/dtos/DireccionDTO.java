@@ -1,7 +1,5 @@
 package es.ediae.master.programacion.gestionusuario.dtos;
 
-import es.ediae.master.programacion.gestionusuario.service.DireccionModel;
-
 public class DireccionDTO {
 
     private Integer id;
@@ -59,24 +57,14 @@ public class DireccionDTO {
         this.direccionPrincipal = direccionPrincipal;
     }
 
-    public static DireccionDTO fromModel(DireccionModel direccionModel) {
-        return new DireccionDTO(
-                direccionModel.getId(),
-                direccionModel.getNombreCalle(),
-                direccionModel.getNumeroCalle(),
-                direccionModel.isDireccionPrincipal(),
-                direccionModel.getUsuarioId()
-        );
+    public Integer getUsuarioId() {
+        return usuarioId;
     }
 
-    public DireccionModel toModel() {
-        return new DireccionModel(
-                this.id,
-                this.nombreCalle,
-                this.numeroCalle,
-                this.direccionPrincipal,
-                this.usuarioId
-        );
+    public void setUsuarioId(Integer usuarioId) {
+        this.usuarioId = usuarioId;
     }
+
+    // DTOs stay as POJOs; mapping is handled by Models.
 
 }

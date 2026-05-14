@@ -1,4 +1,4 @@
-package es.ediae.master.programacion.gestionusuario.service;
+package es.ediae.master.programacion.gestionusuario.model;
 
 import es.ediae.master.programacion.gestionusuario.dtos.PuestoTrabajoDTO;
 import es.ediae.master.programacion.gestionusuario.entity.PuestoDeTrabajoEntity;
@@ -43,7 +43,7 @@ public class PuestoTrabajoModel {
         return entity;
     }
 
-    public PuestoTrabajoDTO toDTO() {
+    public PuestoTrabajoDTO toGetDTO() {
         return new PuestoTrabajoDTO(this.id, this.nombre);
     }
 

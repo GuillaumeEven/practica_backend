@@ -3,11 +3,12 @@ package es.ediae.master.programacion.gestionusuario.dtos;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+// Request DTO uses ids for relations
+
 
 import jakarta.validation.constraints.NotEmpty;
 
@@ -36,7 +37,7 @@ public class UsuarioPostDTO {
         String nickUsuario,
         String contrasena,
         LocalDateTime fechaHoraCreacion,
-        Integer generoId,
+        GeneroPostDTO genero,
         String nombre,
         String primerApellido,
         String segundoApellido,
@@ -155,27 +156,27 @@ public class UsuarioPostDTO {
         this.direccionIds = direccionIds;
     }
 
-    public UsuarioPostDTO fromGetDTO(UsuarioGetDTO usuarioGetDTO) {
-        ArrayList<Integer> direccionIds = new ArrayList<>();
-        if (usuarioGetDTO.getDirecciones() != null) {
-            for (DireccionDTO direccionDTO : usuarioGetDTO.getDirecciones()) {
-                direccionIds.add(direccionDTO.getId());
-            }
-        }
-        return new UsuarioPostDTO(
-            usuarioGetDTO.getNickUsuario(),
-            null,
-            null,
-            usuarioGetDTO.getGenero() != null ? usuarioGetDTO.getGenero().getId() : null,
-            usuarioGetDTO.getNombre(),
-            usuarioGetDTO.getPrimerApellido(),
-            usuarioGetDTO.getSegundoApellido(),
-            usuarioGetDTO.getFechaNacimiento(),
-            usuarioGetDTO.getHoraDesayuno(),
-            usuarioGetDTO.isEsAdmin(),
-            usuarioGetDTO.getPuestoTrabajo() != null ? usuarioGetDTO.getPuestoTrabajo().getId() : null,
-            direccionIds
+    // public UsuarioPostDTO fromGetDTO(UsuarioGetDTO usuarioGetDTO) {
+    //     ArrayList<Integer> direccionIds = new ArrayList<>();
+    //     if (usuarioGetDTO.getDirecciones() != null) {
+    //         for (DireccionDTO direccionDTO : usuarioGetDTO.getDirecciones()) {
+    //             direccionIds.add(direccionDTO.getId());
+    //         }
+    //     }
+    //     return new UsuarioPostDTO(
+    //         usuarioGetDTO.getNickUsuario(),
+    //         null,
+    //         null,
+    //         usuarioGetDTO.getGenero() != null ? usuarioGetDTO.getGenero().getId() : null,
+    //         usuarioGetDTO.getNombre(),
+    //         usuarioGetDTO.getPrimerApellido(),
+    //         usuarioGetDTO.getSegundoApellido(),
+    //         usuarioGetDTO.getFechaNacimiento(),
+    //         usuarioGetDTO.getHoraDesayuno(),
+    //         usuarioGetDTO.isEsAdmin(),
+    //         usuarioGetDTO.getPuestoTrabajo() != null ? usuarioGetDTO.getPuestoTrabajo().getId() : null,
+    //         direccionIds
 
-        );
-    }
+    //     );
+    // }
 }

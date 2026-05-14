@@ -15,11 +15,11 @@ import es.ediae.master.programacion.gestionusuario.exception.GeneralException;
 import es.ediae.master.programacion.gestionusuario.exception.UsuarioNoValidoException;
 import es.ediae.master.programacion.gestionusuario.exception.WrongPasswordException;
 import es.ediae.master.programacion.gestionusuario.repository.IUsuarioRepository;
-import es.ediae.master.programacion.gestionusuario.service.DireccionModel;
-import es.ediae.master.programacion.gestionusuario.service.GeneroModel;
+import es.ediae.master.programacion.gestionusuario.model.DireccionModel;
+import es.ediae.master.programacion.gestionusuario.model.GeneroModel;
 import es.ediae.master.programacion.gestionusuario.service.IUsuarioService;
-import es.ediae.master.programacion.gestionusuario.service.PuestoTrabajoModel;
-import es.ediae.master.programacion.gestionusuario.service.UsuarioModel;
+import es.ediae.master.programacion.gestionusuario.model.PuestoTrabajoModel;
+import es.ediae.master.programacion.gestionusuario.model.UsuarioModel;
 
 @Service
 public class UsuarioServiceImpl implements IUsuarioService {
@@ -76,7 +76,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
         List<DireccionModel> direcciones = new ArrayList<>();
         if (usuarioPostDTO.getDireccionIds() != null && !usuarioPostDTO.getDireccionIds().isEmpty()) {
             for (Integer dirId : usuarioPostDTO.getDireccionIds()) {
-                DireccionModel dirModel = direccionService.obtenerDireccionPorId(dirId).toModel();
+                DireccionModel dirModel = DireccionModel.fromDTO(direccionService.obtenerDireccionPorId(dirId));
                 direcciones.add(dirModel);
             }
         } else {
@@ -90,7 +90,8 @@ public class UsuarioServiceImpl implements IUsuarioService {
         model.setPuestoTrabajo(puestoTrabajo);
         model.setDirecciones(direcciones);
 
-        UsuarioEntity savedEntity = this.usuarioRepository.save(UsuarioModel.toNewEntity(model));
+        UsuarioEntity savedEntity = usuarioRepository.save(UsuarioModel.toEntity(model));
+
         return UsuarioModel.fromEntity(savedEntity);
     }
 
@@ -106,17 +107,17 @@ public class UsuarioServiceImpl implements IUsuarioService {
             throw new UsuarioNoValidoException("El nick de usuario ya existe");
         }
 
+        GeneroModel genero = generoService.obtenerGeneroPorId(requestDto.getGeneroId());
+        PuestoTrabajoModel puestoTrabajo = puestoDeTrabajoService.obtenerPuestoDeTrabajoPorId(requestDto.getPuestoTrabajoId());
         List<DireccionModel> direcciones  = new ArrayList<>();
         if (requestDto.getDireccionIds() != null && !requestDto.getDireccionIds().isEmpty()) {
             for (Integer dirId : requestDto.getDireccionIds()) {
-                DireccionModel dirModel = direccionService.obtenerDireccionPorId(dirId).toModel();
+                DireccionModel dirModel = DireccionModel.fromDTO(direccionService.obtenerDireccionPorId(dirId));
                 direcciones.add(dirModel);
             }
         } else {
             throw new UsuarioNoValidoException("El usuario debe tener al menos una dirección");
         }
-        GeneroModel genero = generoService.obtenerGeneroPorId(requestDto.getGeneroId());
-        PuestoTrabajoModel puestoTrabajo = puestoDeTrabajoService.obtenerPuestoDeTrabajoPorId(requestDto.getPuestoTrabajoId());
 
         UsuarioModel model = UsuarioModel.fromPostDTO(requestDto);
 
@@ -124,7 +125,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
         model.setPuestoTrabajo(puestoTrabajo);
         model.setDirecciones(direcciones);
 
-        entity = UsuarioModel.toNewEntity(model);
+        entity = UsuarioModel.toEntity(model);
         entity.setId(id);
 
         UsuarioEntity saved = usuarioRepository.save(entity);
