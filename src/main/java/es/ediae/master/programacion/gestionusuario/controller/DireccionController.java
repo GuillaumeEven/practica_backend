@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,11 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.ediae.master.programacion.gestionusuario.dtos.DireccionDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.DireccionPostDTO;
-import es.ediae.master.programacion.gestionusuario.repository.IDireccionRepository;
 import es.ediae.master.programacion.gestionusuario.model.DireccionModel;
+import es.ediae.master.programacion.gestionusuario.repository.IDireccionRepository;
 import es.ediae.master.programacion.gestionusuario.service.impl.DireccionServiceImpl;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 
 @RestController
+@Validated
 @RequestMapping("/api/v1/direcciones")
 public class DireccionController {
 
@@ -45,24 +49,24 @@ public class DireccionController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DireccionDTO> obtenerDireccion(@PathVariable Integer id) {
+    public ResponseEntity<DireccionDTO> obtenerDireccion(@PathVariable @Positive Integer id) {
         return ResponseEntity.ok(direccionService.obtenerDireccionPorId(id));
     }
 
     @PostMapping()
-    public ResponseEntity<DireccionDTO> crearDireccion(@RequestBody DireccionPostDTO direccionPostDTO) {
+    public ResponseEntity<DireccionDTO> crearDireccion(@Valid @RequestBody DireccionPostDTO direccionPostDTO) {
         DireccionDTO direccionDTO =  direccionService.crearDireccion(direccionPostDTO);
         return ResponseEntity.ok(direccionDTO);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DireccionDTO> actualizarDireccion(@RequestBody DireccionPostDTO requestDto, @PathVariable Integer id) {
+    public ResponseEntity<DireccionDTO> actualizarDireccion(@Valid @RequestBody DireccionPostDTO requestDto, @PathVariable @Positive Integer id) {
         DireccionDTO direccionActualizada = direccionService.actualizarDireccion(id, requestDto);
         return ResponseEntity.ok(direccionActualizada);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarDireccion(@PathVariable Integer id) {
+    public ResponseEntity<Void> eliminarDireccion(@PathVariable @Positive Integer id) {
         direccionService.eliminarDireccion(id);
         return ResponseEntity.noContent().build();
     }

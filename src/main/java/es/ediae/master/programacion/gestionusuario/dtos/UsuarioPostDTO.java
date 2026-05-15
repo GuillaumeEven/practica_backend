@@ -7,22 +7,37 @@ import java.util.List;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class UsuarioPostDTO {
 
-    @NotEmpty(message = "El nickUsuario no puede estar vacío")
+    @NotBlank(message = "El nickUsuario no puede estar vacío")
     private String nickUsuario;
+
+    @NotBlank(message = "La contraseña no puede estar vacía")
+    @Size(min = 6, message = "La contraseña debe tener al menos 6 caracteres")
     private String contrasena;
+
+    @NotNull(message = "El generoId es obligatorio")
     private Integer generoId;
+
     private String nombre;
     private String primerApellido;
     private String segundoApellido;
     private LocalDate fechaNacimiento;
     private LocalTime horaDesayuno;
     private Boolean esAdmin;
+
+    @NotNull(message = "El puestoTrabajoId es obligatorio")
     private Integer puestoTrabajoId;
+
+    @Valid
+    @NotEmpty(message = "El usuario debe tener al menos una dirección")
     private List<DireccionPostDTO> direcciones;
 
 

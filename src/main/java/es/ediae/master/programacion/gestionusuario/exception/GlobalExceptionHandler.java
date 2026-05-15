@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
+import es.ediae.master.programacion.gestionusuario.constant.GeneralConstant;
 
 /**
  * Centralized exception handler converting exceptions to a consistent ApiError payload.
@@ -91,10 +92,21 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(GeneralException.class)
     protected ResponseEntity<Object> handleGeneralException(GeneralException ex, WebRequest request) {
-        HttpStatus status = HttpStatus.BAD_REQUEST;
+        int code = ex.getCodigoDeError();
+        HttpStatus status = mapErrorCodeToHttpStatus(code);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("X-Error-Code", String.valueOf(code));
         ApiError body = new ApiError(Instant.now(), status.value(), status.getReasonPhrase(),
-                ex.getMensajeDeError(), getPath(request), String.valueOf(ex.getCodigoDeError()), null, getTraceId(request));
-        return ResponseEntity.status(status).body(body);
+                ex.getMensajeDeError(), getPath(request), String.valueOf(code), null, getTraceId(request));
+        return ResponseEntity.status(status).headers(headers).body(body);
+    }
+
+    private HttpStatus mapErrorCodeToHttpStatus(int code) {
+        return switch (code) {
+            case GeneralConstant.NO_ENCONTRADO_ERROR_CODE -> HttpStatus.NOT_FOUND;
+            case GeneralConstant.BD_ERROR_CODE, GeneralConstant.GENERAL_ERROR_CODE -> HttpStatus.INTERNAL_SERVER_ERROR;
+            default -> HttpStatus.BAD_REQUEST;
+        };
     }
 
     @ExceptionHandler(ResponseStatusException.class)
