@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class DireccionPostDTO {
 
+    private Integer id;
     private String nombreCalle;
     private String numeroCalle;
     private Boolean direccionPrincipal;
@@ -15,11 +16,13 @@ public class DireccionPostDTO {
     }
 
     public DireccionPostDTO(
+        Integer id,
         String nombreCalle,
         String numeroCalle,
         Boolean direccionPrincipal,
         Integer usuarioId
     ) {
+        this.id = id;
         this.nombreCalle = nombreCalle;
         this.numeroCalle = numeroCalle;
         this.direccionPrincipal = direccionPrincipal;
@@ -57,5 +60,13 @@ public class DireccionPostDTO {
 
     public void setUsuarioId(Integer usuarioId) {
         this.usuarioId = usuarioId;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

@@ -122,11 +122,15 @@ public class UsuarioServiceImpl implements IUsuarioService {
         UsuarioEntity saved = usuarioRepository.save(entity);
 
         // If the request includes new directions, create them linked to this user
-        if (requestDto.getDirecciones() != null && !requestDto.getDirecciones().isEmpty()) {
-            for (DireccionPostDTO dirDTO : requestDto.getDirecciones()) {
-                dirDTO.setUsuarioId(saved.getId());
-                direccionService.crearDireccion(dirDTO);
+        if (requestDto.getDirecciones() != null) {
+        for (DireccionPostDTO dirDTO : requestDto.getDirecciones()) {
+            if (dirDTO.getId() != null) {
+            direccionService.actualizarDireccion(dirDTO.getId(), dirDTO);
+            } else {
+            dirDTO.setUsuarioId(saved.getId());
+            direccionService.crearDireccion(dirDTO);
             }
+        }
         }
 
         return UsuarioModel.fromEntity(usuarioRepository.findById(saved.getId()).orElseThrow());
