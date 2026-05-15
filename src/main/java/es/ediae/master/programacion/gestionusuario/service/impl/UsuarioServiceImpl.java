@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import es.ediae.master.programacion.gestionusuario.dtos.DireccionPostDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.SesionDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPostDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPutDTO;
@@ -67,32 +69,34 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
+    @Transactional
     public UsuarioModel crearUsuario(UsuarioPostDTO usuarioPostDTO) {
-        if (usuarioRepository.findByNickUsuario(usuarioPostDTO.getNickUsuario()) != null &&
-        usuarioPostDTO.getNickUsuario().equalsIgnoreCase(usuarioRepository.findByNickUsuario(usuarioPostDTO.getNickUsuario()).getNickUsuario())) {
+        if (usuarioRepository.findByNickUsuario(usuarioPostDTO.getNickUsuario()) != null) {
             throw new UsuarioNoValidoException("El nick de usuario ya existe");
         }
 
-        List<DireccionModel> direcciones = new ArrayList<>();
-        if (usuarioPostDTO.getDireccionIds() != null && !usuarioPostDTO.getDireccionIds().isEmpty()) {
-            for (Integer dirId : usuarioPostDTO.getDireccionIds()) {
-                DireccionModel dirModel = DireccionModel.fromDTO(direccionService.obtenerDireccionPorId(dirId));
-                direcciones.add(dirModel);
-            }
-        } else {
+        if (usuarioPostDTO.getDirecciones() == null || usuarioPostDTO.getDirecciones().isEmpty()) {
             throw new UsuarioNoValidoException("El usuario debe tener al menos una dirección");
         }
+
         GeneroModel genero = generoService.obtenerGeneroPorId(usuarioPostDTO.getGeneroId());
         PuestoTrabajoModel puestoTrabajo = puestoDeTrabajoService.obtenerPuestoDeTrabajoPorId(usuarioPostDTO.getPuestoTrabajoId());
 
         UsuarioModel model = UsuarioModel.fromPostDTO(usuarioPostDTO);
         model.setGenero(genero);
         model.setPuestoTrabajo(puestoTrabajo);
-        model.setDirecciones(direcciones);
 
+        // 1st save: persist the user to get its generated ID
         UsuarioEntity savedEntity = usuarioRepository.save(UsuarioModel.toEntity(model));
 
-        return UsuarioModel.fromEntity(savedEntity);
+        // 2nd save: persist each direction now that we have the user ID
+        for (DireccionPostDTO dirDTO : usuarioPostDTO.getDirecciones()) {
+            dirDTO.setUsuarioId(savedEntity.getId());
+            direccionService.crearDireccion(dirDTO);
+        }
+
+        // Reload to return the full user with its directions
+        return UsuarioModel.fromEntity(usuarioRepository.findById(savedEntity.getId()).orElseThrow());
     }
 
     @Override
@@ -109,27 +113,25 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
         GeneroModel genero = generoService.obtenerGeneroPorId(requestDto.getGeneroId());
         PuestoTrabajoModel puestoTrabajo = puestoDeTrabajoService.obtenerPuestoDeTrabajoPorId(requestDto.getPuestoTrabajoId());
-        List<DireccionModel> direcciones  = new ArrayList<>();
-        if (requestDto.getDireccionIds() != null && !requestDto.getDireccionIds().isEmpty()) {
-            for (Integer dirId : requestDto.getDireccionIds()) {
-                DireccionModel dirModel = DireccionModel.fromDTO(direccionService.obtenerDireccionPorId(dirId));
-                direcciones.add(dirModel);
-            }
-        } else {
-            throw new UsuarioNoValidoException("El usuario debe tener al menos una dirección");
-        }
 
         UsuarioModel model = UsuarioModel.fromPostDTO(requestDto);
-
         model.setGenero(genero);
         model.setPuestoTrabajo(puestoTrabajo);
-        model.setDirecciones(direcciones);
 
         entity = UsuarioModel.toEntity(model);
         entity.setId(id);
 
         UsuarioEntity saved = usuarioRepository.save(entity);
-        return UsuarioModel.fromEntity(saved);
+
+        // If the request includes new directions, create them linked to this user
+        if (requestDto.getDirecciones() != null && !requestDto.getDirecciones().isEmpty()) {
+            for (DireccionPostDTO dirDTO : requestDto.getDirecciones()) {
+                dirDTO.setUsuarioId(saved.getId());
+                direccionService.crearDireccion(dirDTO);
+            }
+        }
+
+        return UsuarioModel.fromEntity(usuarioRepository.findById(saved.getId()).orElseThrow());
     }
 
     @Override

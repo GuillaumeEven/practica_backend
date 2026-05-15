@@ -7,8 +7,6 @@ import java.util.List;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-// Request DTO uses ids for relations
-
 
 import jakarta.validation.constraints.NotEmpty;
 
@@ -27,7 +25,7 @@ public class UsuarioPostDTO {
     private LocalTime horaDesayuno;
     private Boolean esAdmin;
     private Integer puestoTrabajoId;
-    private List<Integer> direccionIds;
+    private List<DireccionPostDTO> direcciones;
 
 
     public UsuarioPostDTO() {
@@ -37,7 +35,7 @@ public class UsuarioPostDTO {
         String nickUsuario,
         String contrasena,
         LocalDateTime fechaHoraCreacion,
-        GeneroPostDTO genero,
+        Integer generoId,
         String nombre,
         String primerApellido,
         String segundoApellido,
@@ -45,19 +43,19 @@ public class UsuarioPostDTO {
         LocalTime horaDesayuno,
         Boolean esAdmin,
         Integer puestoTrabajoId,
-        List<Integer> direccionIds) {
+        List<DireccionPostDTO> direcciones) {
+        this.nickUsuario = nickUsuario;
         this.contrasena = contrasena;
         this.fechaHoraCreacion = fechaHoraCreacion;
-        this.fechaNacimiento = fechaNacimiento;
         this.generoId = generoId;
-        this.horaDesayuno = horaDesayuno;
-        this.esAdmin = esAdmin;
-        this.nickUsuario = nickUsuario;
         this.nombre = nombre;
         this.primerApellido = primerApellido;
         this.segundoApellido = segundoApellido;
+        this.fechaNacimiento = fechaNacimiento;
+        this.horaDesayuno = horaDesayuno;
+        this.esAdmin = esAdmin;
         this.puestoTrabajoId = puestoTrabajoId;
-        this.direccionIds = direccionIds;
+        this.direcciones = direcciones;
     }
 
     public String getNickUsuario() {
@@ -148,12 +146,12 @@ public class UsuarioPostDTO {
         this.puestoTrabajoId = puestoTrabajoId;
     }
 
-    public List<Integer> getDireccionIds() {
-        return direccionIds;
+    public List<DireccionPostDTO> getDirecciones() {
+        return direcciones;
     }
 
-    public void setDireccionIds(List<Integer> direccionIds) {
-        this.direccionIds = direccionIds;
+    public void setDirecciones(List<DireccionPostDTO> direcciones) {
+        this.direcciones = direcciones;
     }
 
     // public UsuarioPostDTO fromGetDTO(UsuarioGetDTO usuarioGetDTO) {
