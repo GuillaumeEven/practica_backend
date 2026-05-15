@@ -1,7 +1,6 @@
 package es.ediae.master.programacion.gestionusuario.dtos;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -16,7 +15,6 @@ public class UsuarioPostDTO {
     @NotEmpty(message = "El nickUsuario no puede estar vacío")
     private String nickUsuario;
     private String contrasena;
-    private LocalDateTime fechaHoraCreacion;
     private Integer generoId;
     private String nombre;
     private String primerApellido;
@@ -34,7 +32,6 @@ public class UsuarioPostDTO {
     public UsuarioPostDTO(
         String nickUsuario,
         String contrasena,
-        LocalDateTime fechaHoraCreacion,
         Integer generoId,
         String nombre,
         String primerApellido,
@@ -46,7 +43,6 @@ public class UsuarioPostDTO {
         List<DireccionPostDTO> direcciones) {
         this.nickUsuario = nickUsuario;
         this.contrasena = contrasena;
-        this.fechaHoraCreacion = fechaHoraCreacion;
         this.generoId = generoId;
         this.nombre = nombre;
         this.primerApellido = primerApellido;
@@ -72,14 +68,6 @@ public class UsuarioPostDTO {
 
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
-    }
-
-    public LocalDateTime getFechaHoraCreacion() {
-        return fechaHoraCreacion;
-    }
-
-    public void setFechaHoraCreacion(LocalDateTime fechaHoraCreacion) {
-        this.fechaHoraCreacion = fechaHoraCreacion;
     }
 
     public Integer getGeneroId() {
