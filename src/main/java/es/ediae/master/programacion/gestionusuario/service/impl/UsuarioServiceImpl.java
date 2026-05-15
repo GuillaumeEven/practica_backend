@@ -7,19 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import es.ediae.master.programacion.gestionusuario.constant.GeneralConstant;
 import es.ediae.master.programacion.gestionusuario.dtos.DireccionPostDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.SesionDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPostDTO;
 import es.ediae.master.programacion.gestionusuario.entity.UsuarioEntity;
 import es.ediae.master.programacion.gestionusuario.exception.GeneralException;
-import es.ediae.master.programacion.gestionusuario.exception.UsuarioNoValidoException;
-import es.ediae.master.programacion.gestionusuario.exception.WrongPasswordException;
 import es.ediae.master.programacion.gestionusuario.model.DireccionModel;
 import es.ediae.master.programacion.gestionusuario.model.GeneroModel;
 import es.ediae.master.programacion.gestionusuario.model.PuestoTrabajoModel;
 import es.ediae.master.programacion.gestionusuario.model.UsuarioModel;
 import es.ediae.master.programacion.gestionusuario.repository.IUsuarioRepository;
 import es.ediae.master.programacion.gestionusuario.service.IUsuarioService;
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class UsuarioServiceImpl implements IUsuarioService {
@@ -44,21 +44,13 @@ public class UsuarioServiceImpl implements IUsuarioService {
             models.add(UsuarioModel.fromEntity(entity));
         }
         return models;
-
-        // Alternativa
-        // return this.usuarioRepository.findAll().stream()
-        //         .map(UsuarioModel::fromEntity)
-        //         .toList();
     }
 
     @Override
     public UsuarioModel obtenerUsuarioPorId(Integer id) {
-        UsuarioEntity entity = this.usuarioRepository.findById(id).orElse(null);
-        return entity != null ? UsuarioModel.fromEntity(entity) : null;
-        // Alternativa
-        // return this.usuarioRepository.findById(id)
-        //         .map(UsuarioModel::fromEntity)
-        //         .orElse(null);
+        UsuarioEntity entity = this.usuarioRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
+        return UsuarioModel.fromEntity(entity);
     }
 
     public UsuarioModel obtenerUsuarioPorNickUsuario(String nickUsuario) {
@@ -70,11 +62,17 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Transactional
     public UsuarioModel crearUsuario(UsuarioPostDTO usuarioPostDTO) {
         if (usuarioRepository.findByNickUsuario(usuarioPostDTO.getNickUsuario()) != null) {
-            throw new UsuarioNoValidoException("El nick de usuario ya existe");
+            throw new GeneralException(
+                GeneralConstant.USUARIO_NICK_YA_EXISTE_ERROR_CODE,
+                GeneralConstant.USUARIO_NICK_YA_EXISTE_ERROR_MESSAGE
+            );
         }
 
         if (usuarioPostDTO.getDirecciones() == null || usuarioPostDTO.getDirecciones().isEmpty()) {
-            throw new UsuarioNoValidoException("El usuario debe tener al menos una dirección");
+            throw new GeneralException(
+                GeneralConstant.USUARIO_NO_VALIDO_ERROR_CODE,
+                "El usuario debe tener al menos una dirección"
+            );
         }
 
         GeneroModel genero = generoService.obtenerGeneroPorId(usuarioPostDTO.getGeneroId());
@@ -84,29 +82,29 @@ public class UsuarioServiceImpl implements IUsuarioService {
         model.setGenero(genero);
         model.setPuestoTrabajo(puestoTrabajo);
 
-        // 1st save: persist the user to get its generated ID
         UsuarioEntity savedEntity = usuarioRepository.save(UsuarioModel.toEntity(model));
 
-        // 2nd save: persist each direction now that we have the user ID
         for (DireccionPostDTO dirDTO : usuarioPostDTO.getDirecciones()) {
             dirDTO.setUsuarioId(savedEntity.getId());
             direccionService.crearDireccion(dirDTO);
         }
 
-        // Reload to return the full user with its directions
-        return UsuarioModel.fromEntity(usuarioRepository.findById(savedEntity.getId()).orElseThrow());
+        UsuarioEntity reloaded = usuarioRepository.findById(savedEntity.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
+        return UsuarioModel.fromEntity(reloaded);
     }
 
     @Override
     public UsuarioModel actualizarUsuario(Integer id, UsuarioPostDTO requestDto) {
-        UsuarioEntity entity = usuarioRepository.findById(id).orElseThrow(() -> new GeneralException(404, "Usuario no encontrado"));
-        UsuarioEntity existingByNick = usuarioRepository.findByNickUsuario(requestDto.getNickUsuario());
+        usuarioRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
 
-        if (
-            existingByNick != null &&
-            !id.equals(existingByNick.getId())
-        ) {
-            throw new UsuarioNoValidoException("El nick de usuario ya existe");
+        UsuarioEntity existingByNick = usuarioRepository.findByNickUsuario(requestDto.getNickUsuario());
+        if (existingByNick != null && !id.equals(existingByNick.getId())) {
+            throw new GeneralException(
+                GeneralConstant.USUARIO_NICK_YA_EXISTE_ERROR_CODE,
+                GeneralConstant.USUARIO_NICK_YA_EXISTE_ERROR_MESSAGE
+            );
         }
 
         GeneroModel genero = generoService.obtenerGeneroPorId(requestDto.getGeneroId());
@@ -116,7 +114,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
         model.setGenero(genero);
         model.setPuestoTrabajo(puestoTrabajo);
 
-        entity = UsuarioModel.toEntity(model);
+        UsuarioEntity entity = UsuarioModel.toEntity(model);
         entity.setId(id);
 
         UsuarioEntity saved = usuarioRepository.save(entity);
@@ -133,7 +131,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
         }
         }
 
-        return UsuarioModel.fromEntity(usuarioRepository.findById(saved.getId()).orElseThrow());
+        UsuarioEntity reloaded = usuarioRepository.findById(saved.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
+        return UsuarioModel.fromEntity(reloaded);
     }
 
     @Override
@@ -143,20 +143,16 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
     @Override
     public void eliminarUsuario(Integer id) {
-        UsuarioEntity entity = this.usuarioRepository.findById(id).orElse(null);
-        if (entity != null) {
-            this.usuarioRepository.deleteById(id);
-        } else {
-            throw new GeneralException(404, "Usuario no encontrado");
-        }
+        usuarioRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
+        usuarioRepository.deleteById(id);
     }
 
     @Override
     public UsuarioModel iniciarSesion(SesionDTO sesionDTO) {
-        // crear Usuario model
         UsuarioModel model = obtenerUsuarioPorNickUsuario(sesionDTO.getNickUsuario());
         if (model == null) {
-            return null;
+            throw new EntityNotFoundException("Usuario no encontrado");
         }
         return model.getContrasena().equals(sesionDTO.getContrasena()) ? model : null;
     }
@@ -164,7 +160,6 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     public List<DireccionModel> obtenerDireccionesPorUsuarioId(Integer id) {
         List<DireccionModel> direccionModels = obtenerUsuarioPorId(id).getDirecciones();
-
         return direccionModels != null ? direccionModels : new ArrayList<>();
     }
 
@@ -172,12 +167,18 @@ public class UsuarioServiceImpl implements IUsuarioService {
     public Boolean verificarContrasena(SesionDTO sesionDTO) {
         UsuarioModel model = obtenerUsuarioPorNickUsuario(sesionDTO.getNickUsuario());
         if (model == null) {
-            throw new GeneralException(404, "Usuario no encontrado");
+            throw new GeneralException(
+                GeneralConstant.NO_ENCONTRADO_ERROR_CODE,
+                GeneralConstant.USUARIO_NO_ENCONTRADO_ERROR_MESSAGE
+            );
         }
         if (model.getContrasena().equals(sesionDTO.getContrasena())) {
             return true;
         } else {
-            throw new WrongPasswordException();
+            throw new GeneralException(
+                GeneralConstant.CONTRASENA_NO_COINCIDE_ERROR_CODE,
+                GeneralConstant.CONTRASENA_NO_COINCIDE_ERROR_MESSAGE
+            );
         }
     }
 }

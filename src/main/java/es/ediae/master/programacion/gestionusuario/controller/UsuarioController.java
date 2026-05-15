@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,10 +32,12 @@ import es.ediae.master.programacion.gestionusuario.service.impl.GeneroServiceImp
 import es.ediae.master.programacion.gestionusuario.service.impl.PuestoTrabajoServiceImpl;
 import es.ediae.master.programacion.gestionusuario.service.impl.UsuarioServiceImpl;
 import jakarta.validation.Valid;
-
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 
 
 @RestController
+@Validated
 @RequestMapping("/api/v1/usuarios")
 @CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS})
 public class UsuarioController {
@@ -50,7 +53,7 @@ public class UsuarioController {
 
 
     @GetMapping
-    public List<UsuarioGetDTO> obtenerUsuarios(@RequestParam String nickUsuario, @RequestParam String contrasena) {
+    public List<UsuarioGetDTO> obtenerUsuarios(@RequestParam @NotBlank String nickUsuario, @RequestParam @NotBlank String contrasena) {
 
         usuarioService.verificarContrasena(new SesionDTO(nickUsuario, contrasena));
 
@@ -59,16 +62,11 @@ public class UsuarioController {
             dtos.add(usuarioModel.toGetDTO());
         }
 
-        // Alternativa
-        // return usuarioService.obtenerTodosLosUsuarios().stream()
-        //         .map(UsuarioGetDTO::fromModel)
-        //         .toList();
-
         return dtos;
     }
 
     @GetMapping("/{id}")
-    public UsuarioGetDTO obtenerUsuario(@PathVariable Integer id, @RequestParam String nickUsuario, @RequestParam String contrasena) {
+    public UsuarioGetDTO obtenerUsuario(@PathVariable @Positive Integer id, @RequestParam @NotBlank String nickUsuario, @RequestParam @NotBlank String contrasena) {
 
         usuarioService.verificarContrasena(new SesionDTO(nickUsuario, contrasena));
 
@@ -76,7 +74,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/obtener-generos")
-    public ResponseEntity<List<GeneroDTO>> obtenerGeneros(@RequestParam String nickUsuario, @RequestParam String contrasena) {
+    public ResponseEntity<List<GeneroDTO>> obtenerGeneros(@RequestParam @NotBlank String nickUsuario, @RequestParam @NotBlank String contrasena) {
 
         usuarioService.verificarContrasena(new SesionDTO(nickUsuario, contrasena));
 
@@ -90,7 +88,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/obtener-puestos")
-    public ResponseEntity<List<PuestoTrabajoDTO>> obtenerPuestos(@RequestParam String nickUsuario, @RequestParam String contrasena) {
+    public ResponseEntity<List<PuestoTrabajoDTO>> obtenerPuestos(@RequestParam @NotBlank String nickUsuario, @RequestParam @NotBlank String contrasena) {
 
         usuarioService.verificarContrasena(new SesionDTO(nickUsuario, contrasena));
 
@@ -104,7 +102,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}/obtener-direcciones")
-    public ResponseEntity<List<DireccionDTO>> obtenerDirecciones(@PathVariable Integer id, @RequestParam String nickUsuario, @RequestParam String contrasena) {
+    public ResponseEntity<List<DireccionDTO>> obtenerDirecciones(@PathVariable @Positive Integer id, @RequestParam @NotBlank String nickUsuario, @RequestParam @NotBlank String contrasena) {
 
         usuarioService.verificarContrasena(new SesionDTO(nickUsuario, contrasena));
 
@@ -136,7 +134,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UsuarioGetDTO> actualizarUsuario(@Valid @PathVariable Integer id, @RequestBody UsuarioPostDTO requestDto, @RequestParam String nickUsuario, @RequestParam String contrasena) {
+    public ResponseEntity<UsuarioGetDTO> actualizarUsuario(@PathVariable @Positive Integer id, @Valid @RequestBody UsuarioPostDTO requestDto, @RequestParam @NotBlank String nickUsuario, @RequestParam @NotBlank String contrasena) {
 
         usuarioService.verificarContrasena(new SesionDTO(nickUsuario, contrasena));
 
@@ -146,7 +144,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarUsuario(@Valid @PathVariable Integer id, @RequestParam String nickUsuario, @RequestParam String contrasena) {
+    public ResponseEntity<Void> eliminarUsuario(@PathVariable @Positive Integer id, @RequestParam @NotBlank String nickUsuario, @RequestParam @NotBlank String contrasena) {
 
         usuarioService.verificarContrasena(new SesionDTO(nickUsuario, contrasena));
         this.usuarioService.eliminarUsuario(id);
