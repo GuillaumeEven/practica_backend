@@ -10,18 +10,16 @@ import org.springframework.transaction.annotation.Transactional;
 import es.ediae.master.programacion.gestionusuario.dtos.DireccionPostDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.SesionDTO;
 import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPostDTO;
-import es.ediae.master.programacion.gestionusuario.dtos.UsuarioPutDTO;
-import es.ediae.master.programacion.gestionusuario.entity.DireccionEntity;
 import es.ediae.master.programacion.gestionusuario.entity.UsuarioEntity;
 import es.ediae.master.programacion.gestionusuario.exception.GeneralException;
 import es.ediae.master.programacion.gestionusuario.exception.UsuarioNoValidoException;
 import es.ediae.master.programacion.gestionusuario.exception.WrongPasswordException;
-import es.ediae.master.programacion.gestionusuario.repository.IUsuarioRepository;
 import es.ediae.master.programacion.gestionusuario.model.DireccionModel;
 import es.ediae.master.programacion.gestionusuario.model.GeneroModel;
-import es.ediae.master.programacion.gestionusuario.service.IUsuarioService;
 import es.ediae.master.programacion.gestionusuario.model.PuestoTrabajoModel;
 import es.ediae.master.programacion.gestionusuario.model.UsuarioModel;
+import es.ediae.master.programacion.gestionusuario.repository.IUsuarioRepository;
+import es.ediae.master.programacion.gestionusuario.service.IUsuarioService;
 
 @Service
 public class UsuarioServiceImpl implements IUsuarioService {

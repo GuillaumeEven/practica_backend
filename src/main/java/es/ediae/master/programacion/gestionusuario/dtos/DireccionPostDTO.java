@@ -58,14 +58,4 @@ public class DireccionPostDTO {
     public void setUsuarioId(Integer usuarioId) {
         this.usuarioId = usuarioId;
     }
-
-    // public DireccionModel toModel() {
-    //     return new DireccionModel(
-    //         this.nombreCalle,
-    //         this.numeroCalle,
-    //         this.direccionPrincipal,
-    //         this.usuarioId
-    //     );
-    // }
-
 }

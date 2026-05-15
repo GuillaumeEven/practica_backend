@@ -154,27 +154,4 @@ public class UsuarioPostDTO {
         this.direcciones = direcciones;
     }
 
-    // public UsuarioPostDTO fromGetDTO(UsuarioGetDTO usuarioGetDTO) {
-    //     ArrayList<Integer> direccionIds = new ArrayList<>();
-    //     if (usuarioGetDTO.getDirecciones() != null) {
-    //         for (DireccionDTO direccionDTO : usuarioGetDTO.getDirecciones()) {
-    //             direccionIds.add(direccionDTO.getId());
-    //         }
-    //     }
-    //     return new UsuarioPostDTO(
-    //         usuarioGetDTO.getNickUsuario(),
-    //         null,
-    //         null,
-    //         usuarioGetDTO.getGenero() != null ? usuarioGetDTO.getGenero().getId() : null,
-    //         usuarioGetDTO.getNombre(),
-    //         usuarioGetDTO.getPrimerApellido(),
-    //         usuarioGetDTO.getSegundoApellido(),
-    //         usuarioGetDTO.getFechaNacimiento(),
-    //         usuarioGetDTO.getHoraDesayuno(),
-    //         usuarioGetDTO.isEsAdmin(),
-    //         usuarioGetDTO.getPuestoTrabajo() != null ? usuarioGetDTO.getPuestoTrabajo().getId() : null,
-    //         direccionIds
-
-    //     );
-    // }
 }

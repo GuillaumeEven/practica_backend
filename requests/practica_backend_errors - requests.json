@@ -1,0 +1,494 @@
+{
+  "info": {
+    "_postman_id": "8268cdd3-b01c-46c8-aab8-8954d631be65",
+    "name": "practica_backend - errors",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Usuarios - errores",
+      "item": [
+        {
+          "name": "POST crear usuario - nick ya existe (code 3)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nick_usuario\": \"alice\",\n  \"contrasena\": \"pass1234\",\n  \"nombre\": \"Alice\",\n  \"primer_apellido\": \"Duplicada\",\n  \"segundo_apellido\": null,\n  \"fecha_nacimiento\": \"1990-01-01\",\n  \"hora_desayuno\": \"08:00:00\",\n  \"es_admin\": false,\n  \"genero_id\": 2,\n  \"puesto_trabajo_id\": 1,\n  \"direcciones\": [\n    { \"nombre_calle\": \"Calle X\", \"numero_calle\": \"1\", \"direccion_principal\": true }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/usuarios",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "usuarios"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST crear usuario - sin direcciones (code 3)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nick_usuario\": \"newuser\",\n  \"contrasena\": \"pass0000\",\n  \"nombre\": \"New\",\n  \"primer_apellido\": \"User\",\n  \"segundo_apellido\": null,\n  \"fecha_nacimiento\": \"2000-05-15\",\n  \"hora_desayuno\": \"09:00:00\",\n  \"es_admin\": false,\n  \"genero_id\": 1,\n  \"puesto_trabajo_id\": 2,\n  \"direcciones\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/usuarios",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "usuarios"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET usuario - wrong password (code 11)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/usuarios?nickUsuario=alice&contrasena=WRONG",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "usuarios"
+              ],
+              "query": [
+                {
+                  "key": "nickUsuario",
+                  "value": "alice"
+                },
+                {
+                  "key": "contrasena",
+                  "value": "WRONG"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET usuario - nick no existe (code 404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/usuarios?nickUsuario=fantasma&contrasena=pass1234",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "usuarios"
+              ],
+              "query": [
+                {
+                  "key": "nickUsuario",
+                  "value": "fantasma"
+                },
+                {
+                  "key": "contrasena",
+                  "value": "pass1234"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET usuario por id - id no existe (code 404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/usuarios/9999?nickUsuario=alice&contrasena=pass1234",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "usuarios",
+                "9999"
+              ],
+              "query": [
+                {
+                  "key": "nickUsuario",
+                  "value": "alice"
+                },
+                {
+                  "key": "contrasena",
+                  "value": "pass1234"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT usuario - nick ya existe en otro usuario (code 3)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nick_usuario\": \"alice\",\n  \"contrasena\": \"pass5678\",\n  \"nombre\": \"Bob\",\n  \"primer_apellido\": \"Martinez\",\n  \"segundo_apellido\": null,\n  \"fecha_nacimiento\": \"1988-07-22\",\n  \"hora_desayuno\": \"07:30:00\",\n  \"es_admin\": false,\n  \"genero_id\": 1,\n  \"puesto_trabajo_id\": 2,\n  \"direcciones\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/usuarios/2?nickUsuario=alice&contrasena=pass1234",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "usuarios",
+                "2"
+              ],
+              "query": [
+                {
+                  "key": "nickUsuario",
+                  "value": "alice"
+                },
+                {
+                  "key": "contrasena",
+                  "value": "pass1234"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT usuario - id no existe (code 404)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nick_usuario\": \"ghost\",\n  \"contrasena\": \"pass0000\",\n  \"nombre\": \"Ghost\",\n  \"primer_apellido\": \"Nowhere\",\n  \"segundo_apellido\": null,\n  \"fecha_nacimiento\": \"1990-01-01\",\n  \"hora_desayuno\": \"08:00:00\",\n  \"es_admin\": false,\n  \"genero_id\": 1,\n  \"puesto_trabajo_id\": 1,\n  \"direcciones\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/usuarios/9999?nickUsuario=alice&contrasena=pass1234",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "usuarios",
+                "9999"
+              ],
+              "query": [
+                {
+                  "key": "nickUsuario",
+                  "value": "alice"
+                },
+                {
+                  "key": "contrasena",
+                  "value": "pass1234"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE usuario - id no existe (code 404)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/usuarios/9999?nickUsuario=alice&contrasena=pass1234",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "usuarios",
+                "9999"
+              ],
+              "query": [
+                {
+                  "key": "nickUsuario",
+                  "value": "alice"
+                },
+                {
+                  "key": "contrasena",
+                  "value": "pass1234"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST iniciar sesion - nick no existe",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nick_usuario\": \"fantasma\",\n  \"contrasena\": \"pass1234\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/usuarios/iniciar-sesion",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "usuarios",
+                "iniciar-sesion"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST iniciar sesion - contrasena incorrecta (code 11)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nick_usuario\": \"alice\",\n  \"contrasena\": \"WRONG\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/usuarios/iniciar-sesion",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "usuarios",
+                "iniciar-sesion"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Direcciones - errores",
+      "item": [
+        {
+          "name": "GET direccion - id no existe",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/direcciones/9999",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "direcciones",
+                "9999"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST crear direccion - usuario_id no existe",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre_calle\": \"Calle Fantasma\",\n  \"numero_calle\": \"0\",\n  \"direccion_principal\": false,\n  \"usuario_id\": 9999\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/direcciones",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "direcciones"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT direccion - id no existe",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre_calle\": \"Calle Actualizada\",\n  \"numero_calle\": \"1\",\n  \"direccion_principal\": true,\n  \"usuario_id\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/direcciones/9999",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "direcciones",
+                "9999"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE direccion - id no existe",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/direcciones/9999",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "direcciones",
+                "9999"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

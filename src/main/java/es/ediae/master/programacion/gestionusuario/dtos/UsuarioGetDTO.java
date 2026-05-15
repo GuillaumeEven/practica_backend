@@ -5,6 +5,10 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class UsuarioGetDTO {
 
     private Integer id;
@@ -158,6 +162,4 @@ public class UsuarioGetDTO {
     public void setDirecciones(List<DireccionDTO> direcciones) {
         this.direcciones = direcciones;
     }
-
-    // Mapping handled in Models; keep DTO as response POJO.
 }

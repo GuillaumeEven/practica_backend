@@ -1,5 +1,9 @@
 package es.ediae.master.programacion.gestionusuario.dtos;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class DireccionDTO {
 
     private Integer id;
@@ -64,7 +68,4 @@ public class DireccionDTO {
     public void setUsuarioId(Integer usuarioId) {
         this.usuarioId = usuarioId;
     }
-
-    // DTOs stay as POJOs; mapping is handled by Models.
-
 }
