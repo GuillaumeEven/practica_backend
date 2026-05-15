@@ -2,15 +2,14 @@ package es.ediae.master.programacion.gestionusuario.exception;
 
 public class GeneralException extends RuntimeException {
 
+    private int codigoDeError;
+    private String mensajeDeError;
+
     public GeneralException(int codigoDeError, String mensajeDeError) {
         super(mensajeDeError);
         this.codigoDeError = codigoDeError;
         this.mensajeDeError = mensajeDeError;
     }
-
-    private int codigoDeError;
-
-    private String mensajeDeError;
 
     public int getCodigoDeError() {
         return codigoDeError;
